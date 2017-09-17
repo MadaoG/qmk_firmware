@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  TO(_FWRT),      DE_1,           DE_2,         DE_3,          DE_4,          DE_5,          DE_ACUT,
  _______,        DE_X,           DE_V,         DE_L,          DE_C,          DE_W,          DE_COLN,
- TT(_SYM),       DE_U,           ALT_T(DE_I),  SFT_T(DE_A),   CTL_T(DE_E),   LT(_DIG, DE_O),  /*---*/
- OSM(MOD_LSFT),        DE_UE,          DE_OE,        DE_AE,         DE_P,          DE_Z,          DE_UNDS,
+ TT(_SYM),       DE_U,           ALT_T(DE_I),  LT(_SYM,DE_A), CTL_T(DE_E),   LT(_DIG, DE_O),  /*---*/
+ OSM(MOD_LSFT),  DE_UE,          DE_OE,        DE_AE,         DE_P,          DE_Z,          DE_UNDS,
  _______,        KC_LGUI,        KC_UP,        MO(_FCNS),     DE_COLN,       /*---*/        /*---*/
  //
  KC_DEL,         KC_VOLU,                           //
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  DE_GRV,         DE_6,           DE_7,         DE_8,          DE_9,          DE_0,    TG(_GAM),
  DE_AT,          DE_K,           DE_H,         DE_G,          DE_F,          DE_Q,    DE_SS,
- /*---*/         LT(_DIG, DE_S), CTL_T(DE_N),  SFT_T(DE_R),   ALT_T(DE_T),   DE_D,    LT(_SYM, DE_Y),
+ /*---*/         LT(_DIG, DE_S), CTL_T(DE_N),  LT(_SYM,DE_R), ALT_T(DE_T),   DE_D,    LT(_SYM, DE_Y),
  DE_BSLS,        DE_B,           DE_M,         DE_COMM,       DE_DOT,        DE_J,    OSM(MOD_RSFT),
  /*---*/         /*---*/         KC_ESC,       KC_LEFT,       KC_RGHT,       KC_UP,   KC_DOWN,
  KC_RSFT,        KC_LOCK,                           //
