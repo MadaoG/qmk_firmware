@@ -6,6 +6,6 @@
 
 #define PERMISSIVE_HOLD
 #undef TAPPING_TOGGLE
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE 2
 
 #endif
