@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*---*/         /*---*/         KC_ESC,       KC_LEFT,       KC_RGHT,       KC_UP,   KC_DOWN,
  KC_RSFT,        KC_LOCK,                           //
  _______,                                           // thumb keys
- KC_DEL,         KC_ENTER,       KC_SPACE   //
+ KC_DEL,         KC_ENTER,       KC_SPACE           //
 ),
 
 /*
