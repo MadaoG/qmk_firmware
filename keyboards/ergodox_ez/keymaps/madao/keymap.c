@@ -6,7 +6,7 @@
 
 #define UM 0
 
-#define _BASE 0   // base layer
+#define _BS 0   // base layer
 
 #define _FW 1 // fast writing
 #define _FC 2 // fast coding
@@ -14,8 +14,9 @@
 #define _NM 4 // digit layer (plus movements)
 #define _FN 5 // fn keys
 #define _GM 6 // gaming layer
-#define _MS 7
-#define _D  8 // empty layer, may be useful as first reference
+#define _MS 7 // mouse layer
+#define _D  8 // empty (dumb) layer, may be useful as first reference
+
 
 #define _______ KC_TRNS
 
@@ -48,13 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          |       |       |  mute |     |       |       |       |
                                          '-----------------------'     '-----------------------'
  */
-[_BASE] = KEYMAP(
+[_BS] = KEYMAP(
 
- TO(_FW),      DE_1,           DE_2,         DE_3,          DE_4,          DE_5,          DE_ACUT,
+ TO(_FW),        DE_1,           DE_2,         DE_3,          DE_4,          DE_5,          DE_ACUT,
  TG(_MS),        DE_X,           DE_V,         SFT_T(DE_L),   DE_C,          DE_W,          DE_COLN,
- TT(_SM),       DE_U,           ALT_T(DE_I),  LT(_SM,DE_A), CTL_T(DE_E),   LT(_NM, DE_O),  /*---*/
+ TT(_SM),        DE_U,           ALT_T(DE_I),  LT(_SM,DE_A),  CTL_T(DE_E),   LT(_NM, DE_O),  /*---*/
  OSM(MOD_LSFT),  DE_UE,          DE_OE,        DE_AE,         DE_P,          DE_Z,          DE_UNDS,
- _______,        KC_LGUI,        KC_UP,        MO(_FN),     DE_COLN,       /*---*/        /*---*/
+ _______,        KC_LGUI,        KC_UP,        MO(_FN),       DE_COLN,       /*---*/        /*---*/
  //
  KC_DEL,         KC_VOLU,                           //
  KC_VOLD,                                           // thumb keys
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  DE_GRV,         DE_6,           DE_7,         DE_8,          DE_9,          DE_0,    TG(_GM),
  DE_AT,          DE_K,           DE_H,         SFT_T(DE_G),   DE_F,          DE_Q,    DE_SS,
- /*---*/         LT(_NM, DE_S), CTL_T(DE_N),  LT(_SM,DE_R), ALT_T(DE_T),   DE_D,    LT(_SM, DE_Y),
+ /*---*/         LT(_NM, DE_S),  CTL_T(DE_N),  LT(_SM,DE_R),  ALT_T(DE_T),   DE_D,    LT(_SM, DE_Y),
  DE_BSLS,        DE_B,           DE_M,         DE_COMM,       DE_DOT,        DE_J,    OSM(MOD_RSFT),
  /*---*/         /*---*/         KC_ESC,       KC_LEFT,       KC_RGHT,       KC_UP,   KC_DOWN,
  KC_RSFT,        KC_LOCK,                           //
@@ -103,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FC] = KEYMAP(
 
- TO(_BASE),    _______,      _______,      _______,      _______,      _______,      _______,
+ TO(_BS),    _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      DE_U,         DE_I,         LT(_NM, DE_A), LT(_SM, DE_E), DE_O,         /*---*/
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
