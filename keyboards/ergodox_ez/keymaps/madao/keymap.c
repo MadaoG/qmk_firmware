@@ -17,7 +17,6 @@
 #define _MS 7 // mouse layer
 #define _D  8 // empty (dumb) layer, may be useful as first reference
 
-
 #define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -33,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |  mo(1)  |       |  alt  | _symb |  ctl  |   L2  |       |           |       |   L2  |  ctl  | _symb |  alt  |       |  mo(1)  |
     |---------|-------|-------|-------|-------|-------|   _   |           |   \   |-------|-------|-------|-------|-------|---------|
     |   osm   |   ü   |   ö   |   ä   |   p   |   z   |       |           |       |   b   |   m   |   ,   |   .   |   j   |   osm   |
-    |  l_sft  |       |       |       |       |       |       |           |       |       |       |       |       |       |  r_sft  |
+    |  l_sft  |       |       |       |   l2  |       |       |           |       |       |   l2  |       |       |       |  r_sft  |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
       |       | super |   up  |       |   :   |                                           |  esc  |  left | right |   up  |  down |
       |       |       |       | mo(3) |       |                                           |       |       |       |       |       |
@@ -51,24 +50,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_BS] = KEYMAP(
 
- TO(_FW),        DE_1,           DE_2,         DE_3,          DE_4,          DE_5,          DE_ACUT,
- TG(_MS),        DE_X,           DE_V,         SFT_T(DE_L),   DE_C,          DE_W,          DE_COLN,
- TT(_SM),        DE_U,           ALT_T(DE_I),  LT(_SM,DE_A),  CTL_T(DE_E),   LT(_NM, DE_O),  /*---*/
- OSM(MOD_LSFT),  DE_UE,          DE_OE,        DE_AE,         DE_P,          DE_Z,          DE_UNDS,
- _______,        KC_LGUI,        KC_UP,        MO(_FN),       DE_COLN,       /*---*/        /*---*/
+ TO(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
+ TG(_MS),            DE_X,               DE_V,             SFT_T(DE_L),       DE_C,             DE_W,               DE_COLN,
+ TT(_SM),            DE_U,               ALT_T(DE_I),      LT(_SM,DE_A),      CTL_T(DE_E),      LT(_NM, DE_O),      /*---*/
+ OSM(MOD_LSFT),      DE_UE,              DE_OE,            DE_AE,             LT(_NM, DE_P),    DE_Z,               DE_UNDS,
+ _______,            KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
  //
- KC_DEL,         KC_VOLU,                           //
- KC_VOLD,                                           // thumb keys
- KC_TAB,         KC_BSPC,        KC_MUTE,           //
+ KC_DEL,             KC_VOLU,                              //
+ KC_VOLD,                                                  // thumb      eys
+ KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
- DE_GRV,         DE_6,           DE_7,         DE_8,          DE_9,          DE_0,    TG(_GM),
- DE_AT,          DE_K,           DE_H,         SFT_T(DE_G),   DE_F,          DE_Q,    DE_SS,
- /*---*/         LT(_NM, DE_S),  CTL_T(DE_N),  LT(_SM,DE_R),  ALT_T(DE_T),   DE_D,    LT(_SM, DE_Y),
- DE_BSLS,        DE_B,           DE_M,         DE_COMM,       DE_DOT,        DE_J,    OSM(MOD_RSFT),
- /*---*/         /*---*/         KC_ESC,       KC_LEFT,       KC_RGHT,       KC_UP,   KC_DOWN,
- KC_RSFT,        KC_LOCK,                           //
- _______,                                           // thumb keys
- KC_DEL,         KC_ENTER,       KC_SPACE           //
+ DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
+ DE_AT,              DE_K,               DE_H,             SFT_T(DE_G),       DE_F,             DE_Q,               DE_SS,
+ /*---*/             LT(_NM, DE_S),      CTL_T(DE_N),      LT(_SM,DE_R),      ALT_T(DE_T),      DE_D,               LT(_SM, DE_Y),
+ DE_BSLS,            DE_B,               LT(_NM, DE_M),    DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
+ /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
+ KC_RSFT,            KC_LOCK,                              //
+ _______,                                                  // thumb      eys
+ KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
 
 /*
