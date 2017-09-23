@@ -3,6 +3,7 @@
 #include "action_layer.h"
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
+#include <stdbool.h>
 
 #define UM 0
 
@@ -18,6 +19,14 @@
 #define _D  8 // empty (dumb) layer, may be useful as first reference
 
 #define _______ KC_TRNS
+
+uint8_t last_layer = 0;
+uint8_t n1, n2, n3 = 1;
+
+bool layer_changed = false;
+bool is_incrementing_1 = true;
+bool is_incrementing_2 = true;
+bool is_incrementing_3 = true;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -60,11 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_VOLD,                                                  // thumb      eys
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
+ //
  DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
  DE_AT,              DE_K,               DE_H,             SFT_T(DE_G),       DE_F,             DE_Q,               DE_SS,
  /*---*/             LT(_NM, DE_S),      CTL_T(DE_N),      LT(_SM,DE_R),      ALT_T(DE_T),      DE_D,               LT(_SM, DE_Y),
  DE_BSLS,            DE_B,               LT(_NM, DE_M),    DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
+ //
  KC_RSFT,            KC_LOCK,                              //
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
@@ -490,6 +501,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           for (int i = 0; i < 25; i++) {
             mousekey_on(KC_BTN1);
             mousekey_send();
+            wait_ms(10);
             mousekey_off(KC_BTN1);
             mousekey_send();
             wait_ms(10);
@@ -507,48 +519,173 @@ void matrix_init_user(void) {
 
 };
 
+bool increments(uint8_t n, bool is_incrementing)
+{
+  if (is_incrementing) {
+    if (n == 255) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    if (n == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+uint8_t update_brightness(uint8_t n, bool is_incrementing)
+{
+  if (is_incrementing) {
+    return n + 1;
+  } else {
+    return n - 1;
+  }
+}
+
+void update_led_1(void)
+{
+  is_incrementing_1 = increments(n1, is_incrementing_1);
+  n1 = update_brightness(n1, is_incrementing_1);
+  ergodox_right_led_1_on();
+  ergodox_right_led_1_set(n1);
+}
+
+void update_led_2(void)
+{
+  is_incrementing_2 = increments(n2, is_incrementing_2);
+  n2 = update_brightness(n2, is_incrementing_2);
+  ergodox_right_led_2_on();
+  ergodox_right_led_2_set(n2);
+}
+
+void update_led_3(void)
+{
+  is_incrementing_3 = increments(n3, is_incrementing_3);
+  n3 = update_brightness(n3, is_incrementing_3);
+  ergodox_right_led_3_on();
+  ergodox_right_led_3_set(n3);
+}
+
+
+
 LEADER_EXTERNS();
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
+    /* uint8_t led; */
+    /* led = 1; */
 
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-
-    switch (layer) {
+    if (layer == last_layer) {
+      // update leds
+      switch (layer) {
         case 1:
-            ergodox_right_led_1_on();
-            break;
+          update_led_1();
+          break;
         case 2:
-            ergodox_right_led_2_on();
-            break;
+          update_led_2();
+          break;
         case 3:
-            ergodox_right_led_3_on();
-            break;
+          update_led_3();
+          break;
         case 4:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
+          update_led_1();
+          update_led_2();
+          break;
         case 5:
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
+          update_led_1();
+          update_led_3();
+          break;
         case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
+          update_led_2();
+          update_led_3();
+          break;
         case 7:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
+          update_led_1();
+          update_led_2();
+          update_led_3();
+          break;
         default:
-            ergodox_board_led_off();
-            break;
+          ergodox_board_led_off();
+      }
+    } else {
+      last_layer = layer;
+      // init leds
+      ergodox_board_led_off();
+      ergodox_right_led_1_off();
+      ergodox_right_led_2_off();
+      ergodox_right_led_3_off();
     }
 
+    /* ergodox_board_led_off(); */
+    /* ergodox_right_led_1_off(); */
+    /* ergodox_right_led_2_off(); */
+    /* ergodox_right_led_3_off(); */
+    /* switch (layer) { */
+    /*     /1* case 1: *1/ */
+    /*     /1*     ergodox_right_led_1_on(); *1/ */
+    /*     /1*     break; *1/ */
+    /*     case 2: */
+    /*         ergodox_right_led_2_on(); */
+    /*         break; */
+    /*     case 3: */
+    /*         ergodox_right_led_3_on(); */
+    /*         break; */
+    /*     case 4: */
+    /*         ergodox_right_led_1_on(); */
+    /*         ergodox_right_led_2_on(); */
+    /*         break; */
+    /*     case 5: */
+    /*         ergodox_right_led_1_on(); */
+    /*         ergodox_right_led_3_on(); */
+    /*         break; */
+    /*     case 6: */
+    /*         ergodox_right_led_2_on(); */
+    /*         ergodox_right_led_3_on(); */
+    /*         break; */
+    /*     case 7: */
+    /*         ergodox_right_led_1_on(); */
+    /*         ergodox_right_led_2_on(); */
+    /*         ergodox_right_led_3_on(); */
+    /*         break; */
+    /*     default: */
+    /*         ergodox_board_led_off(); */
+    /*         break; */
+    /* } */
+
+    /* leds is a static array holding the current brightness of each of the
+     * three keyboard LEDs. It's 4 long simply to avoid the ugliness of +1s and
+     * -1s in the code below, and because wasting a byte really doesn't matter
+     * that much (no, it *doesn't*, stop whinging!). Note that because it's
+     * static it'll maintain state across invocations of this routine.
+     */
+
+    /* static uint8_t leds[4]; */
+    /* uint8_t led; */
+    /* uint8_t layer = biton32(layer_state); */
+
+    /* ergodox_board_led_off(); */
+
+    /* /1* Loop over each LED/layer *1/ */
+    /* for (led = 1; led <= 3; ++led) { */
+    /*     /1* If the current layer matches the current LED, increment its */
+    /*      * brightness by 1 up to a maximum of 255. If the current layer doesn't */
+    /*      * match, decrement its brightness by 1 down to a minimum of zero. */
+    /*      *1/ */
+    /*     leds[led] += (layer == led) ? */
+    /*         (leds[led] < 255 ? 1 : 0): */
+    /*         (leds[led] > 0 ? -1 : 0); */
+    /*     /1* Set LED state according to the new brightness *1/ */
+    /*     if (leds[led]) { */
+    /*         ergodox_right_led_on(led); */
+    /*         ergodox_right_led_set(led, leds[led]); */
+    /*     } */
+    /*     else { */
+    /*         ergodox_right_led_off(led); */
+    /*     } */
+    /* } */
 };
 
 /*
@@ -597,3 +734,5 @@ void matrix_scan_user(void) {
  // _______,      _______,                         //
  // _______,                                       // thumb keys
  // _______,      _______,      _______            //
+ 
+ 
