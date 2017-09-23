@@ -38,10 +38,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |         |       |       |  sft  |       |       |   :   |           |   @   |       |       |  sft  |       |       |         |
     |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
     |         |   u   |   i   |   a   |   e   |   o   |_______|           |_______|   s   |   n   |   r   |   t   |   d   |    y    |
-    |  mo(1)  |       |  alt  | _symb |  ctl  |   L2  |       |           |       |   L2  |  ctl  | _symb |  alt  |       |  mo(1)  |
+    |  mo(1)  |       |       |  _sm  |  _nm  |       |       |           |       |       |  _nm  |  _sm  |       |       |  mo(1)  |
     |---------|-------|-------|-------|-------|-------|   _   |           |   \   |-------|-------|-------|-------|-------|---------|
     |   osm   |   ü   |   ö   |   ä   |   p   |   z   |       |           |       |   b   |   m   |   ,   |   .   |   j   |   osm   |
-    |  l_sft  |       |       |       |   l2  |       |       |           |       |       |   l2  |       |       |       |  r_sft  |
+    |  l_sft  |       |  alt  | shift |  ctrl |       |       |           |       |       |  ctrl | shift |  alt  |       |  r_sft  |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
       |       | super |   up  |       |   :   |                                           |  esc  |  left | right |   up  |  down |
       |       |       |       | mo(3) |       |                                           |       |       |       |       |       |
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  TO(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
  TG(_MS),            DE_X,               DE_V,             SFT_T(DE_L),       DE_C,             DE_W,               DE_COLN,
- TT(_SM),            DE_U,               ALT_T(DE_I),      LT(_SM,DE_A),      CTL_T(DE_E),      LT(_NM, DE_O),      /*---*/
- OSM(MOD_LSFT),      DE_UE,              DE_OE,            DE_AE,             LT(_NM, DE_P),    DE_Z,               DE_UNDS,
+ TT(_SM),            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
+ OSM(MOD_LSFT),      DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
  _______,            KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
  //
  KC_DEL,             KC_VOLU,                              //
@@ -72,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
  DE_AT,              DE_K,               DE_H,             SFT_T(DE_G),       DE_F,             DE_Q,               DE_SS,
- /*---*/             LT(_NM, DE_S),      CTL_T(DE_N),      LT(_SM,DE_R),      ALT_T(DE_T),      DE_D,               LT(_SM, DE_Y),
- DE_BSLS,            DE_B,               LT(_NM, DE_M),    DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
+ /*---*/             DE_S,               LT(_NM,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               LT(_SM, DE_Y),
+ DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
  //
  KC_RSFT,            KC_LOCK,                              //
@@ -618,74 +618,6 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_off();
       ergodox_right_led_3_off();
     }
-
-    /* ergodox_board_led_off(); */
-    /* ergodox_right_led_1_off(); */
-    /* ergodox_right_led_2_off(); */
-    /* ergodox_right_led_3_off(); */
-    /* switch (layer) { */
-    /*     /1* case 1: *1/ */
-    /*     /1*     ergodox_right_led_1_on(); *1/ */
-    /*     /1*     break; *1/ */
-    /*     case 2: */
-    /*         ergodox_right_led_2_on(); */
-    /*         break; */
-    /*     case 3: */
-    /*         ergodox_right_led_3_on(); */
-    /*         break; */
-    /*     case 4: */
-    /*         ergodox_right_led_1_on(); */
-    /*         ergodox_right_led_2_on(); */
-    /*         break; */
-    /*     case 5: */
-    /*         ergodox_right_led_1_on(); */
-    /*         ergodox_right_led_3_on(); */
-    /*         break; */
-    /*     case 6: */
-    /*         ergodox_right_led_2_on(); */
-    /*         ergodox_right_led_3_on(); */
-    /*         break; */
-    /*     case 7: */
-    /*         ergodox_right_led_1_on(); */
-    /*         ergodox_right_led_2_on(); */
-    /*         ergodox_right_led_3_on(); */
-    /*         break; */
-    /*     default: */
-    /*         ergodox_board_led_off(); */
-    /*         break; */
-    /* } */
-
-    /* leds is a static array holding the current brightness of each of the
-     * three keyboard LEDs. It's 4 long simply to avoid the ugliness of +1s and
-     * -1s in the code below, and because wasting a byte really doesn't matter
-     * that much (no, it *doesn't*, stop whinging!). Note that because it's
-     * static it'll maintain state across invocations of this routine.
-     */
-
-    /* static uint8_t leds[4]; */
-    /* uint8_t led; */
-    /* uint8_t layer = biton32(layer_state); */
-
-    /* ergodox_board_led_off(); */
-
-    /* /1* Loop over each LED/layer *1/ */
-    /* for (led = 1; led <= 3; ++led) { */
-    /*     /1* If the current layer matches the current LED, increment its */
-    /*      * brightness by 1 up to a maximum of 255. If the current layer doesn't */
-    /*      * match, decrement its brightness by 1 down to a minimum of zero. */
-    /*      *1/ */
-    /*     leds[led] += (layer == led) ? */
-    /*         (leds[led] < 255 ? 1 : 0): */
-    /*         (leds[led] > 0 ? -1 : 0); */
-    /*     /1* Set LED state according to the new brightness *1/ */
-    /*     if (leds[led]) { */
-    /*         ergodox_right_led_on(led); */
-    /*         ergodox_right_led_set(led, leds[led]); */
-    /*     } */
-    /*     else { */
-    /*         ergodox_right_led_off(led); */
-    /*     } */
-    /* } */
 };
 
 /*
