@@ -7,21 +7,22 @@
 
 #define UM 0
 
-#define _BS 0   // base layer
-
+#define _BS 0 // base layer
 #define _FW 1 // fast writing
-#define _FC 2 // fast coding
-#define _SM 3 // symbol layer
-#define _NM 4 // digit layer (plus movements)
-#define _FN 5 // fn keys
-#define _GM 6 // gaming layer
-#define _MS 7 // mouse layer
-#define _D  8 // empty (dumb) layer, may be useful as first reference
+#define _SM 2 // symbol layer
+#define _NM 3 // digit layer (plus movements)
+#define _FN 4 // fn keys
+#define _GM 5 // gaming layer
+#define _MS 6 // mouse layer
+#define _D  7 // empty (dumb) layer, may be useful as first reference
 
 #define _______ KC_TRNS
 
+#define PI 3.14159265358979323846
+
 uint8_t last_layer = 0;
 uint8_t n1, n2, n3 = 1;
+uint16_t t = 0;
 
 bool layer_changed = false;
 bool is_incrementing_1 = true;
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_BS] = KEYMAP(
 
- TO(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
+ TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
  TG(_MS),            DE_X,               DE_V,             SFT_T(DE_L),       DE_C,             DE_W,               DE_COLN,
  TT(_SM),            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
@@ -86,53 +87,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * remove ctrl, shift, alt etc. from homerow
  */
 [_FW] = KEYMAP(
-
- TO(_FC),    _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      DE_U,         DE_I,         DE_A,         DE_E,         DE_O,         /*---*/
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______,           //
-
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       DE_S,         DE_N,         DE_R,         DE_T,         DE_D,         _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______            //
-
+ _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
+ _______,            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
+ _______,            DE_U,               DE_I,             DE_A,              DE_E,             DE_O,               /*---*/
+ _______,            DE_UE,              DE_OE,            DE_AE,             DE_P,             DE_Z,               DE_UNDS,
+ _______,            KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
+ //
+ KC_DEL,             KC_VOLU,                              //
+ KC_VOLD,                                                  // thumb      eys
+ KC_TAB,             KC_BSPC,            KC_MUTE,          //
+ //
+ //
+ DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
+ DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
+ /*---*/             DE_S,               DE_N,             DE_R,              DE_T,             DE_D,               LT(_SM, DE_Y),
+ DE_BSLS,            DE_B,               DE_M,             DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
+ /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
+ //
+ KC_RSFT,            KC_LOCK,                              //
+ _______,                                                  // thumb      eys
+ KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
 
-/*
- * fast coding layer:
- * easier access to symbols and digits
- * this is still experimental
- */
-[_FC] = KEYMAP(
-
- TO(_BS),    _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      DE_U,         DE_I,         LT(_NM, DE_A), LT(_SM, DE_E), DE_O,         /*---*/
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______,           //
-
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       DE_S,         LT(_SM, DE_N), LT(_NM, DE_R), DE_T,         DE_D,         _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______            //
-
-),
 /*
     .---------------------------------------------------------.           .---------------------------------------------------------.
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
@@ -326,7 +302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
  _______,                                       // thumb keys
- _______,      _______,      _______            //
+ _______,      _______,      KC_RALT            //
 ),
 
 /*
@@ -569,20 +545,30 @@ void update_led_3(void)
   ergodox_right_led_3_set(n3);
 }
 
+void set_led_r(void)
+{
+  n1 = (int)floor(255 * sin(t * PI / 500) * sin(t * PI / 500));
+  ergodox_right_led_1_on();
+  ergodox_right_led_1_set(n1);
+}
+
 
 
 LEADER_EXTERNS();
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
-    /* uint8_t led; */
-    /* led = 1; */
+    t++;
+    if (t >= 1000) {
+      t = 0;
+    }
 
     if (layer == last_layer) {
       // update leds
       switch (layer) {
         case 1:
-          update_led_1();
+          /* update_led_1(); */
+          set_led_r();
           break;
         case 2:
           update_led_2();
@@ -612,6 +598,7 @@ void matrix_scan_user(void) {
       }
     } else {
       last_layer = layer;
+      t = 0;
       // init leds
       ergodox_board_led_off();
       ergodox_right_led_1_off();
