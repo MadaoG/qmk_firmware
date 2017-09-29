@@ -29,6 +29,10 @@ bool is_incrementing_1 = true;
 bool is_incrementing_2 = true;
 bool is_incrementing_3 = true;
 
+enum custom_keycodes { 
+  print_hat = SAFE_RANGE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
     .---------------------------------------------------------.           .---------------------------------------------------------.
@@ -140,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SM] = KEYMAP(
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      DE_UNDS,      DE_LBRC,      DE_RBRC,      DE_CIRC,      _______,
+ _______,      _______,      DE_UNDS,      DE_LBRC,      DE_RBRC,      M(1),      _______,
  _______,      DE_BSLS,      DE_SLSH,      DE_LCBR,      DE_RCBR,      DE_ASTR,
  _______,      DE_HASH,      DE_DLR,       DE_PIPE,      DE_TILD,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,
@@ -484,6 +488,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           }
 
           break;
+
+        case 1:
+          register_code(DE_CIRC);
+          unregister_code(DE_CIRC);
+
+          register_code(DE_CIRC);
+          unregister_code(DE_CIRC);
+          break;
       }
     }
 
@@ -606,6 +618,7 @@ void matrix_scan_user(void) {
       ergodox_right_led_3_off();
     }
 };
+
 
 /*
     .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
