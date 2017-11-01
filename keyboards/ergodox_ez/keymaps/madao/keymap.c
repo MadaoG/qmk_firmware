@@ -5,35 +5,26 @@
 #include "mousekey.h"
 #include <stdbool.h>
 
-#define UM 0
-
 #define _BS 0 // base layer
-#define _FW 1 // fast writing
-#define _SM 2 // symbol layer
-#define _MV 3 // movement layer
-#define _NM 4 // digit layer
-#define _NS 5 // symbols for digit layer
-#define _FN 6 // fn keys
-#define _GM 7 // gaming layer
-#define _MS 8 // mouse layer
-#define _D  9 // empty (dumb) layer, may be useful as first reference
+#define _EN 1 // english layer (base without äöüß)
+#define _FW 2 // fast writing
+#define _FE 3 // fast writing (english)
+#define _SM 4 // symbol layer
+#define _MV 5 // movement layer
+#define _NM 6 // digit layer
+#define _NS 7 // symbols for digit layer
+#define _FN 8 // fn keys
+#define _GM 9 // gaming layer
+#define _MS 10 // mouse layer
+#define _D  11 // empty (dumb) layer, may be useful as first reference
 
 #define _______ KC_TRNS
 
 #define PI 3.14159265358979323846
 
-uint8_t last_layer = 0;
-uint8_t n1, n2, n3 = 1;
-uint16_t t = 0;
-
-bool layer_changed = false;
-bool is_incrementing_1 = true;
-bool is_incrementing_2 = true;
-bool is_incrementing_3 = true;
-
-enum custom_keycodes { 
-  print_hat = SAFE_RANGE
-};
+uint8_t last_layer = 0; // check if layer was changed
+uint8_t n1, n2, n3 = 1; // brightness of leds 1, 2 and 3
+uint16_t t = 0;         // time count for leds: 0 -- 1000
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -42,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
     | tg _ms  |   x   |   v   |   l   |   c   |   w   |       |           |       |   k   |   h   |   g   |   f   |   q   |    ß    |
-    |         |       |       |  sft  |       |       |   :   |           |   @   |       |       |  sft  |       |       |         |
+    |         |       |       |       |       |       |   :   |           |   @   |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
     |         |   u   |   i   |   a   |   e   |   o   |_______|           |_______|   s   |   n   |   r   |   t   |   d   |    y    |
     |  mo(1)  |       |       |  _sm  |  _nm  |       |       |           |       |       |  _mv  |  _sm  |       |       |  mo(1)  |
@@ -67,18 +58,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BS] = KEYMAP(
 
  TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
- TG(_MS),            DE_X,               DE_V,             SFT_T(DE_L),       DE_C,             DE_W,               DE_COLN,
+ TG(_MS),            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  TT(_SM),            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
  _______,            KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
  //
- KC_DEL,             KC_VOLU,                              //
+ _______,            KC_VOLU,                              //
  KC_VOLD,                                                  // thumb      eys
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
  DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
- DE_AT,              DE_K,               DE_H,             SFT_T(DE_G),       DE_F,             DE_Q,               DE_SS,
+ DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               LT(_SM, DE_Y),
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
@@ -114,6 +105,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
+
+/*
+    .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
+    |    _    |   _   |   _   |   _   |   _   |   _   |   _   |           |   _   |   _   |   _   |   _   |   _   |   _   |    _    |
+    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+    |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
+    |    _    |   _   |   _   |   _   |   _   |   _   |       |           |       |   _   |   _   |   _   |   _   |   _   |         |
+    |         |       |       |       |       |       |   _   |           |   _   |       |       |       |       |       |         |
+    |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
+    |    _    |   _   |   _   |   _   |   _   |   _   |_______|           |_______|   _   |   _   |   _   |   _   |   _   |    _    |
+    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+    |---------|-------|-------|-------|-------|-------|   _   |           |   _   |-------|-------|-------|-------|-------|---------|
+    |    _    |       |   X   |   Q   |   _   |   _   |       |           |       |   _   |   _   |   _   |   _   |   _   |    _    |
+    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+    '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
+      |   _   |   _   |   _   |   _   |   _   |                                           |   _   |   _   |   _   |   _   |   _   |
+      |       |       |       |       |       |                                           |       |       |       |       |       |
+      '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
+                                                 .-------.-------.     .-------.-------.
+                                                 |   _   |   _   |     |   _   |   _   |
+                                                 |       |       |     |       |       |
+                                         .-------|-------|-------|     |-------|-------|-------.
+                                         |       |       |   _   |     |   _   |       |       |
+                                         |       |       |       |     |       |       |       |
+                                         |   _   |   _   |-------|     |-------|   _   |   _   |
+                                         |       |       |   _   |     |   _   |       |       |
+                                         |       |       |       |     |       |       |       |
+                                         '-------'-------'-------'     '-------'-------'-------'
+ *
+ * Like BASE layer, but without umlaute.
+ * Use x and q instead.
+ */
+
+ [_EN] = KEYMAP(
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      /*---*/
+ _______,      KC_NO,        KC_X,         KC_Q,         _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,
+ _______,      _______,                         //
+ _______,                                       // thumb keys
+ _______,      _______,      _______,           //
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      KC_NO,
+ /*---*/       _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
+ _______,      _______,                         //
+ _______,                                       // thumb keys
+ _______,      _______,      _______            //
+ ),
+ 
+ 
 
 /*
     .---------------------------------------------------------.           .---------------------------------------------------------.
@@ -267,29 +312,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
     .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
-    |    _    |   _   |   _   |   _   |   _   |   _   |   _   |           |   _   |   _   |   _   |   _   |   _   |   _   |    _    |
+    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
-    |    _    |   _   |   _   |   _   |   _   |   _   |       |           |       |   _   |   {   |   }   |   _   |   _   |    _    |
-    |         |       |       |       |       |       |   _   |           |   _   |       |       |       |       |       |         |
-    |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
-    |    _    |   _   |   _   |   _   |   _   |   _   |_______|           |_______|   _   |   (   |   )   |   _   |   _   |    _    |
+    |         |       |       |       |       |       |       |           |       |       |   {   |   }   |       |       |         |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
-    |---------|-------|-------|-------|-------|-------|   _   |           |   _   |-------|-------|-------|-------|-------|---------|
-    |    _    |   _   |   _   |   _   |   _   |   _   |       |           |       |   _   |   [   |   ]   |   _   |   _   |    _    |
+    |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
+    |         |       |       |       |       |       |_______|           |_______|       |   (   |   )   |       |       |         |
+    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+    |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
+    |         |       |       |       |       |       |       |           |       |       |   [   |   ]   |       |       |         |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
-      |   _   |   _   |   _   |   _   |   _   |                                           |   _   |   _   |   _   |   _   |   _   |
+      |       |       |       |       |       |                                           |       |       |       |       |       |
       |       |       |       |       |       |                                           |       |       |       |       |       |
       '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
                                                  .-------.-------.     .-------.-------.
-                                                 |   _   |   _   |     |   _   |   _   |
+                                                 |       |       |     |       |       |
                                                  |       |       |     |       |       |
                                          .-------|-------|-------|     |-------|-------|-------.
-                                         |       |       |   _   |     |   _   |       |       |
                                          |       |       |       |     |       |       |       |
-                                         |   _   |   _   |-------|     |-------|   _   |   _   |
-                                         |       |       |   _   |     |   _   |       |       |
+                                         |       |       |       |     |       |       |       |
+                                         |       |       |-------|     |-------|       |       |
+                                         |       |       |       |     |       |       |       |
                                          |       |       |       |     |       |       |       |
                                          '-------'-------'-------'     '-------'-------'-------'
  */
@@ -610,62 +655,106 @@ void matrix_init_user(void) {
 
 };
 
-bool increments(uint8_t n, bool is_incrementing)
+int normal_pdf(int x, int A, int m, int s)
 {
-  if (is_incrementing) {
-    if (n == 255) {
-      return false;
-    } else {
-      return true;
-    }
+    return (int)floor(A * exp(-0.5 * (x - m) * (x - m) / (s * s)));
+}
+
+void sset_1(int n1)
+{
+  if (n1 == 0) {
+    ergodox_right_led_1_off();
   } else {
-    if (n == 0) {
-      return true;
-    } else {
-      return false;
-    }
+    ergodox_right_led_1_on();
+    ergodox_right_led_1_set(n1);
   }
 }
 
-uint8_t update_brightness(uint8_t n, bool is_incrementing)
+void sset_2(int n2)
 {
-  if (is_incrementing) {
-    return n + 1;
+  if (n2 == 0) {
+    ergodox_right_led_2_off();
   } else {
-    return n - 1;
+    ergodox_right_led_2_on();
+    ergodox_right_led_2_set(n2);
   }
 }
 
-void update_led_1(void)
+void sset_3(int n3)
 {
-  is_incrementing_1 = increments(n1, is_incrementing_1);
-  n1 = update_brightness(n1, is_incrementing_1);
-  ergodox_right_led_1_on();
-  ergodox_right_led_1_set(n1);
+  if (n3 == 0) {
+    ergodox_right_led_3_off();
+  } else {
+    ergodox_right_led_3_on();
+    ergodox_right_led_3_set(n3);
+  }
 }
 
-void update_led_2(void)
+void ll1(void)
 {
-  is_incrementing_2 = increments(n2, is_incrementing_2);
-  n2 = update_brightness(n2, is_incrementing_2);
-  ergodox_right_led_2_on();
-  ergodox_right_led_2_set(n2);
+  n1 = normal_pdf(t, 255, 500, 100);
+  sset_1(n1);
 }
 
-void update_led_3(void)
+void ll2(void)
 {
-  is_incrementing_3 = increments(n3, is_incrementing_3);
-  n3 = update_brightness(n3, is_incrementing_3);
-  ergodox_right_led_3_on();
-  ergodox_right_led_3_set(n3);
+  n2 = normal_pdf(t, 255, 500, 100);
+  sset_2(n2);
 }
 
-void set_led_r(void)
+void ll3(void)
 {
-  n1 = (int)floor(255 * sin(t * PI / 500) * sin(t * PI / 500));
-  ergodox_right_led_1_on();
-  ergodox_right_led_1_set(n1);
+  n3 = normal_pdf(t, 255, 500, 100);
+  sset_3(n3);
 }
+
+void ll12(void)
+{
+  n1 = normal_pdf(t, 255, 400, 100);
+  n2 = normal_pdf(t, 255, 600, 100);
+  sset_1(n1);
+  sset_2(n2);
+}
+
+void ll13(void)
+{
+  n1 = normal_pdf(t, 255, 400, 100);
+  n3 = normal_pdf(t, 255, 600, 100);
+  sset_1(n1);
+  sset_3(n3);
+}
+
+void ll23(void)
+{
+  n2 = normal_pdf(t, 255, 400, 100);
+  n3 = normal_pdf(t, 255, 600, 100);
+  sset_2(n2);
+  sset_3(n3);
+}
+
+void ll123(void)
+{
+  n1 = normal_pdf(t, 255, 400, 100);
+  n2 = normal_pdf(t, 255, 500, 100);
+  n3 = normal_pdf(t, 255, 600, 100);
+  sset_1(n1);
+  sset_2(n2);
+  sset_3(n3);
+}
+
+void ll321(void)
+{
+  n3 = normal_pdf(t, 255, 400, 100);
+  n2 = normal_pdf(t, 255, 500, 100);
+  n1 = normal_pdf(t, 255, 600, 100);
+  sset_1(n1);
+  sset_2(n2);
+  sset_3(n3);
+}
+
+
+
+
 
 
 
@@ -681,32 +770,41 @@ void matrix_scan_user(void) {
     if (layer == last_layer) {
       // update leds
       switch (layer) {
-        case 1:
-          /* update_led_1(); */
-          set_led_r();
+        case _BS:
+          ll1();
           break;
-        case 2:
-          update_led_2();
+        case _EN:
+          // pass
           break;
-        case 3:
-          update_led_3();
+        case _FW:
+          // pass
           break;
-        case 4:
-          update_led_1();
-          update_led_2();
+        case _FE:
+          // pass
           break;
-        case 5:
-          update_led_1();
-          update_led_3();
+        case _SM:
+          ll2();
           break;
-        case 6:
-          update_led_2();
-          update_led_3();
+        case _MV:
+          // pass
           break;
-        case 7:
-          update_led_1();
-          update_led_2();
-          update_led_3();
+        case _NM:
+          ll3();
+          break;
+        case _NS:
+          // pass
+          break;
+        case _FN:
+          // pass
+          break;
+        case _GM:
+          ll123();
+          break;
+        case _MS:
+          ll12();
+          break;
+        case _D :
+          // pass
           break;
         default:
           ergodox_board_led_off();
