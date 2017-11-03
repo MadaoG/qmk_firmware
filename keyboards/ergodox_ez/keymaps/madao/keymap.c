@@ -682,33 +682,33 @@ int brightness_very_fast_triple(int offset1, int offset2, int offset3)
 // }}}
 
 // {{{ sset functions
-void sset_1(int n1)
+void ergodox_set_red(int brightness)
 {
-  if (n1 == 0) {
+  if (brightness == 0) {
     ergodox_right_led_1_off();
   } else {
     ergodox_right_led_1_on();
-    ergodox_right_led_1_set(n1);
+    ergodox_right_led_1_set(brightness);
   }
 }
 
-void sset_2(int n2)
+void ergodox_set_green(int brightness)
 {
-  if (n2 == 0) {
+  if (brightness == 0) {
     ergodox_right_led_2_off();
   } else {
     ergodox_right_led_2_on();
-    ergodox_right_led_2_set(n2);
+    ergodox_right_led_2_set(brightness);
   }
 }
 
-void sset_3(int n3)
+void ergodox_set_blue(int brightness)
 {
-  if (n3 == 0) {
+  if (brightness == 0) {
     ergodox_right_led_3_off();
   } else {
     ergodox_right_led_3_on();
-    ergodox_right_led_3_set(n3);
+    ergodox_right_led_3_set(brightness);
   }
 }
 // }}}
@@ -782,44 +782,44 @@ void matrix_scan_user(void) {
       // update leds
       switch (layer) {
         case _BS:
-          sset_1(brightness_middle(500));
+          ergodox_set_red(brightness_middle(500));
           break;
         case _EN:
-          sset_1(brightness_fast(500));
+          ergodox_set_red(brightness_fast(500));
           break;
         case _FW:
-          sset_1(brightness_middle(500));
-          sset_2(1);
+          ergodox_set_red(brightness_middle(500));
+          ergodox_set_green(1);
           break;
         case _FE:
-          sset_1(brightness_fast(500));
-          sset_2(1);
+          ergodox_set_red(brightness_fast(500));
+          ergodox_set_green(1);
           break;
         case _SM:
-          sset_2(brightness_middle(500));
+          ergodox_set_green(brightness_middle(500));
           break;
         case _MV:
-          sset_3(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(500));
           break;
         case _NM:
-          sset_3(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(500));
           break;
         case _NS:
-          sset_3(brightness_very_fast_double(250, 750));
+          ergodox_set_blue(brightness_very_fast_double(250, 750));
           break;
         case _FN:
-          sset_1(brightness_fast(300));
-          sset_2(brightness_fast(500));
-          sset_3(brightness_fast(700));
+          ergodox_set_red(brightness_fast(300));
+          ergodox_set_green(brightness_fast(500));
+          ergodox_set_blue(brightness_fast(700));
           break;
         case _GM:
-          sset_1(brightness_fast(700));
-          sset_2(brightness_fast(500));
-          sset_3(brightness_fast(300));
+          ergodox_set_red(brightness_fast(700));
+          ergodox_set_green(brightness_fast(500));
+          ergodox_set_blue(brightness_fast(300));
           break;
         case _MS:
-          sset_1(brightness_middle(500));
-          sset_2(brightness_middle(500));
+          ergodox_set_red(brightness_middle(500));
+          ergodox_set_green(brightness_middle(500));
           break;
         case _D :
           // pass
