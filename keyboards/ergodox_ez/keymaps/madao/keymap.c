@@ -21,8 +21,15 @@
 #define _______ KC_TRNS
 
 uint8_t last_layer = 0; // check if layer was changed
-uint8_t n1, n2, n3 = 0; // brightness of leds 1, 2 and 3
 uint16_t t = 0;         // time count for leds: 0 -- 1000
+
+enum {
+ CT_SE = 0,
+ CT_CLN,
+ CT_EGG,
+ CT_FLSH,
+ X_TAP_DANCE
+};
 // }}}
 
 // {{{ ALL LAYERS
@@ -42,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |   osm   |   ü   |   ö   |   ä   |   p   |   z   |       |           |       |   b   |   m   |   ,   |   .   |   j   |   osm   |
     |  l_sft  |       |  alt  | shift |  ctrl |       |       |           |       |       |  ctrl | shift |  alt  |       |  r_sft  |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
-      |       | super |   up  |       |   :   |                                           |  esc  |  left | right |   up  |  down |
+      |       | super |   up  |       |   :   |                                           |  esc  |       |       |       |       |
       |  _d   |       |       |  _fn  |       |                                           |       |       |       |       |       |
       '---------------------------------------'                                           '---------------------------------------'
                                                  .---------------.     .---------------.
@@ -73,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               LT(_SM, DE_Y),
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
+ /*---*/             /*---*/             KC_ESC,           _______,           TD(CT_CLN),           _______,            _______,
  //
  KC_RSFT,            KC_LOCK,                              //
  _______,                                                  // thumb      eys
@@ -311,7 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       _______,      _______,      _______,      _______,      _______,      _______,
+ /*---*/       _______,      _______,      MT(MOD_LCTL | MOD_LGUI, KC_ESC),      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
@@ -353,7 +360,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      TT(_NS),      _______,      _______,      /*---*/
+ _______,      _______,      KC_LGUI,      TT(_NS),      _______,      _______,      /*---*/
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
@@ -708,13 +715,37 @@ void sset_3(int n3)
 
 // }}}
 
+void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_RSFT);
+    register_code (KC_SCLN);
+  } else {
+    register_code (KC_SCLN);
+  }
+}
+
+void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_SCLN);
+  } else {
+    unregister_code (KC_SCLN);
+  }
+}
+
+//All tap dance functions would go here. Only showing this one.
+qk_tap_dance_action_t tap_dance_actions[] = {
+ /* [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset) */
+ [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN)
+};
+
+
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
     if (record->event.pressed) {
-
       switch(id) {
         case 0:
-
           for (int i = 0; i < 25; i++) {
             mousekey_on(KC_BTN1);
             mousekey_send();
@@ -723,19 +754,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             mousekey_send();
             wait_ms(10);
           }
-
           break;
 
         case 1:
           register_code(DE_CIRC);
           unregister_code(DE_CIRC);
-
           register_code(DE_CIRC);
           unregister_code(DE_CIRC);
           break;
       }
     }
-
     return MACRO_NONE;
 };
 
@@ -777,7 +805,7 @@ void matrix_scan_user(void) {
           sset_3(brightness_middle(500));
           break;
         case _NS:
-          sset_3(brightness_very_fast_double(250, 500));
+          sset_3(brightness_very_fast_double(250, 750));
           break;
         case _FN:
           sset_1(brightness_fast(300));
