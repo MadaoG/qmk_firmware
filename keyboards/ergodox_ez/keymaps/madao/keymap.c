@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               LT(_SM, DE_Y),
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           TG(_TM),           TD(CT_CLN),       _______,            _______,
+ /*---*/             /*---*/             KC_ESC,           TG(_TM),           TD(CT_CLN),       _______,            KC_NO,
  //
  KC_RSFT,            KC_LOCK,                              //
  _______,                                                  // thumb      eys
@@ -611,8 +611,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_TM] = KEYMAP(
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      tm_left,      _______,      _______,      _______,      /*---*/
+ _______,      _______,      _______,      tm_up,        _______,      _______,      _______,
+ _______,      _______,      tm_left,      tm_down,      tm_right,     _______,      /*---*/
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
@@ -780,13 +780,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTRL("b")"> resiye/pane /L");
                 return false; break;
           case tm_right:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /L");
+                SEND_STRING(SS_LCTRL("b")"> resiye/pane /R");
                 return false; break;
           case tm_up:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /L");
+                SEND_STRING(SS_LCTRL("b")"> resiye/pane /U");
                 return false; break;
           case tm_down:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /L");
+                SEND_STRING(SS_LCTRL("b")"> resiye/pane /D");
                 return false; break;
         }
     }
@@ -904,9 +904,9 @@ void matrix_scan_user(void) {
           ergodox_set_red(10);
           break;
         case _D :
-          ergodox_set_red(brightness_very_fast_triple(167, 500, 833));
-          ergodox_set_green(brightness_very_fast_triple(217, 550, 883));
-          ergodox_set_blue(brightness_very_fast_triple(267, 600, 933));
+          ergodox_set_red(brightness_very_fast(450));
+          ergodox_set_green(brightness_very_fast(500));
+          ergodox_set_blue(brightness_very_fast(550));
           // pass
           break;
         default:
