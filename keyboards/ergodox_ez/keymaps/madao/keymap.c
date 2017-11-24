@@ -21,7 +21,7 @@
 
 #define _______ KC_TRNS
 
-uint8_t last_layer = 0; // check if layer was changed
+uint8_t last_layer = _BS; // check if layer was changed
 uint16_t t = 0;         // time count for leds: 0 -- 1000
 
 enum {
