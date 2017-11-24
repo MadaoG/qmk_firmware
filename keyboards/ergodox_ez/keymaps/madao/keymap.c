@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |   osm   |   ü   |   ö   |   ä   |   p   |   z   |       |           |       |   b   |   m   |   ,   |   .   |   j   |   osm   |
     |  l_sft  |       |  alt  | shift |  ctrl |       |       |           |       |       |  ctrl | shift |  alt  |       |  r_sft  |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
-      |       | super |   up  |       |   :   |                                           |  esc  |       |  :;   |       |       |
+      |       | super |   up  |       |   :;  |                                           |  esc  |       |       |       |       |
       |  _d   |       |       |  _fn  |       |                                           |       |  _tm  |       |       |       |
       '---------------------------------------'                                           '---------------------------------------'
                                                  .---------------.     .---------------.
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TG(_MS),            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  TT(_SM),            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
- TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
+ TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
  //
  TG(_EN),            KC_VOLU,                              //
  KC_VOLD,                                                  // thumb      eys
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               LT(_SM, DE_Y),
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           TG(_TM),           TD(CT_CLN),       _______,            KC_NO,
+ /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            KC_NO,
  //
  KC_RSFT,            KC_LOCK,                              //
  _______,                                                  // thumb      eys
@@ -94,6 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * remove ctrl, shift, alt etc. from homerow
  */
 [_FW] = KEYMAP(
+
  _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
  _______,            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  _______,            DE_U,               DE_I,             DE_A,              DE_E,             DE_O,               /*---*/
@@ -151,10 +152,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_EN] = KEYMAP(
+
  TG(_FE),      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      /*---*/
- _______,      DE_Y,         DE_D,         DE_J,         _______,      _______,      _______,
+ _______,      DE_X,         DE_Y,         DE_J,         _______,      _______,      _______,
  /* _______,      KC_NO,        KC_X,         KC_Q,         _______,      _______,      _______, */
  _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
@@ -205,6 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_FE] = KEYMAP(
+
  _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
  _______,            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  _______,            DE_U,               DE_I,             DE_A,              DE_E,             DE_O,               /*---*/
@@ -232,11 +235,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     .---------------------------------------------------------.           .---------------------------------------------------------.
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
-    |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
+    |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---- ----|
     |         |       |   _   |   [   |   ]   |   ^   |       |           |       |   !   |   <   |   >   |   =   |   &   |         |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
-    |         |   \   |   /   |   {   |   }   |   *   |_______|           |_______|   ?   |   (   |   )   |   -   |   :   |    @    |
+    |         |   \   |   /   |   {   |   }   |   *   |_______|           |_______|   ?   |   (   |   )   |   -   |   @   |         |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
     |         |   #   |   $   |   |   |   ~   |       |       |           |       |   +   |   %   |   "   |   '   |   ;   |         |
@@ -270,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      DE_EXLM,      DE_LESS,      DE_MORE,      DE_EQL,       DE_AMPR,      _______,
- /*---*/       DE_QST,       DE_LPRN,      DE_RPRN,      DE_MINS,      DE_COLN,      DE_AT,
+ /*---*/       DE_QST,       DE_LPRN,      DE_RPRN,      DE_MINS,      DE_AT,        _______,
  _______,      DE_PLUS,      DE_PERC,      DE_DQOT,      DE_QUOT,      DE_SCLN,      _______,
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,
@@ -309,6 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_MV] = KEYMAP(
+
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      KC_PGUP,      KC_BSPC,      KC_UP,        KC_DEL,       KC_PGDN,      _______,
  _______,      KC_HOME,      KC_LEFT,      KC_DOWN,      KC_RGHT,      KC_END,       /*---*/
@@ -610,6 +614,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_TM] = KEYMAP(
+
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      tm_up,        _______,      _______,      _______,
  _______,      _______,      tm_left,      tm_down,      tm_right,     _______,      /*---*/
@@ -693,27 +698,27 @@ int gauss_curve(int x, int a, int m, int s)
 // {{{ brightness functions
 int brightness_very_slow(int offset)
 {
-  return gauss_curve(t, 255, offset, 150);
+  return gauss_curve(t, 255, offset, 120);
 }
 
 int brightness_slow(int offset)
 {
-  return gauss_curve(t, 255, offset, 130);
+  return gauss_curve(t, 255, offset, 100);
 }
 
 int brightness_middle(int offset)
 {
-  return gauss_curve(t, 255, offset, 100);
+  return gauss_curve(t, 255, offset, 70);
 }
 
 int brightness_fast(int offset)
 {
-  return gauss_curve(t, 255, offset, 50);
+  return gauss_curve(t, 255, offset, 20);
 }
 
 int brightness_very_fast(int offset)
 {
-  return gauss_curve(t, 255, offset, 30);
+  return gauss_curve(t, 255, offset, 10);
 }
 
 int brightness_fast_double(int offset1, int offset2)
@@ -742,6 +747,7 @@ void ergodox_set_red(int brightness)
   if (brightness == 0) {
     ergodox_right_led_1_off();
   } else {
+    brightness > 255 ? brightness = 255 :
     ergodox_right_led_1_on();
     ergodox_right_led_1_set(brightness);
   }
@@ -752,6 +758,7 @@ void ergodox_set_green(int brightness)
   if (brightness == 0) {
     ergodox_right_led_2_off();
   } else {
+    brightness > 255 ? brightness = 255 :
     ergodox_right_led_2_on();
     ergodox_right_led_2_set(brightness);
   }
@@ -762,6 +769,7 @@ void ergodox_set_blue(int brightness)
   if (brightness == 0) {
     ergodox_right_led_3_off();
   } else {
+    brightness > 255 ? brightness = 255 :
     ergodox_right_led_3_on();
     ergodox_right_led_3_set(brightness);
   }
@@ -794,28 +802,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 
-/* void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) { */
-/*   if (state->count == 1) { */
-/*     /1* register_code (KC_RSFT); *1/ */
-/*     register_code (DE_SCLN); */
-/*   } else { */
-/*     register_code (DE_COLN); */
-/*   } */
-/* } */
-
-/* void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) { */
-/*   if (state->count == 1) { */
-/*     /1* unregister_code (KC_RSFT); *1/ */
-/*     unregister_code (DE_SCLN); */
-/*   } else { */
-/*     unregister_code (DE_COLN); */
-/*   } */
-/* } */
-
-//All tap dance functions would go here. Only showing this one.
 qk_tap_dance_action_t tap_dance_actions[] = {
- /* [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset) */
- [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN)
+  [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN)
 };
 
 
