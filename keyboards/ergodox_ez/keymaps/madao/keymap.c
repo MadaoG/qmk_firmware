@@ -5,8 +5,9 @@
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
 
-#define   _BS   0    // base layer
-#define   _EN   1    // english layer (base without äöüß)
+// #define   _BS   0    // base layer
+#define   _EN   0    // english layer
+#define   _GE   1    // german layer
 #define   _FW   2    // fast writing
 #define   _FE   3    // fast writing (english)
 #define   _SM   4    // symbol layer
@@ -19,6 +20,8 @@
 #define   _TM   11   // tmux layer
 #define   _D    12   // empty (dumb) layer, may be useful as first reference
 
+#define   _BS   _EN  // setting the base layer
+
 #define _______ KC_TRNS
 
 uint8_t last_layer = _BS; // check if layer was changed
@@ -26,10 +29,8 @@ uint16_t t = 0;         // time count for leds: 0 -- 1000
 
 enum {
  CT_CLN,
- tm_up,
- tm_down,
- tm_left,
- tm_right,
+ Q_BT,
+ DQ_T,
 };
 // }}}
 
@@ -64,15 +65,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          |       |       |  mute |     |       |       |       |
                                          '-----------------------'     '-----------------------'
  */
-[_BS] = KEYMAP(
+[_GE] = KEYMAP(
 
  TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
  TG(_MS),            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  TT(_SM),            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
- OSM(MOD_LSFT),      DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
+ _______,            DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
  TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
  //
- TG(_EN),            KC_VOLU,                              //
+ TO(_EN),            KC_VOLU,                              //
  KC_VOLD,                                                  // thumb      eys
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
@@ -87,6 +88,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
+
+[_EN] = KEYMAP(
+
+ TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
+ TG(_MS),            KC_NO,              DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
+ _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
+ OSM(MOD_LSFT),      DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               DE_UNDS,
+ TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
+ //
+ TO(_GE),            KC_VOLU,                              //
+ KC_VOLD,                                                  // thumb      eys
+ KC_TAB,             KC_BSPC,            KC_MUTE,          //
+ //
+ //
+ DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
+ DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             KC_NO,              KC_NO,
+ /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
+ DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
+ /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            KC_NO,
+ //
+ KC_RSFT,            KC_LOCK,                              //
+ _______,                                                  // thumb      eys
+ KC_DEL,             KC_ENTER,           KC_SPACE          //
+),
+
 // }}}
 
 /* {{{ LAYER: FAST WRITING
@@ -151,27 +177,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Use x and q instead.
  */
 
- [_EN] = KEYMAP(
+ /*[_EN] = KEYMAP(*/
 
- TG(_FE),      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      /*---*/
- _______,      DE_X,         DE_Y,         DE_J,         _______,      _______,      _______,
- /* _______,      KC_NO,        KC_X,         KC_Q,         _______,      _______,      _______, */
- _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______,           //
+ /*TG(_FE),      _______,      _______,      _______,      _______,      _______,      _______,*/
+ /*_______,      _______,      _______,      _______,      _______,      _______,      _______,*/
+ /*_______,      _______,      _______,      _______,      _______,      _______,      [>---<]*/
+ /*_______,      DE_X,         DE_Y,         DE_J,         _______,      _______,      _______,*/
+ /*[> _______,      KC_NO,        KC_X,         KC_Q,         _______,      _______,      _______, <]*/
+ /*_______,      _______,      _______,      _______,      _______,*/
+ /*_______,      _______,                         //*/
+ /*_______,                                       // thumb keys*/
+ /*_______,      _______,      _______,           //*/
 
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      KC_NO,
- /*---*/       _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______            //
- ),
+ /*_______,      _______,      _______,      _______,      _______,      _______,      _______,*/
+ /*_______,      _______,      _______,      _______,      _______,      _______,      KC_NO,*/
+ /*[>---<]       _______,      _______,      _______,      _______,      _______,      _______,*/
+ /*_______,      _______,      _______,      _______,      _______,      _______,      _______,*/
+ /*[>---*/       /*---<]       _______,      _______,      _______,      _______,      _______,*/
+ /*_______,      _______,                         //*/
+ /*_______,                                       // thumb keys*/
+ /*_______,      _______,      _______            //*/
+ /*),*/
 // }}}
 
 /* {{{ LAYER: FAST WRITING ENGLISH
@@ -243,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
     |         |   #   |   $   |   |   |   ~   |       |       |           |       |   +   |   %   |   "   |   '   |   ;   |         |
-    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+    |         |       |       |       |       |       |       |           |       |       |       |   ´   |   `   |       |         |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
       |       |       |       |       |       |                                           |       |       |       |       |       |
       |       |       |       |       |       |                                           |       |       |       |       |       |
@@ -274,7 +300,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      DE_EXLM,      DE_LESS,      DE_MORE,      DE_EQL,       DE_AMPR,      _______,
  /*---*/       DE_QST,       DE_LPRN,      DE_RPRN,      DE_MINS,      DE_AT,        _______,
- _______,      DE_PLUS,      DE_PERC,      DE_DQOT,      DE_QUOT,      DE_SCLN,      _______,
+ _______,      DE_PLUS,      DE_PERC,      TD(DQ_T),     TD(Q_BT),     DE_SCLN,      _______,
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,
  _______,
@@ -613,26 +639,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          '-------'-------'-------'     '-------'-------'-------'
  */
 
- [_TM] = KEYMAP(
-
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      tm_up,        _______,      _______,      _______,
- _______,      _______,      tm_left,      tm_down,      tm_right,     _______,      /*---*/
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______,           //
-
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
- _______,      _______,                         //
- _______,                                       // thumb keys
- _______,      _______,      _______            //
- ),
+// [_TM] = KEYMAP(
+//
+// _______,      _______,      _______,      _______,      _______,      _______,      _______,
+// _______,      _______,      _______,      tm_up,        _______,      _______,      _______,
+// _______,      _______,      tm_left,      tm_down,      tm_right,     _______,      /*---*/
+// _______,      _______,      _______,      _______,      _______,      _______,      _______,
+// _______,      _______,      _______,      _______,      _______,
+// _______,      _______,                         //
+// _______,                                       // thumb keys
+// _______,      _______,      _______,           //
+//
+// _______,      _______,      _______,      _______,      _______,      _______,      _______,
+// _______,      _______,      _______,      _______,      _______,      _______,      _______,
+// /*---*/       _______,      _______,      _______,      _______,      _______,      _______,
+// _______,      _______,      _______,      _______,      _______,      _______,      _______,
+// /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
+// _______,      _______,                         //
+// _______,                                       // thumb keys
+// _______,      _______,      _______            //
+// ),
  
  
 
@@ -783,27 +809,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */ 
     /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
     if (record->event.pressed) {
-        switch(keycode) {
-          case tm_left:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /L");
-                return false; break;
-          case tm_right:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /R");
-                return false; break;
-          case tm_up:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /U");
-                return false; break;
-          case tm_down:
-                SEND_STRING(SS_LCTRL("b")"> resiye/pane /D");
-                return false; break;
-        }
+//        switch(keycode) {
+//          case tm_left:
+//                SEND_STRING(SS_LCTRL("b")"> resiye/pane /L");
+//                return false; break;
+//          case tm_right:
+//                SEND_STRING(SS_LCTRL("b")"> resiye/pane /R");
+//                return false; break;
+//          case tm_up:
+//                SEND_STRING(SS_LCTRL("b")"> resiye/pane /U");
+//                return false; break;
+//          case tm_down:
+//                SEND_STRING(SS_LCTRL("b")"> resiye/pane /D");
+//                return false; break;
+//        }
     }
     return true;
 };
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN)
+  [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
+  [DQ_T] = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
+  [Q_BT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
 };
 
 
@@ -829,6 +857,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           register_code(DE_CIRC);
           unregister_code(DE_CIRC);
           break;
+
+        case 2:
+          register_code(DE_ACUT);
+          unregister_code(DE_ACUT);
+          register_code(DE_ACUT);
+          unregister_code(DE_ACUT);
+          break;
+
+        case 3:
+          // register_code(DE_GRV);
+          // unregister_code(DE_GRV);
+          // register_code(DE_GRV);
+          // unregister_code(DE_GRV);
+          break;
       }
     }
     return MACRO_NONE;
@@ -848,11 +890,15 @@ void matrix_scan_user(void) {
     if (layer == last_layer) {
       // update leds
       switch (layer) {
-        case _BS:
-          ergodox_set_red(brightness_middle(500));
+        case _GE:
+          ergodox_set_red(brightness_middle(300));
+          ergodox_set_green(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(700));
           break;
         case _EN:
-          ergodox_set_red(brightness_fast(500));
+          ergodox_set_red(brightness_middle(700));
+          ergodox_set_green(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(300));
           break;
         case _FW:
           ergodox_set_red(brightness_middle(500));
