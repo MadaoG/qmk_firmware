@@ -1,0 +1,31 @@
+\documentclass{standalone}
+
+\usepackage{pgfplots}
+\begin{document}
+
+\pgfmathdeclarefunction{gauss}{3}{%
+  % \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+  \pgfmathparse{ #1 * exp( -0.5 * (x - #2)^2 / ( #3 )^2 ) }%
+}
+
+\begin{tikzpicture}
+\begin{axis}[
+  every axis plot post/.append style={
+    mark=none,
+    domain=0:1000,
+    samples=300,
+    smooth,
+  }, % All plots: from -2:2, 50 samples, smooth, no marks
+  axis x line*=bottom, % no box around the plot, only x and y axis
+  % axis y line*=left, % the * suppresses the arrow tips
+  enlargelimits=upper] % extend the axes a bit to the right and top
+  \addplot {gauss(255, 300, 70)};
+  \addplot {gauss(255, 400, 50)};
+  \addplot {gauss(255, 500, 30)};
+  \addplot {gauss(255, 600, 20)};
+  \addplot {gauss(255, 700, 10)};
+
+\end{axis}
+\end{tikzpicture}
+
+\end{document}
