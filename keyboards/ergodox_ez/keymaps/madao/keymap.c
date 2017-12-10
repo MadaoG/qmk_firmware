@@ -4,7 +4,7 @@
 #include "action_layer.h"
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
-#include "gauss.h"
+#include "gauss.h" // defines t
 
 // #define   _BS   0    // base layer
 #define   _EN   0    // english layer
@@ -28,9 +28,9 @@
 uint8_t last_layer = _BS; // check if layer was changed
 
 enum {
- CT_CLN,
- Q_BT,
- DQ_T,
+  CT_CLN,
+  Q_BT,
+  DQ_T,
 };
 // }}}
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EN] = KEYMAP(
 
  TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
- TG(_MS),            KC_NO,              DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
+ TG(_MS),            DE_D,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               DE_UNDS,
  TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
@@ -103,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  //
  DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
- DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             KC_NO,              KC_NO,
- /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
- DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
+ DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_J,              KC_NO,
+ /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             _______,               _______,
+ DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    _______,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            KC_NO,
  //
  KC_RSFT,            KC_LOCK,                              //
