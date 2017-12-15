@@ -9,15 +9,15 @@
 // #define   _BS   0    // base layer
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
-#define   _SM   4    // symbol layer
-#define   _MV   5    // movement layer
-#define   _NM   6    // digit layer
-#define   _NS   7    // symbols for digit layer
-#define   _FN   8    // fn keys
-#define   _GM   9    // gaming layer
-#define   _MS   10   // mouse layer
-#define   _TM   11   // tmux layer
-#define   _D    12   // empty (dumb) layer, may be useful as first reference
+#define   _SM   2    // symbol layer
+#define   _MV   3    // movement layer
+#define   _NM   4    // digit layer
+#define   _NS   5    // symbols for digit layer
+#define   _FN   6    // fn keys
+#define   _GM   7    // gaming layer
+#define   _MS   8    // mouse layer
+#define   _TM   9    // tmux layer
+#define   _D    10   // empty (dumb) layer, may be useful as first reference
 
 #define   _BS   _EN  // setting the base layer
 
