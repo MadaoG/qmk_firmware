@@ -32,8 +32,7 @@ enum {
   DOUBLE_HOLD = 4,
   TRIPLE_TAP = 5,
   TRIPLE_HOLD = 6,
-  DOUBLE_SINGLE_TAP = 7 //send SINGLE_TAP twice - NOT DOUBLE_TAP
-  // Add more enums here if you want for triple, quadruple, etc.
+  DOUBLE_SINGLE_TAP = 7
 };
 
 typedef struct {
