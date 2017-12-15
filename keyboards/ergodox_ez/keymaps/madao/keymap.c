@@ -26,6 +26,7 @@
 uint8_t last_layer = _BS; // check if layer was changed
 
 enum {
+  // CT_CLN = SAFE_RANGE,
   CT_CLN,
   Q_BT,
   DQ_T,
