@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EN] = KEYMAP(
 
- TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
+ TG(_FW),            _______,            _______,          _______,           _______,          _______,            DE_ACUT,
  TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               DE_UNDS,
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
- DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
+ DE_GRV,             _______,            _______,          _______,           _______,          _______,            TG(_GM),
  DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             _______,            KC_NO,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
