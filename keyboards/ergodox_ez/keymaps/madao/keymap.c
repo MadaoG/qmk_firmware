@@ -9,8 +9,6 @@
 // #define   _BS   0    // base layer
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
-#define   _FW   2    // fast writing
-#define   _FE   3    // fast writing (english)
 #define   _SM   4    // symbol layer
 #define   _MV   5    // movement layer
 #define   _NM   6    // digit layer
@@ -67,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GE] = KEYMAP(
 
- TG(_FW),            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
+ _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
  TG(_MS),            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
  _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  _______,            DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
@@ -91,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EN] = KEYMAP(
 
- TG(_FW),            _______,            _______,          _______,           _______,          _______,            _______,
+ _______,            _______,            _______,          _______,           _______,          _______,            _______,
  TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
  _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
@@ -115,34 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // }}}
 
-/* {{{ LAYER: FAST WRITING
- * fast writing layer:
- * remove ctrl, shift, alt etc. from homerow
- */
-[_FW] = KEYMAP(
-
- _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
- _______,            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
- _______,            DE_U,               DE_I,             DE_A,              DE_E,             DE_O,               /*---*/
- _______,            DE_UE,              DE_OE,            DE_AE,             DE_P,             DE_Z,               DE_UNDS,
- _______,            KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
- //
- KC_DEL,             KC_VOLU,                              //
- KC_VOLD,                                                  // thumb      eys
- KC_TAB,             KC_BSPC,            KC_MUTE,          //
- //
- //
- DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
- DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
- /*---*/             DE_S,               DE_N,             DE_R,              DE_T,             DE_D,               LT(_SM, DE_Y),
- DE_BSLS,            DE_B,               DE_M,             DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
- //
- _______,            _______,                              //
- _______,                                                  // thumb      eys
- KC_DEL,             KC_ENTER,           KC_SPACE          //
-),
-// }}}
 
 /* {{{ LAYER: ENGLISH
 
@@ -200,62 +170,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*),*/
 // }}}
 
-/* {{{ LAYER: FAST WRITING ENGLISH
-
-    .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
-    |    _    |   _   |   _   |   _   |   _   |   _   |   _   |           |   _   |   _   |   _   |   _   |   _   |   _   |    _    |
-    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
-    |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
-    |    _    |   _   |   _   |   _   |   _   |   _   |       |           |       |   _   |   _   |   _   |   _   |   _   |         |
-    |         |       |       |       |       |       |   _   |           |   _   |       |       |       |       |       |         |
-    |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
-    |    _    |   _   |   _   |   _   |   _   |   _   |_______|           |_______|   _   |   _   |   _   |   _   |   _   |    _    |
-    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
-    |---------|-------|-------|-------|-------|-------|   _   |           |   _   |-------|-------|-------|-------|-------|---------|
-    |    _    |       |   X   |   Q   |   _   |   _   |       |           |       |   _   |   _   |   _   |   _   |   _   |    _    |
-    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
-    '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
-      |   _   |   _   |   _   |   _   |   _   |                                           |   _   |   _   |   _   |   _   |   _   |
-      |       |       |       |       |       |                                           |       |       |       |       |       |
-      '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
-                                                 .-------.-------.     .-------.-------.
-                                                 |   _   |   _   |     |   _   |   _   |
-                                                 |       |       |     |       |       |
-                                         .-------|-------|-------|     |-------|-------|-------.
-                                         |       |       |   _   |     |   _   |       |       |
-                                         |       |       |       |     |       |       |       |
-                                         |   _   |   _   |-------|     |-------|   _   |   _   |
-                                         |       |       |   _   |     |   _   |       |       |
-                                         |       |       |       |     |       |       |       |
-                                         '-------'-------'-------'     '-------'-------'-------'
- *
- * fast version of english layer
- */
-
- [_FE] = KEYMAP(
-
- _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
- _______,            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
- _______,            DE_U,               DE_I,             DE_A,              DE_E,             DE_O,               /*---*/
- _______,            KC_NO,              KC_X,             KC_Q,              DE_P,             DE_Z,               DE_UNDS,
- _______,            KC_LGUI,            KC_UP,            MO(_FN),           DE_COLN,          /*---*/             /*---*/
- //
- KC_DEL,             KC_VOLU,                              //
- KC_VOLD,                                                  // thumb      eys
- KC_TAB,             KC_BSPC,            KC_MUTE,          //
- //
- //
- DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
- DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               KC_NO,
- /*---*/             DE_S,               DE_N,             DE_R,              DE_T,             DE_D,               LT(_SM, DE_Y),
- DE_BSLS,            DE_B,               DE_M,             DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
- //
- _______,            _______,                              //
- _______,                                                  // thumb      eys
- KC_DEL,             KC_ENTER,           KC_SPACE          //
-),
-// }}}
 
 /* {{{ LAYER: SYMBOLS
     .---------------------------------------------------------.           .---------------------------------------------------------.
@@ -815,14 +729,6 @@ void matrix_scan_user(void) {
           ergodox_set_red(brightness_middle(700));
           ergodox_set_green(brightness_middle(500));
           ergodox_set_blue(brightness_middle(300));
-          break;
-        case _FW:
-          ergodox_set_red(brightness_middle(500));
-          ergodox_set_green(1);
-          break;
-        case _FE:
-          ergodox_set_red(brightness_fast(500));
-          ergodox_set_green(1);
           break;
         case _SM:
           ergodox_set_green(brightness_middle(500));
