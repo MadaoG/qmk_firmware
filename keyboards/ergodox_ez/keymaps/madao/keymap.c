@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            KC_NO,
  //
- KC_RSFT,            KC_LOCK,                              //
+ _______,            _______,                              //
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            KC_NO,
  //
- KC_RSFT,            KC_LOCK,                              //
+ _______,            _______,                              //
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_BSLS,            DE_B,               DE_M,             DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
  //
- KC_RSFT,            KC_LOCK,                              //
+ _______,            _______,                              //
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
@@ -251,7 +251,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  DE_BSLS,            DE_B,               DE_M,             DE_COMM,           DE_DOT,           DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           KC_LEFT,           KC_RGHT,          KC_UP,              KC_DOWN,
  //
- KC_RSFT,            KC_LOCK,                              //
+ _______,            _______,                              //
  _______,                                                  // thumb      eys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
