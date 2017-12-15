@@ -116,6 +116,24 @@ void th_pbb_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+void th_lg_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP: register_code(DE_LESS); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); register_code(DE_LESS); break;
+    case DOUBLE_TAP: register_code(KC_LSFT); register_code(DE_LESS); break;
+  }
+}
+
+void th_lg_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP: unregister_code(DE_LESS); break;
+    case SINGLE_HOLD: unregister_code(KC_LSFT); unregister_code(DE_LESS); break;
+    case DOUBLE_TAP: unregister_code(KC_LSFT); unregister_code(DE_LESS); break;
+  }
+  xtap_state.state = 0;
+}
+
 enum {
   // CT_CLN = SAFE_RANGE,
   CT_CLN,
@@ -699,7 +717,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [DQ_T] = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
   [Q_BT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
   [X_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
-  [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbb_finished, th_pbb_reset),
+  // [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbb_finished, th_pbb_reset),
+  [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_lg_finished, th_lg_reset),
 };
 
 
