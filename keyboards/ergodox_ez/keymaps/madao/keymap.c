@@ -115,13 +115,6 @@ void th_pbb_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   xtap_state.state = 0;
 }
-//
-// #define DE_LPRN LSFT(KC_8) // (
-// #define DE_RPRN LSFT(KC_9) // )
-// #define DE_LCBR ALGR(KC_7) // {
-// #define DE_LBRC ALGR(KC_8) // [
-// #define DE_RBRC ALGR(KC_9) // ]
-// #define DE_RCBR ALGR(KC_0) // }
 
 enum {
   // CT_CLN = SAFE_RANGE,
