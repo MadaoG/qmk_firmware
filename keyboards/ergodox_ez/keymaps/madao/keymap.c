@@ -30,7 +30,9 @@ enum {
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
   DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
+  TRIPLE_TAP = 5,
+  TRIPLE_HOLD = 6,
+  DOUBLE_SINGLE_TAP = 7 //send SINGLE_TAP twice - NOT DOUBLE_TAP
   // Add more enums here if you want for triple, quadruple, etc.
 };
 
@@ -52,7 +54,13 @@ int cur_dance (qk_tap_dance_state_t *state) {
     else if (state->pressed) return DOUBLE_HOLD;
     else return DOUBLE_TAP;
   }
-  else return 6; //magic number. At some point this method will expand to work for more presses
+  else if (state->count == 3) {
+    // if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    // else 
+    if (state->pressed) return TRIPLE_HOLD;
+    else return TRIPLE_TAP;
+  }
+  else return 8;
 }
 static tap xtap_state = {
   .is_press_action = true,
@@ -84,12 +92,44 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+void th_pbb_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP: register_code(KC_LSFT); register_code(KC_8); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); register_code(KC_9); break;
+    case DOUBLE_TAP: register_code(KC_RALT); register_code(KC_8); break;
+    case DOUBLE_HOLD: register_code(KC_RALT); register_code(KC_9); break;
+    case TRIPLE_TAP: register_code(KC_RALT); register_code(KC_7); break;
+    case TRIPLE_HOLD: register_code(KC_RALT); register_code(KC_0); break;
+  }
+}
+
+void th_pbb_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_8); unregister_code(KC_LSFT); break;
+    case SINGLE_HOLD: unregister_code(KC_9); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP: unregister_code(KC_8); unregister_code(KC_RALT); break;
+    case DOUBLE_HOLD: unregister_code(KC_9); unregister_code(KC_RALT); break;
+    case TRIPLE_TAP: unregister_code(KC_7); unregister_code(KC_RALT); break;
+    case TRIPLE_HOLD: unregister_code(KC_0); unregister_code(KC_RALT); break;
+  }
+  xtap_state.state = 0;
+}
+//
+// #define DE_LPRN LSFT(KC_8) // (
+// #define DE_RPRN LSFT(KC_9) // )
+// #define DE_LCBR ALGR(KC_7) // {
+// #define DE_LBRC ALGR(KC_8) // [
+// #define DE_RBRC ALGR(KC_9) // ]
+// #define DE_RCBR ALGR(KC_0) // }
+
 enum {
   // CT_CLN = SAFE_RANGE,
   CT_CLN,
   Q_BT,
   DQ_T,
   X_TAP_DANCE,
+  X_TAP_TEST,
 };
 // }}}
 
@@ -165,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            KC_NO,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           TG(_TM),           TD(X_TAP_DANCE),          _______,            KC_NO,
+ /*---*/             /*---*/             KC_ESC,           TG(_TM),           TD(X_TAP_DANCE),          TD(X_TAP_TEST),            KC_NO,
  //
  _______,            _______,                              //
  _______,                                                  // thumb      eys
@@ -666,6 +706,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [DQ_T] = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
   [Q_BT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
   [X_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
+  [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbb_finished, th_pbb_reset),
 };
 
 
