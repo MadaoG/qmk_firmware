@@ -171,6 +171,15 @@ enum {
   td_pbbl,
   td_pbbr,
   td_elg,
+  td_uag,
+  td_bq,
+  td_bsp,
+  td_sh,
+  td_dat,
+  td_pa,
+  td_pm,
+  td_dq,
+  td_sq,
 };
 // }}}
 
