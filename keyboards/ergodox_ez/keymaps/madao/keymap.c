@@ -19,6 +19,8 @@
 #define   _TM   9    // tmux layer
 #define   _D    10   // empty (dumb) layer, may be useful as first reference
 
+#define   _NSM  11
+
 #define   _BS   _EN  // setting the base layer
 
 #define _______ KC_TRNS
@@ -84,30 +86,43 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
-void th_pbb_finished (qk_tap_dance_state_t *state, void *user_data) {
+void th_pbbl_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
     case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_8); break;
-    case SINGLE_HOLD: register_code(KC_LSFT); register_code(KC_9); break;
     case DOUBLE_TAP:  register_code(KC_RALT); register_code(KC_8); break;
-    case DOUBLE_HOLD: register_code(KC_RALT); register_code(KC_9); break;
-    case TRIPLE_TAP:  register_code(KC_RALT); register_code(KC_7); break;
-    case TRIPLE_HOLD: register_code(KC_RALT); register_code(KC_0); break;
+    case SINGLE_HOLD:  register_code(KC_RALT); register_code(KC_7); break;
   }
 }
 
-void th_pbb_reset (qk_tap_dance_state_t *state, void *user_data) {
+void th_pbbl_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
     case SINGLE_TAP:  unregister_code(KC_8); unregister_code(KC_LSFT); break;
-    case SINGLE_HOLD: unregister_code(KC_9); unregister_code(KC_LSFT); break;
     case DOUBLE_TAP:  unregister_code(KC_8); unregister_code(KC_RALT); break;
-    case DOUBLE_HOLD: unregister_code(KC_9); unregister_code(KC_RALT); break;
-    case TRIPLE_TAP:  unregister_code(KC_7); unregister_code(KC_RALT); break;
-    case TRIPLE_HOLD: unregister_code(KC_0); unregister_code(KC_RALT); break;
+    case SINGLE_HOLD:  unregister_code(KC_7); unregister_code(KC_RALT); break;
   }
   xtap_state.state = 0;
 }
 
+void th_pbbr_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_9); break;
+    case DOUBLE_TAP:  register_code(KC_RALT); register_code(KC_9); break;
+    case SINGLE_HOLD:  register_code(KC_RALT); register_code(KC_0); break;
+  }
+}
+
+void th_pbbr_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_9); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(KC_9); unregister_code(KC_RALT); break;
+    case SINGLE_HOLD:  unregister_code(KC_0); unregister_code(KC_RALT); break;
+  }
+  xtap_state.state = 0;
+}
+
+// >  and  <
 void th_lg_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
@@ -126,6 +141,25 @@ void th_lg_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+//
+// void th_lg_finished (qk_tap_dance_state_t *state, void *user_data) {
+//   xtap_state.state = cur_dance(state);
+//   switch (xtap_state.state) {
+//     case SINGLE_TAP:  register_code(DE_LESS); break;
+//     case SINGLE_HOLD: register_code(KC_LSFT); register_code(DE_LESS); break;
+//     case DOUBLE_TAP:  register_code(KC_LSFT); register_code(DE_LESS); break;
+//   }
+// }
+
+// void th_lg_reset (qk_tap_dance_state_t *state, void *user_data) {
+//   switch (xtap_state.state) {
+//     case SINGLE_TAP:  unregister_code(DE_LESS); break;
+//     case SINGLE_HOLD: unregister_code(KC_LSFT); unregister_code(DE_LESS); break;
+//     case DOUBLE_TAP:  unregister_code(KC_LSFT); unregister_code(DE_LESS); break;
+//   }
+//   xtap_state.state = 0;
+// }
+
 enum {
   // CT_CLN = SAFE_RANGE,
   CT_CLN,
@@ -133,6 +167,9 @@ enum {
   DQ_T,
   X_TAP_DANCE,
   X_TAP_TEST,
+
+  td_pbbl,
+  td_pbbr,
 };
 // }}}
 
@@ -208,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            KC_NO,
  /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           TG(_TM),           TD(X_TAP_DANCE),          TD(X_TAP_TEST),            KC_NO,
+ /*---*/             /*---*/             KC_ESC,           TG(_NSM),           TD(X_TAP_DANCE),          TD(X_TAP_TEST),            KC_NO,
  //
  _______,            _______,                              //
  _______,                                                  // thumb      eys
@@ -246,8 +283,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          '-----------------------'     '-----------------------'
  */
 
-[_SM] = KEYMAP(
+[_NSM] = KEYMAP(
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      DE_UNDS,      DE_LBRC,      DE_RBRC,      M(1),      _______,
+ _______,      DE_BSLS,      DE_SLSH,      DE_LCBR,      DE_RCBR,      DE_ASTR,
+ _______,      DE_HASH,      DE_DLR,       DE_PIPE,      DE_TILD,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,
+ _______,      _______,
+ _______,
+ _______,      _______,      _______,
 
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      DE_EXLM,      DE_LESS,      DE_MORE,      DE_EQL,       DE_AMPR,      _______,
+ /*---*/       DE_QST,       TD(td_pbbl),  TD(td_pbbr),  DE_MINS,      DE_AT,        _______,
+ _______,      DE_PLUS,      DE_PERC,      TD(DQ_T),     TD(Q_BT),     DE_SCLN,      _______,
+ /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
+ _______,      _______,
+ _______,
+ _______,      _______,      _______
+),
+
+[_SM] = KEYMAP(
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      DE_UNDS,      DE_LBRC,      DE_RBRC,      M(1),      _______,
  _______,      DE_BSLS,      DE_SLSH,      DE_LCBR,      DE_RCBR,      DE_ASTR,
@@ -711,6 +767,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [X_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
   // [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbb_finished, th_pbb_reset),
   [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_lg_finished, th_lg_reset),
+  [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
+  [td_pbbr] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbr_finished, th_pbbr_reset),
 };
 
 
