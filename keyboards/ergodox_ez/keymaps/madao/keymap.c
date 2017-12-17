@@ -512,11 +512,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 //  }}}
 
-// led functions {{{
-// }}}
-
-// }}}
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */ 
