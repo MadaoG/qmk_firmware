@@ -463,9 +463,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,      _______,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      TD(td_bq),      TD(td_elg),      TD(td_uag),      TD(td_bsp),       DE_AMPR,      _______,
- /*---*/       TD(td_sh),       TD(td_pbbl),  TD(td_pbbr),  TD(td_dat),      DE_AT,        _______,
- _______,      TD(td_pa),      TD(td_pm),      TD(td_dq),     TD(td_sq),     DE_SCLN,      _______,
+ _______,      k_bq,         k_elg,        k_uag,        k_bsp,        _______,      _______,
+ /*---*/       k_sh,         k_pbbl,       k_pbbr,       k_dat,        _______,      _______,
+ _______,      k_pa,         k_pm,         k_dq,         k_sq,         _______,      _______,
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,
  _______,
