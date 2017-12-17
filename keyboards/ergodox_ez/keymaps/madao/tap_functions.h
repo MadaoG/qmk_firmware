@@ -276,6 +276,73 @@ void th_sq_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+// german ue
+void th_ge_ue_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(DE_U); break;
+    case DOUBLE_TAP:  register_code(DE_UE); break;
+  }
+}
+
+void th_ge_ue_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(DE_U); break;
+    case DOUBLE_TAP:  unregister_code(DE_UE); break;
+  }
+  xtap_state.state = 0;
+}
+
+// german ae
+void th_ge_ae_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(DE_A); break;
+    case DOUBLE_TAP:  register_code(DE_AE); break;
+  }
+}
+
+void th_ge_ae_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(DE_A); break;
+    case DOUBLE_TAP:  unregister_code(DE_AE); break;
+  }
+  xtap_state.state = 0;
+}
+
+// german oe
+void th_ge_oe_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(DE_O); break;
+    case DOUBLE_TAP:  register_code(DE_OE); break;
+  }
+}
+
+void th_ge_oe_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(DE_O); break;
+    case DOUBLE_TAP:  unregister_code(DE_OE); break;
+  }
+  xtap_state.state = 0;
+}
+
+// german ss
+void th_ge_ss_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(DE_S); break;
+    case DOUBLE_TAP:  register_code(DE_SS); break;
+  }
+}
+
+void th_ge_ss_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(DE_S); break;
+    case DOUBLE_TAP:  unregister_code(DE_SS); break;
+  }
+  xtap_state.state = 0;
+}
 
 #define k_bq TD(td_bq)
 #define k_elg TD(td_elg)
