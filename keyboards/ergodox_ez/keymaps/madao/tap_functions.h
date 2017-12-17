@@ -276,3 +276,16 @@ void th_sq_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+
+#define k_bq TD(td_bq)
+#define k_elg TD(td_elg)
+#define k_uag TD(td_uag)
+#define k_bsp TD(td_bsp)
+#define k_sh TD(td_sh)
+#define k_pbbl TD(td_pbbl)
+#define k_pbbr TD(td_pbbr)
+#define k_dat TD(td_dat)
+#define k_pa TD(td_pa)
+#define k_pm TD(td_pm)
+#define k_dq TD(td_dq)
+#define k_sq TD(td_sq)
