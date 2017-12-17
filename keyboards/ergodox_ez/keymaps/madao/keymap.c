@@ -73,8 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |   osm   |   x   |   y   |   q   |   p   |   z   |       |           |       |   b   |   m   |   ,   |   .   |   j   |   osm   |
     |  l_sft  |       |  alt  | shift |  ctrl |       |       |           |       |       |  ctrl | shift |  alt  |       |  r_sft  |
     '---------|-------|-------|-------|-------|---------------'           '---------------|-------|-------|-------|-------|---------'
-      |       | super |   up  |       |   :;  |                                           |  esc  |       |       |       |       |
-      |       |       |       |  _fn  |       |                                           |       |       |       |       |       |
+      |       | super |       |       |   :;  |                                           |  esc  |       |       |       |       |
+      |       |       |       |       |       |                                           |       |       |       |       |       |
       '---------------------------------------'                                           '---------------------------------------'
                                                  .---------------.     .---------------.
                                                  |       | vol   |     | r_sft | lock  |
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
  _______,            k_ue,               DE_I,             k_ae,              LT(_NM,DE_E),     k_oe,               /*---*/
  _______,            DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
- _______,            KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
+ _______,            KC_LGUI,            _______,          _______,           TD(CT_CLN),       /*---*/             /*---*/
  //
  TO(_EN),            KC_VOLU,                              //
  KC_VOLD,                                                  // thumb      eys
