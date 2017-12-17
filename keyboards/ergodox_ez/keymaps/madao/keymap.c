@@ -17,8 +17,7 @@
 #define   _FN   6    // fn keys
 #define   _GM   7    // gaming layer
 #define   _MS   8    // mouse layer
-#define   _TM   9    // tmux layer
-#define   _D    10   // empty (dumb) layer, may be useful as first reference
+#define   _D    9    // empty (dumb) layer, may be useful as first reference
 
 
 #define   _BS   _EN  // setting the base layer
@@ -104,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            _______,
  /*---*/             k_ss,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            _______,
+ /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
  //
  _______,            _______,                              //
  _______,                                                  // thumb      eys
