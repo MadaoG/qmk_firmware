@@ -10,16 +10,16 @@
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
 #define   _SM   2    // symbol layer
-#define   _MV   3    // movement layer
-#define   _NM   4    // digit layer
-#define   _NS   5    // symbols for digit layer
-#define   _FN   6    // fn keys
-#define   _GM   7    // gaming layer
-#define   _MS   8    // mouse layer
-#define   _TM   9    // tmux layer
-#define   _D    10   // empty (dumb) layer, may be useful as first reference
+#define   _NSM  3
+#define   _MV   4    // movement layer
+#define   _NM   5    // digit layer
+#define   _NS   6    // symbols for digit layer
+#define   _FN   7    // fn keys
+#define   _GM   8    // gaming layer
+#define   _MS   9    // mouse layer
+#define   _TM   10    // tmux layer
+#define   _D    11   // empty (dumb) layer, may be useful as first reference
 
-#define   _NSM  11
 
 #define   _BS   _EN  // setting the base layer
 
@@ -141,24 +141,170 @@ void th_elg_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
-//
-// void th_lg_finished (qk_tap_dance_state_t *state, void *user_data) {
-//   xtap_state.state = cur_dance(state);
-//   switch (xtap_state.state) {
-//     case SINGLE_TAP:  register_code(DE_LESS); break;
-//     case SINGLE_HOLD: register_code(KC_LSFT); register_code(DE_LESS); break;
-//     case DOUBLE_TAP:  register_code(KC_LSFT); register_code(DE_LESS); break;
-//   }
-// }
+// _, 
+void th_uag_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(DE_MINS); break;
+    case DOUBLE_TAP:  register_code(DE_ACUT); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); register_code(DE_ACUT); break;
+  }
+}
 
-// void th_lg_reset (qk_tap_dance_state_t *state, void *user_data) {
-//   switch (xtap_state.state) {
-//     case SINGLE_TAP:  unregister_code(DE_LESS); break;
-//     case SINGLE_HOLD: unregister_code(KC_LSFT); unregister_code(DE_LESS); break;
-//     case DOUBLE_TAP:  unregister_code(KC_LSFT); unregister_code(DE_LESS); break;
-//   }
-//   xtap_state.state = 0;
-// }
+void th_uag_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(DE_MINS); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(DE_ACUT); break;
+    case SINGLE_HOLD: unregister_code(DE_ACUT); unregister_code(KC_LSFT); break;
+  }
+  xtap_state.state = 0;
+}
+
+// bang and questionmark
+void th_bq_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_1); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); register_code(KC_MINS); break;
+    case DOUBLE_TAP:  register_code(KC_LSFT); register_code(KC_MINS); break;
+  }
+}
+
+void th_bq_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_1); unregister_code(KC_LSFT); break;
+    case SINGLE_HOLD: unregister_code(KC_MINS); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(KC_MINS); unregister_code(KC_LSFT); break;
+  }
+  xtap_state.state = 0;
+}
+
+// backslash, slash and pipe
+void th_bsp_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_RALT); register_code(KC_MINS); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); register_code(KC_7); break;
+    case DOUBLE_TAP:  register_code(KC_RALT); register_code(KC_NUBS); break;
+  }
+}
+
+void th_bsp_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_MINS); unregister_code(KC_RALT); break;
+    case SINGLE_HOLD: unregister_code(KC_7); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(KC_NUBS); unregister_code(KC_RALT); break;
+  }
+  xtap_state.state = 0;
+}
+
+// star and hat
+void th_sh_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_RBRC); break;
+    case SINGLE_HOLD: register_code(KC_GRAVE); break;
+    case DOUBLE_TAP:  register_code(KC_GRAVE); break;
+  }
+}
+
+void th_sh_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_RBRC); unregister_code(KC_LSFT); break;
+    case SINGLE_HOLD: unregister_code(KC_GRAVE); register_code(KC_GRAVE); unregister_code(KC_GRAVE); break;
+    case DOUBLE_TAP: unregister_code(KC_GRAVE); register_code(KC_GRAVE); unregister_code(KC_GRAVE); break;
+  }
+  xtap_state.state = 0;
+}
+
+// dollar, at and tilde
+void th_dat_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_4); break;
+    case DOUBLE_TAP:  register_code(KC_RALT); register_code(KC_RBRC); break;
+    case SINGLE_HOLD: register_code(KC_RALT); register_code(KC_Q); break;
+  }
+}
+
+void th_dat_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_4); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(KC_RBRC); unregister_code(KC_RALT); break;
+    case SINGLE_HOLD: unregister_code(KC_Q); unregister_code(KC_RALT); break;
+  }
+  xtap_state.state = 0;
+}
+
+// percent and 'and'
+void th_pa_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_5); break;
+    case DOUBLE_TAP:  register_code(KC_LSFT); register_code(KC_6); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); register_code(KC_6); break;
+  }
+}
+
+void th_pa_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_5); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(KC_6); unregister_code(KC_LSFT); break;
+    case SINGLE_HOLD: unregister_code(KC_6); unregister_code(KC_LSFT); break;
+  }
+  xtap_state.state = 0;
+}
+
+// plus and minus
+void th_pm_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_RBRC); break;
+    case DOUBLE_TAP:  register_code(KC_SLSH); break;
+    case SINGLE_HOLD: register_code(KC_SLSH); break;
+  }
+}
+
+void th_pm_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_RBRC); break;
+    case DOUBLE_TAP:  unregister_code(KC_SLSH); break;
+    case SINGLE_HOLD: unregister_code(KC_SLSH); break;
+  }
+  xtap_state.state = 0;
+}
+
+// double quote
+void th_dq_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_2); break;
+  }
+}
+
+// single quote
+void th_dq_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_2); unregister_code(KC_LSFT); break;
+  }
+  xtap_state.state = 0;
+}
+
+void th_sq_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_BSLS); break;
+  }
+}
+
+void th_sq_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_BSLS); unregister_code(KC_LSFT); break;
+  }
+  xtap_state.state = 0;
+}
+
+
 
 enum {
   // CT_CLN = SAFE_RANGE,
@@ -304,9 +450,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,      _______,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      DE_EXLM,      TD(td_elg),      DE_MORE,      DE_EQL,       DE_AMPR,      _______,
- /*---*/       DE_QST,       TD(td_pbbl),  TD(td_pbbr),  DE_MINS,      DE_AT,        _______,
- _______,      DE_PLUS,      DE_PERC,      TD(DQ_T),     TD(Q_BT),     DE_SCLN,      _______,
+ _______,      TD(td_bq),      TD(td_elg),      TD(td_uag),      TD(td_bsp),       DE_AMPR,      _______,
+ /*---*/       TD(td_sh),       TD(td_pbbl),  TD(td_pbbr),  TD(td_dat),      DE_AT,        _______,
+ _______,      TD(td_pa),      TD(td_pm),      TD(td_dq),     TD(td_sq),     DE_SCLN,      _______,
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,
  _______,
@@ -771,14 +917,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
-  [DQ_T] = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
-  [Q_BT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
-  [X_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
-  // [X_TAP_TEST] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbb_finished, th_pbb_reset),
-  [td_elg] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished, th_elg_reset),
+  [CT_CLN]  = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
+  [DQ_T]    = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
+  [Q_BT]    = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
+
+  [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
   [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
   [td_pbbr] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbr_finished, th_pbbr_reset),
+  [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
+  [td_uag]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_uag_finished,  th_uag_reset),
+  [td_bq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_bq_finished,   th_bq_reset),
+  [td_bsp]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_bsp_finished,  th_bsp_reset),
+  [td_sh]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_sh_finished,   th_sh_reset),
+  [td_dat]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dat_finished,  th_dat_reset),
+  [td_pa]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pa_finished,   th_pa_reset),
+  [td_pm]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pm_finished,   th_pm_reset),
+  [td_dq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dq_finished,   th_dq_reset),
+  [td_sq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_sq_finished,   th_sq_reset),
 };
 
 
