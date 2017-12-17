@@ -346,6 +346,23 @@ void th_ge_ss_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+// times, over
+void th_to_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  register_code(KC_LSFT); register_code(KC_RBRC); break;
+    case DOUBLE_TAP:  register_code(KC_LSFT); register_code(KC_7); break;
+  }
+}
+
+void th_to_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:  unregister_code(KC_RBRC); unregister_code(KC_LSFT); break;
+    case DOUBLE_TAP:  unregister_code(KC_7); unregister_code(KC_LSFT); break;
+  }
+  xtap_state.state = 0;
+}
+
 #define k_bq TD(td_bq)
 #define k_elg TD(td_elg)
 #define k_uag TD(td_uag)
@@ -363,3 +380,6 @@ void th_ge_ss_reset (qk_tap_dance_state_t *state, void *user_data) {
 #define k_oe TD(td_ge_oe)
 #define k_ue TD(td_ge_ue)
 #define k_ss TD(td_ge_ss)
+
+#define k_dc TD(td_dc)
+#define k_to TD(td_to)

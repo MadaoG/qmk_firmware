@@ -23,6 +23,7 @@
 
 #define _______ KC_TRNS
 #define mv_win MT(MOD_LCTL | MOD_LGUI, KC_ESC)
+#define HAT M(1)
 
 uint8_t last_layer = _BS; // check if layer was changed
 
@@ -46,11 +47,14 @@ enum {
   td_pm,
   td_dq,
   td_sq,
+  td_dc,
 
   td_ge_ue,
   td_ge_ae,
   td_ge_oe,
   td_ge_ss,
+
+  td_to,
 };
 // }}}
 
@@ -258,19 +262,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* {{{ LAYER: NUMBERS
      .---------.-------.-------.-------.-------.-------.-------.          .---------------------------------------------------------.
-     |         |       |       |       |       |       |       |          |       |       |   (   |   *   |   )   |       |         |
+     |         |       |       |       |       |       |       |          |       |       |       |       |       |       |         |
      |         |       |       |       |       |       |       |          |       |       |       |       |       |       |         |
      |---------|-------|-------|-------|-------|-------|-------|          |-------|-------|-------|-------|-------|-------|---------|
-     |         |       |       |       |       |       |       |          |       |   +   |   7   |   8   |   9   |   -   |         |
+     |         |       |       |       |       |       |       |          |       |   ^   |   7   |   8   |   9   |       |         |
      |         |       |       |       |       |       |       |          |       |       |       |       |       |       |         |
      |---------|-------|-------|-------|-------|-------|       |          |       |-------|-------|-------|-------|-------|---------|
      |         |       |       |       |       |       |_______|          |_______|   .   |   4   |   5   |   6   |   :   |         |
-     |         |       |       |       |       |       |       |          |       |       |       |       |       |       |         |
+     |         |       |       |       |       |       |       |          |       |   ,   |       |       |       |       |         |
      |---------|-------|-------|-------|-------|-------|       |          |       |-------|-------|-------|-------|-------|---------|
-     |         |       |       |       |       |       |       |          |       |   ,   |   1   |   2   |   3   |   /   |         |
-     |         |       |       |       |       |       |       |          |       |       |       |       |       |       |         |
+     |         |       |       |       |       |       |       |          |       |   +   |   1   |   2   |   3   |   *   |         |
+     |         |       |       |       |       |       |       |          |       |   -   |       |       |       |   /   |         |
      '---------|-------|-------|-------|-------|---------------'          '---------------|-------|-------|-------|-------|---------'
-       |       |       |       |       |       |                                          |   [   |       |   ]   |       |       |
+       |       |       |       |       |       |                                          |   0   |       |       |       |       |
        |       |       |       |       |       |                                          |       |       |       |       |       |
        '-------'-------'-------'-------'-------'                                          '---------------------------------------'
                                                  .-------.-------.     .-------.-------.
@@ -279,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          .-------|-------|-------|     |-------|-------|-------.
                                          |       |       |       |     |       |       |       |
                                          |       |       |       |     |       |       |       |
-                                         |       |       |-------|     |-------|       |   0   |
+                                         |       |       |-------|     |-------|       |       |
                                          |       |       |       |     |       |       |       |
                                          |       |       |       |     |       |       |       |
                                          '-----------------------'     '-----------------------'
@@ -296,14 +300,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,                                       // thumb keys
  _______,      _______,      _______,           //
 
- _______,      _______,      DE_LPRN,      DE_ASTR,      DE_RPRN,      _______,      _______,
- _______,      DE_PLUS,      DE_7,         DE_8,         DE_9,         DE_MINS,      _______,
- /*---*/       DE_DOT,       DE_4,         DE_5,         DE_6,         DE_COLN,      _______,
- _______,      DE_COMM,      DE_1,         DE_2,         DE_3,         DE_SLSH,      _______,
- /*---*/       /*---*/       DE_LBRC,      _______,      DE_RBRC,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      HAT,          DE_7,         DE_8,         DE_9,         _______,      _______,
+ /*---*/       k_dc,         DE_4,         DE_5,         DE_6,         DE_COLN,      _______,
+ _______,      k_pm,         DE_1,         DE_2,         DE_3,         k_to,         _______,
+ /*---*/       /*---*/       DE_0,         _______,      _______,      _______,      _______,
  _______,      _______,                         //
  _______,                                       // thumb keys
- _______,      KC_SPACE,     DE_0               //
+ _______,      _______,      _______            //
 ),
 // }}}
 
@@ -477,6 +481,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_CLN]  = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
   [DQ_T]    = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
   [Q_BT]    = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
+  [td_dc]   = ACTION_TAP_DANCE_DOUBLE(DE_DOT, DE_COMM),
 
   [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
   [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
@@ -496,6 +501,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [td_ge_oe]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_oe_finished, th_ge_oe_reset),
   [td_ge_ue]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ue_finished, th_ge_ue_reset),
   [td_ge_ss]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ss_finished, th_ge_ss_reset),
+
+  [td_to]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_to_finished,   th_to_reset),
 };
 
 
