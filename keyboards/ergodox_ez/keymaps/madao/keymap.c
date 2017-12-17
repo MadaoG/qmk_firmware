@@ -7,7 +7,6 @@
 #include "gauss.h" // defines t
 #include "tap_functions.h"
 
-// #define   _BS   0    // base layer
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
 #define   _SM   2    // symbol layer
@@ -17,7 +16,6 @@
 #define   _FN   6    // fn keys
 #define   _GM   7    // gaming layer
 #define   _MS   8    // mouse layer
-
 
 #define   _BS   _EN  // setting the base layer
 
