@@ -5,30 +5,56 @@
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
 #include "gauss.h" // defines t
+#include "tap_functions.h"
 
 // #define   _BS   0    // base layer
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
 #define   _SM   2    // symbol layer
-#define   _MV   3    // movement layer
-#define   _NM   4    // digit layer
-#define   _NS   5    // symbols for digit layer
-#define   _FN   6    // fn keys
-#define   _GM   7    // gaming layer
-#define   _MS   8    // mouse layer
-#define   _D    9   // empty (dumb) layer, may be useful as first reference
+#define   _NSM  3
+#define   _MV   4    // movement layer
+#define   _NM   5    // digit layer
+#define   _NS   6    // symbols for digit layer
+#define   _FN   7    // fn keys
+#define   _GM   8    // gaming layer
+#define   _MS   9    // mouse layer
+#define   _TM   10    // tmux layer
+#define   _D    11   // empty (dumb) layer, may be useful as first reference
+
 
 #define   _BS   _EN  // setting the base layer
 
 #define _______ KC_TRNS
 
 uint8_t last_layer = _BS; // check if layer was changed
+ 
+
 
 enum {
   // CT_CLN = SAFE_RANGE,
   CT_CLN,
   Q_BT,
   DQ_T,
+  X_TAP_DANCE,
+  X_TAP_TEST,
+
+  td_pbbl,
+  td_pbbr,
+  td_elg,
+  td_uag,
+  td_bq,
+  td_bsp,
+  td_sh,
+  td_dat,
+  td_pa,
+  td_pm,
+  td_dq,
+  td_sq,
+
+  td_ge_ue,
+  td_ge_ae,
+  td_ge_oe,
+  td_ge_ss,
 };
 // }}}
 
@@ -65,10 +91,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GE] = KEYMAP(
 
- _______,            DE_1,               DE_2,             DE_3,              DE_4,             DE_5,               DE_ACUT,
- TG(_MS),            DE_X,               DE_V,             DE_L,              DE_C,             DE_W,               DE_COLN,
- _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
- _______,            DE_UE,              ALT_T(DE_OE),     SFT_T(DE_AE),      CTL_T(DE_P),      DE_Z,               DE_UNDS,
+ _______,            _______,            _______,          _______,           _______,          _______,            _______,
+ TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
+ _______,            k_ue,               DE_I,             k_ae,              LT(_NM,DE_E),     k_oe,               /*---*/
+ _______,            DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
  TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
  //
  TO(_EN),            KC_VOLU,                              //
@@ -76,11 +102,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
- DE_GRV,             DE_6,               DE_7,             DE_8,              DE_9,             DE_0,               TG(_GM),
- DE_AT,              DE_K,               DE_H,             DE_G,              DE_F,             DE_Q,               DE_SS,
- /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               LT(_SM, DE_Y),
- DE_BSLS,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            KC_NO,
+ _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
+ _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            _______,
+ /*---*/             k_ss,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
+ _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
+ /*---*/             /*---*/             KC_ESC,           TG(_TM),           _______,          _______,            _______,
  //
  _______,            _______,                              //
  _______,                                                  // thumb      eys
@@ -91,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,            _______,            _______,          _______,           _______,          _______,            _______,
  TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
- _______,            DE_U,               DE_I,             LT(_SM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
+ _______,            DE_U,               DE_I,             LT(_NSM,DE_A),      LT(_NM,DE_E),     DE_O,               /*---*/
  OSM(MOD_LSFT),      DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
  TG(_D),             KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
  //
@@ -102,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            KC_NO,
- /*---*/             DE_S,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
+ /*---*/             DE_S,               LT(_MV,DE_N),     LT(_NSM,DE_R),      DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
  /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            KC_NO,
  //
@@ -142,8 +168,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          '-----------------------'     '-----------------------'
  */
 
-[_SM] = KEYMAP(
+[_NSM] = KEYMAP(
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      DE_LCBR,      DE_RCBR,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,
+ _______,      _______,
+ _______,
+ _______,      _______,      _______,
 
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      k_bq,         k_elg,        k_uag,        k_bsp,        _______,      _______,
+ /*---*/       k_sh,         k_pbbl,       k_pbbr,       k_dat,        _______,      _______,
+ _______,      k_pa,         k_pm,         k_dq,         k_sq,         _______,      _______,
+ /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
+ _______,      _______,
+ _______,
+ _______,      _______,      _______
+),
+
+[_SM] = KEYMAP(
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      DE_UNDS,      DE_LBRC,      DE_RBRC,      M(1),      _______,
  _______,      DE_BSLS,      DE_SLSH,      DE_LCBR,      DE_RCBR,      DE_ASTR,
@@ -538,9 +583,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN] = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
-  [DQ_T] = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
-  [Q_BT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
+  [CT_CLN]  = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
+  [DQ_T]    = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
+  [Q_BT]    = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
+
+  [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
+  [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
+  [td_pbbr] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbr_finished, th_pbbr_reset),
+  [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
+  [td_uag]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_uag_finished,  th_uag_reset),
+  [td_bq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_bq_finished,   th_bq_reset),
+  [td_bsp]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_bsp_finished,  th_bsp_reset),
+  [td_sh]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_sh_finished,   th_sh_reset),
+  [td_dat]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dat_finished,  th_dat_reset),
+  [td_pa]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pa_finished,   th_pa_reset),
+  [td_pm]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pm_finished,   th_pm_reset),
+  [td_dq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dq_finished,   th_dq_reset),
+  [td_sq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_sq_finished,   th_sq_reset),
+
+  [td_ge_ae]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ae_finished, th_ge_ae_reset),
+  [td_ge_oe]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_oe_finished, th_ge_oe_reset),
+  [td_ge_ue]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ue_finished, th_ge_ue_reset),
+  [td_ge_ss]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ss_finished, th_ge_ss_reset),
 };
 
 
