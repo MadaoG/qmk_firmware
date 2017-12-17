@@ -254,7 +254,6 @@ void th_dq_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// single quote
 void th_dq_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
     case SINGLE_TAP:  unregister_code(KC_2); unregister_code(KC_LSFT); break;
@@ -262,6 +261,7 @@ void th_dq_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+// single quote
 void th_sq_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
