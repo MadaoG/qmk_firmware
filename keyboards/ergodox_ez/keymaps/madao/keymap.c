@@ -23,6 +23,19 @@
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define HAT M(1)
 
+#define ALT_Y ALT_T(DE_Y)
+#define SFT_Q SFT_T(DE_Q)
+#define CTL_P CTL_T(DE_P)
+#define ALT_DT ALT_T(DE_DOT)
+#define SFT_CM SFT_T(DE_COMM)
+#define CTL_M CTL_T(DE_M)
+#define OS_SFTL OSM(MOD_LSFT)
+#define OS_SFTR OSM(MOD_RSFT)
+
+#define L_SM(kc) LT(_NSM, (kc))
+#define L_MV(kc) LT(_MV, (kc))
+#define L_NM(kc) LT(_NM, (kc))
+
 uint8_t last_layer = _BS; // check if layer was changed
 
 enum {
@@ -115,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,            _______,            _______,          _______,           _______,          _______,            _______,
  TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
- _______,            DE_U,               DE_I,             LT(_NSM,DE_A),     LT(_NM,DE_E),     DE_O,               /*---*/
- OSM(MOD_LSFT),      DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
+ _______,            DE_U,               DE_I,             L_SM(DE_A),        L_NM(DE_E),       DE_O,               /*---*/
+ OS_SFTL,            DE_X,               ALT_Y,            SFT_Q,             CTL_P,            DE_Z,               _______,
  _______,            KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
  //
  TO(_GE),            KC_VOLU,                              //
@@ -126,8 +139,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            KC_NO,
- /*---*/             DE_S,               LT(_MV,DE_N),     LT(_NSM,DE_R),     DE_T,             DE_D,               _______,
- _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
+ /*---*/             DE_S,               L_MV(DE_N),       L_SM(DE_R),        DE_T,             DE_D,               _______,
+ _______,            DE_B,               CTL_M,            SFT_CM,            ALT_DT,           DE_J,               OS_SFTR,
  /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            KC_NO,
  //
  _______,            _______,                              //
