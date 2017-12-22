@@ -20,7 +20,7 @@
 #define   _BS   _EN  // setting the base layer
 
 #define _______ KC_TRNS
-#define mv_win MT(MOD_LCTL | MOD_LGUI, KC_ESC)
+#define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define HAT M(1)
 
 uint8_t last_layer = _BS; // check if layer was changed
@@ -249,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*---*/       _______,      _______,      mv_win,       _______,      _______,      _______,
+ /*---*/       _______,      _______,      MV_WIN,       _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
