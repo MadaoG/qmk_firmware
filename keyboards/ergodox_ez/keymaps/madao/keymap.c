@@ -601,7 +601,6 @@ void matrix_init_user(void) {
 
 };
 
-LEADER_EXTERNS();
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
