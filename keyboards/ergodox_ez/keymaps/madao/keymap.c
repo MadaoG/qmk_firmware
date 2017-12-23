@@ -257,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
  _______,      k_bq,          DE_DQOT,       DE_QUOT,       DE_AMPR,       _______,       _______,
- /*---*/       DE_ASTR,       DE_UNDS,       DE_PLUS,       DE_MINS,       DE_SLSH,         _______,
+ /*---*/       DE_ASTR,       DE_UNDS,       DE_PLUS,       DE_MINS,       DE_SLSH,       _______,
  _______,      DE_PERC,       DE_EQL,        DE_COMM,       DE_DOT,        k_tbt,         _______,
  /*---*/       /*---*/        _______,       _______,       _______,       _______,       _______,
  _______,      _______,      
