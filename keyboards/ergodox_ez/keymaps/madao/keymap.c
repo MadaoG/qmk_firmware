@@ -98,29 +98,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          |       |       |  mute |     |       |       |       |
                                          '-----------------------'     '-----------------------'
  */
-[_GE] = KEYMAP(
-
- _______,            _______,            _______,          _______,           _______,          _______,            _______,
- TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
- _______,            k_ue,               DE_I,             k_ae,              LT(_NM,DE_E),     k_oe,               /*---*/
- _______,            DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
- _______,            KC_LGUI,            _______,          _______,           TD(CT_CLN),       /*---*/             /*---*/
- //
- TO(_EN),            KC_VOLU,                              //
- KC_VOLD,                                                  // thumb      eys
- KC_TAB,             KC_BSPC,            KC_MUTE,          //
- //
- //
- _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
- _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            _______,
- /*---*/             k_ss,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
- _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
- /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
- //
- _______,            _______,                              //
- _______,                                                  // thumb      eys
- KC_DEL,             KC_ENTER,           KC_SPACE          //
-),
 
 [_EN] = KEYMAP(
 
@@ -146,6 +123,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
 
+[_GE] = KEYMAP(
+
+ _______,            _______,            _______,          _______,           _______,          _______,            _______,
+ TG(_MS),            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
+ _______,            k_ue,               DE_I,             k_ae,              LT(_NM,DE_E),     k_oe,               /*---*/
+ _______,            DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
+ _______,            KC_LGUI,            _______,          _______,           TD(CT_CLN),       /*---*/             /*---*/
+ //
+ TO(_EN),            KC_VOLU,                              //
+ KC_VOLD,                                                  // thumb      eys
+ KC_TAB,             KC_BSPC,            KC_MUTE,          //
+ //
+ //
+ _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
+ _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            _______,
+ /*---*/             k_ss,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
+ _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
+ /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
+ //
+ _______,            _______,                              //
+ _______,                                                  // thumb      eys
+ KC_DEL,             KC_ENTER,           KC_SPACE          //
+),
 
 /* 
     .---------------------------------------------------------.           .---------------------------------------------------------.
