@@ -127,8 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,            _______,            _______,          _______,           _______,          _______,            _______,
  _______,            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
- _______,            k_ue,               DE_I,             k_ae,              LT(_NM,DE_E),     k_oe,               /*---*/
- _______,            DE_X,               ALT_T(DE_Y),      SFT_T(DE_Q),       CTL_T(DE_P),      DE_Z,               _______,
+ _______,            k_ue,               DE_I,             k_ae,              L_NM(DE_E),       k_oe,               /*---*/
+ OS_SFTL,            DE_X,               ALT_Y,            SFT_Q,             CTL_P,            DE_Z,               _______,
  _______,            KC_LGUI,            _______,          _______,           TD(CT_CLN),       /*---*/             /*---*/
  //
  TO(_EN),            KC_VOLU,                              //
@@ -138,8 +138,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //
  _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            TG(_MS),
- /*---*/             k_ss,               LT(_MV,DE_N),     LT(_SM,DE_R),      DE_T,             DE_D,               _______,
- _______,            DE_B,               CTL_T(DE_M),      SFT_T(DE_COMM),    ALT_T(DE_DOT),    DE_J,               OSM(MOD_RSFT),
+ /*---*/             k_ss,               L_MV(DE_N),       L_SM(DE_R),        DE_T,             DE_D,               _______,
+ _______,            DE_B,               CTL_M,            SFT_CM,            ALT_DT,           DE_J,               OS_SFTR,
  /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
  //
  _______,            _______,                              //
