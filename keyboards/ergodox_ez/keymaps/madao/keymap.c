@@ -17,7 +17,6 @@
 
 #define   _BS   _EN  // setting the base layer
 
-#define _______ KC_TRNS
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define HAT M(1)
 
