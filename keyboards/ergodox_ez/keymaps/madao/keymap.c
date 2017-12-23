@@ -66,6 +66,9 @@ enum {
   td_ge_ss,
 
   td_to,
+
+  td_tbt,
+  td_dt,
 };
 // }}}
 
@@ -252,16 +255,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______, _______, _______, _______, _______, _______,
  _______, _______, DE_HASH, DE_LBRC, DE_RBRC, DE_AT,   _______,
  _______, DE_LESS, DE_MORE, DE_LCBR, DE_RCBR, HAT,
- _______, DE_PIPE, DE_BSLS, DE_LPRN, DE_RPRN, _______, _______,
+ _______, DE_PIPE, DE_BSLS, DE_LPRN, DE_RPRN, k_dt,    _______,
  _______, _______, _______, _______, _______,
  _______, _______,
  _______,
  _______,      _______,      _______,
 
  _______, _______, _______, _______, _______, _______, _______,
- _______, DE_EXLM, DE_DQOT, DE_QUOT, DE_AMPR, _______, _______,
+ _______, k_bq,    DE_DQOT, DE_QUOT, DE_AMPR, _______, _______,
  /*---*/  DE_ASTR, DE_UNDS, DE_PLUS, DE_MINS, DE_SLSH,   _______,
- _______, DE_PERC, DE_EQL,  DE_COMM, DE_DOT,  _______, _______,
+ _______, DE_PERC, DE_EQL,  DE_COMM, DE_DOT,  k_tbt,   _______,
  /*---*/  /*---*/  _______, _______, _______, _______, _______,
  _______, _______,
  _______,
