@@ -542,9 +542,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_CLN]  = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
-  [DQ_T]    = ACTION_TAP_DANCE_DOUBLE(DE_DQOT, M(2)),
-  [Q_BT]    = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_GRV),
-  [td_dc]   = ACTION_TAP_DANCE_DOUBLE(DE_DOT, DE_COMM),
 
   // [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
   // [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
