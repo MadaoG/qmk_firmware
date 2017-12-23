@@ -32,7 +32,7 @@
 #define OS_SFTL OSM(MOD_LSFT)
 #define OS_SFTR OSM(MOD_RSFT)
 
-#define L_SM(kc) LT(_NSM, (kc))
+#define L_SM(kc) LT(_SM, (kc))
 #define L_MV(kc) LT(_MV, (kc))
 #define L_NM(kc) LT(_NM, (kc))
 
