@@ -374,8 +374,10 @@ void th_tbt_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void th_tbt_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
-    case SINGLE_TAP:  unregister_code(DE_ACUT); break;
-    case DOUBLE_TAP:  unregister_code(DE_ACUT); unregister_code(KC_LSFT); break;
+    case SINGLE_TAP:  unregister_code(DE_ACUT); register_code(DE_ACUT); unregister_code(DE_ACUT); break;
+    case DOUBLE_TAP:  unregister_code(DE_ACUT); unregister_code(KC_LSFT); 
+                      register_code(KC_LSFT);   register_code(DE_ACUT); 
+                      unregister_code(DE_ACUT); unregister_code(KC_LSFT); break;
   }
   xtap_state.state = 0;
 }
