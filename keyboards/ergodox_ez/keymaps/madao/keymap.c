@@ -68,6 +68,8 @@ enum {
   td_dt,
 };
 
+enum { mc_sh_clicks };
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
     .---------------------------------------------------------.           .---------------------------------------------------------.
@@ -425,7 +427,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      DE_B,         DE_N,         _______,      _______,      KC_PPLS,
- _______,      _______,      _______,      _______,      KC_BTN1,      M(0),
+ _______,      _______,      _______,      _______,      KC_BTN1,      M(mc_sh_clicks),
  _______,      _______,      DE_M,         KC_SPACE,     DE_Z,         DE_P,         KC_PMNS,
  _______,      _______,      _______,      _______,      _______,
  _______,      _______,                         //
@@ -486,7 +488,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
     if (record->event.pressed) {
       switch(id) {
-        case 0:
+        case mc_sh_clicks:
           for (int i = 0; i < 25; i++) {
             mousekey_on(KC_BTN1);
             mousekey_send();
