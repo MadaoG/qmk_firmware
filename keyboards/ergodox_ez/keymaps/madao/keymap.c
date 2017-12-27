@@ -539,9 +539,11 @@ void matrix_scan_user(void) {
           ergodox_set_blue(brightness_fast(700));
           break;
         case _GM:
-          ergodox_set_red(brightness_fast(700));
-          ergodox_set_green(brightness_fast(500));
-          ergodox_set_blue(brightness_fast(300));
+          ergodox_set_red(brightness_middle(500));
+          ergodox_set_green(brightness_middle(250));
+          ergodox_set_green(brightness_middle(750));
+          ergodox_set_blue(brightness_middle(1));
+          ergodox_set_blue(brightness_middle(999));
           break;
         case _MS:
           ergodox_set_red(brightness_middle(500));
