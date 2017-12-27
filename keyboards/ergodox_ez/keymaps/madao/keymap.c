@@ -496,27 +496,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             wait_ms(10);
           }
           break;
-
-        case 1:
-          register_code(DE_CIRC);
-          unregister_code(DE_CIRC);
-          register_code(DE_CIRC);
-          unregister_code(DE_CIRC);
-          break;
-
-        case 2:
-          register_code(DE_ACUT);
-          unregister_code(DE_ACUT);
-          register_code(DE_ACUT);
-          unregister_code(DE_ACUT);
-          break;
-
-        case 3:
-          // register_code(DE_GRV);
-          // unregister_code(DE_GRV);
-          // register_code(DE_GRV);
-          // unregister_code(DE_GRV);
-          break;
       }
     }
     return MACRO_NONE;
