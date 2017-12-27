@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            KC_LGUI,            KC_UP,            MO(_FN),           TD(CT_CLN),       /*---*/             /*---*/
  //
  TO(_GE),            KC_VOLU,                              //
- KC_VOLD,                                                  // thumb      eys
+ KC_VOLD,                                                  // thumb keys
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            KC_NO,
  //
  _______,            _______,                              //
- _______,                                                  // thumb      eys
+ _______,                                                  // thumb keys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
 
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            KC_LGUI,            _______,          _______,           TD(CT_CLN),       /*---*/             /*---*/
  //
  TO(_EN),            KC_VOLU,                              //
- KC_VOLD,                                                  // thumb      eys
+ KC_VOLD,                                                  // thumb keys
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
  //
  _______,            _______,                              //
- _______,                                                  // thumb      eys
+ _______,                                                  // thumb keys
  KC_DEL,             KC_ENTER,           KC_SPACE          //
 ),
 
