@@ -6,7 +6,8 @@ enum {
   DOUBLE_HOLD = 4,
   TRIPLE_TAP = 5,
   TRIPLE_HOLD = 6,
-  DOUBLE_SINGLE_TAP = 7
+  DOUBLE_SINGLE_TAP = 7,
+  MAGIC_TAP = 8,
 };
 
 typedef struct {
@@ -28,7 +29,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
     if (state->pressed) return TRIPLE_HOLD;
     else return TRIPLE_TAP;
   }
-  else return 8;
+  else return MAGIC_TAP;
 }
 
 static tap xtap_state = {
