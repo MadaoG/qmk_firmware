@@ -34,6 +34,9 @@
 #define NM_E LT(_NM, (DE_E))
 #define MV_N LT(_MV, (DE_N))
 
+#define TAP_KEY(kc) register_code(kc); unregister_code(kc);
+#define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
+
 uint8_t last_layer = _BS; // check if layer was changed
 
 enum {
