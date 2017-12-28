@@ -424,6 +424,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          |       |       |       |     |       |       |       |
                                          '-----------------------'     '-----------------------'
  */
+
 [_SH] = KEYMAP(
 
  _______,      DE_1,         DE_2,         DE_3,         DE_4,         DE_5,         _______,
