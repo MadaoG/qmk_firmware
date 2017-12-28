@@ -12,7 +12,7 @@
 #define   _MV   3    // movement layer
 #define   _NM   4    // digit layer
 #define   _FN   5    // fn keys
-#define   _GM   6    // gaming layer
+#define   _SH   6    // gaming layer
 #define   _MS   7    // mouse layer
 
 #define   _BS   _EN  // setting the base layer
@@ -73,7 +73,7 @@ enum { mc_sh_clicks };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
     .---------------------------------------------------------.           .---------------------------------------------------------.
-    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |   _GM   |
+    |         |       |       |       |       |       |       |           |       |       |       |       |       |       |   _SH   |
     |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
     |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
     |         |       |   v   |   l   |   c   |   w   |       |           |       |   k   |   h   |   g   |   f   |       | tg _ms  |
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
- _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
+ _______,            _______,            _______,          _______,           _______,          _______,            TG(_SH),
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            TG(_MS),
  /*---*/             DE_S,               L_MV(DE_N),       L_SM(DE_R),        DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_M,            SFT_CM,            ALT_DT,           DE_J,               OS_SFTR,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
  //
- _______,            _______,            _______,          _______,           _______,          _______,            TG(_GM),
+ _______,            _______,            _______,          _______,           _______,          _______,            TG(_SH),
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            TG(_MS),
  /*---*/             k_ss,               L_MV(DE_N),       L_SM(DE_R),        DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_M,            SFT_CM,            ALT_DT,           DE_J,               OS_SFTR,
@@ -423,7 +423,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          |       |       |       |     |       |       |       |
                                          '-----------------------'     '-----------------------'
  */
-[_GM] = KEYMAP(
+[_SH] = KEYMAP(
 
  _______,      DE_1,         DE_2,         DE_3,         DE_4,         DE_5,         _______,
  _______,      _______,      DE_B,         DE_N,         _______,      _______,      KC_PPLS,
@@ -540,7 +540,7 @@ void matrix_scan_user(void) {
           ergodox_set_green(brightness_fast(500));
           ergodox_set_blue(brightness_fast(700));
           break;
-        case _GM:
+        case _SH:
           ergodox_set_red(brightness_middle(500));
           ergodox_set_green(brightness_middle(250));
           ergodox_set_green(brightness_middle(750));
