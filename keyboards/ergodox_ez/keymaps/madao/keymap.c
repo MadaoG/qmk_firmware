@@ -18,7 +18,7 @@
 #define   _BS   _EN  // setting the base layer
 
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
-#define HAT M(1)
+#define HAT M(mc_hat)
 
 #define ALT_Y ALT_T(DE_Y)
 #define SFT_Q SFT_T(DE_Q)
@@ -72,7 +72,10 @@ enum {
   td_dt,
 };
 
-enum { mc_sh_clicks };
+enum { 
+  mc_sh_clicks,
+  mc_hat,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -441,6 +444,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             mousekey_send();
             wait_ms(10);
           }
+          break;
+        case mc_hat:
+          TAP_TWICE(KC_GRAVE);
           break;
       }
     }
