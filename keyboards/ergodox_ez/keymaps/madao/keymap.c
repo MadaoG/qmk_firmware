@@ -4,7 +4,7 @@
 #include "gauss.h" // defines t
 #include "tap_functions.h"
 
-uint8_t last_layer = _BS; // check if layer was changed
+uint8_t last_layer = _BS;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
