@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            TG(_MS),
  /*---*/             DE_S,               MV_N,             SM_R,              DE_T,             DE_D,               _______,
  _______,            DE_B,               CTL_M,            SFT_CM,            ALT_DT,           DE_J,               OS_SFTR,
- /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            KC_NO,
+ /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
  //
  _______,            _______,                              //
  _______,                                                  // thumb keys
