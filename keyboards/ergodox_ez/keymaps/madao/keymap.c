@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
 #include "gauss.h" // defines t
