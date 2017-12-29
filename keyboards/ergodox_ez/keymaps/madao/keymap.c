@@ -37,11 +37,13 @@
 #define TAP_KEY(kc) register_code(kc); unregister_code(kc);
 #define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
 
+#define T_CL TD(CL_SCL)
+
 uint8_t last_layer = _BS; // check if layer was changed
 
 enum {
-  // CT_CLN = SAFE_RANGE,
-  CT_CLN,
+  // CL_SCL = SAFE_RANGE,
+  CL_SCL,
   Q_BT,
   DQ_T,
   X_TAP_DANCE,
@@ -114,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
  TT(_FN),            DE_U,               DE_I,             SM_A,              NM_E,             DE_O,               /*---*/
  OS_SFTL,            DE_X,               ALT_Y,            SFT_Q,             CTL_P,            DE_Z,               _______,
- _______,            KC_LGUI,            _______,          _______,           TD(CT_CLN),       /*---*/             /*---*/
+ _______,            KC_LGUI,            _______,          _______,           T_CL,             /*---*/             /*---*/
  //
  TG(_GE),            KC_VOLU,                              //
  KC_VOLD,                                                  // thumb keys
@@ -403,7 +405,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN]  = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
+  [CL_SCL]  = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
 
   // [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
   // [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
