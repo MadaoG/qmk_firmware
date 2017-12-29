@@ -37,28 +37,6 @@ static tap xtap_state = {
   .state = 0
 };
 
-void x_finished (qk_tap_dance_state_t *state, void *user_data) {
-  xtap_state.state = cur_dance(state);
-  switch (xtap_state.state) {
-    case SINGLE_TAP:        register_code(KC_X); break;
-    case SINGLE_HOLD:       register_code(KC_LCTRL); break;
-    case DOUBLE_TAP:        register_code(KC_ESC); break;
-    case DOUBLE_HOLD:       register_code(KC_LALT); break;
-    case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
-  }
-}
-
-void x_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (xtap_state.state) {
-    case SINGLE_TAP:        unregister_code(KC_X); break;
-    case SINGLE_HOLD:       unregister_code(KC_LCTRL); break;
-    case DOUBLE_TAP:        unregister_code(KC_ESC); break;
-    case DOUBLE_HOLD:       unregister_code(KC_LALT);
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
-  }
-  xtap_state.state = 0;
-}
-
 void th_pbbl_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
