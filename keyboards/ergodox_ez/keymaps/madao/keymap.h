@@ -53,12 +53,7 @@
 #define T_CL TD(CL_SCL)
 
 enum {
-  // CL_SCL = SAFE_RANGE,
   CL_SCL,
-  Q_BT,
-  DQ_T,
-  X_TAP_DANCE,
-  X_TAP_TEST,
   td_pbbl,
   td_pbbr,
   td_elg,
