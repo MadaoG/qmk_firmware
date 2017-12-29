@@ -39,26 +39,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EN] = KEYMAP(
 
- _______,            _______,            _______,          _______,           _______,          _______,            _______,
- _______,            _______,            DE_V,             DE_L,              DE_C,             DE_W,               _______,
- TT(_FN),            DE_U,               DE_I,             SM_A,              NM_E,             DE_O,               /*---*/
- OS_SFTL,            DE_X,               ALT_Y,            SFT_Q,             CTL_P,            DE_Z,               KC_LGUI,
- _______,            _______,            _______,          _______,           T_CL,             /*---*/             /*---*/
+ _______,      _______,       _______,       _______,      _______,      _______,      _______,
+ _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
+ TT(_FN),      DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*---*/
+ OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         KC_LGUI,
+ _______,      _______,       _______,       _______,      T_CL,         /*---*/       /*---*/
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ /*---*/       TG(_GE),       KC_VOLU,
+ /*---*/       /*---*/        KC_VOLD,
+ KC_TAB,       KC_BSPC,       KC_MUTE,
  //
- /*---*/             TG(_GE),            KC_VOLU,          //
- /*---*/             /*---*/             KC_VOLD,          // thumb keys left
- KC_TAB,             KC_BSPC,            KC_MUTE,          //
  //
- //
- _______,            _______,            _______,          _______,           _______,          _______,            TG(_SH),
- _______,            DE_K,               DE_H,             DE_G,              DE_F,             _______,            TG(_MS),
- /*---*/             DE_S,               MV_N,             SM_R,              DE_T,             DE_D,               KC_LGUI,
- KC_LGUI,            DE_B,               CTL_M,            SFT_CM,            ALT_DT,           DE_J,               OS_SFTR,
- /*---*/             /*---*/             KC_ESC,           _______,           _______,          _______,            _______,
- //
- _______,            _______,            /*---*/           //
- _______,            /*---*/             /*---*/           // thumb keys right
- KC_DEL,             KC_ENT,             KC_SPACE          //
+ _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
+ _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
+ /*---*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
+ KC_LGUI,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         OS_SFTR,
+ /*---*/       /*---*/        KC_ESC,        _______,      _______,      _______,      _______,
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ _______,      _______,       /*---*/
+ _______,      /*---*/        /*---*/
+ KC_DEL,       KC_ENT,        KC_SPACE
 ),
 
 [_GE] = KEYMAP(
