@@ -37,6 +37,26 @@
 #define TAP_KEY(kc) register_code(kc); unregister_code(kc);
 #define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
 
+#define T_BQ   TD(td_bq)
+#define T_ELG  TD(td_elg)
+#define T_UAG  TD(td_uag)
+#define T_BSP  TD(td_bsp)
+#define T_SH   TD(td_sh)
+#define T_PBBL TD(td_pbbl)
+#define T_PBBR TD(td_pbbr)
+#define T_DAT  TD(td_dat)
+#define T_PA   TD(td_pa)
+#define T_PM   TD(td_pm)
+#define T_DQ   TD(td_dq)
+#define T_SQ   TD(td_sq)
+#define T_AE   TD(td_ge_ae)
+#define T_OE   TD(td_ge_oe)
+#define T_UE   TD(td_ge_ue)
+#define T_SS   TD(td_ge_ss)
+#define T_DC   TD(td_dc)
+#define T_TO   TD(td_to)
+#define T_TBT  TD(td_tbt)
+#define T_DT   TD(td_dt)
 #define T_CL TD(CL_SCL)
 
 uint8_t last_layer = _BS; // check if layer was changed
@@ -483,8 +503,8 @@ void matrix_scan_user(void) {
           ergodox_set_red(brightness_middle(500));
           ergodox_set_green(brightness_middle(250));
           ergodox_set_green(brightness_middle(750));
-          ergodox_set_blue(brightness_middle(1));
-          ergodox_set_blue(brightness_middle(999));
+          ergodox_set_blue(brightness_middle(0));
+          ergodox_set_blue(brightness_middle(1000));
           break;
         case _MS:
           ergodox_set_red(brightness_middle(500));
