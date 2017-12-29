@@ -1,4 +1,3 @@
-
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
 #define   _SM   2    // symbol layer
@@ -80,4 +79,3 @@ enum {
   mc_sh_clicks,
   mc_hat,
 };
-
