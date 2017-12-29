@@ -377,7 +377,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
-    t++; if (t >= 1000) { t = 0; }
+    t++; if (t >= 1000) t = 0;
 
     if (layer == last_layer) {
       // update leds
