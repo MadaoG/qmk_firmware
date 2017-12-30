@@ -2,8 +2,36 @@
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
 #include "gauss.h" // defines t
-#include "tap_functions.h"
 #include "keyboard_functions.h"
+#include "tap_functions.h"
+#include "macro_functions.h"
+
+#define   _EN   0    // english layer
+#define   _GE   1    // german layer
+#define   _SM   2    // symbol layer
+#define   _MV   3    // movement layer
+#define   _NM   4    // digit layer
+#define   _FN   5    // fn keys
+#define   _SH   6    // gaming layer
+#define   _MS   7    // mouse layer
+
+#define   _BS   _EN  // setting the base layer
+
+#define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
+#define ALT_Y ALT_T(DE_Y)
+#define SFT_Q SFT_T(DE_Q)
+#define CTL_P CTL_T(DE_P)
+#define ALT_DT ALT_T(DE_DOT)
+#define SFT_CM SFT_T(DE_COMM)
+#define CTL_M CTL_T(DE_M)
+#define OS_SFTL OSM(MOD_LSFT)
+#define OS_SFTR OSM(MOD_RSFT)
+#define SM_A LT(_SM, (DE_A))
+#define SM_R LT(_SM, (DE_R))
+#define NM_E LT(_NM, (DE_E))
+#define MV_N LT(_MV, (DE_N))
+
+uint8_t last_layer = _BS;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -307,3 +335,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */ 
+    /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
+    return true;
+};
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+    t++; if (t >= 1000) t = 0;
+
+    if (layer == last_layer) {
+      // update leds
+      switch (layer) {
+        case _GE:
+          ergodox_set_red(brightness_middle(300));
+          ergodox_set_green(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(700));
+          break;
+        case _EN:
+          ergodox_set_red(brightness_middle(700));
+          ergodox_set_green(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(300));
+          break;
+        case _SM:
+          ergodox_set_green(brightness_middle(500));
+          break;
+        case _MV:
+          ergodox_set_blue(brightness_middle(500));
+          break;
+        case _NM:
+          ergodox_set_blue(brightness_middle(500));
+          break;
+        case _FN:
+          ergodox_set_red(brightness_fast(300));
+          ergodox_set_green(brightness_fast(500));
+          ergodox_set_blue(brightness_fast(700));
+          break;
+        case _SH:
+          ergodox_set_red(brightness_middle(500));
+          ergodox_set_green(brightness_fast(250) + brightness_fast(750));
+          ergodox_set_blue(brightness_middle(0) + brightness_middle(999));
+          break;
+        case _MS:
+          ergodox_set_red(brightness_middle(500));
+          ergodox_set_green(brightness_middle(500));
+          break;
+        default:
+          ergodox_board_led_off();
+      }
+
+    } else {
+      last_layer = layer;
+      t = 0;
+      // init leds
+      ergodox_board_led_off();
+      ergodox_right_led_1_off();
+      ergodox_right_led_2_off();
+      ergodox_right_led_3_off();
+    }
+};
+
