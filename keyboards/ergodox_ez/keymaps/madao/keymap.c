@@ -2,7 +2,6 @@
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
 #include "gauss.h" // defines t
-#include "keyboard_functions.h"
 #include "tap_functions.h"
 #include "macro_functions.h"
 
