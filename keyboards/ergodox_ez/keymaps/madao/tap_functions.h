@@ -1,19 +1,73 @@
 
+// Not all of these are active.
+// Uncomment new ones below in qk_tap_dance_action_t
+
+#define T_BQ   TD(td_bq)    // bang and questionmark
+#define T_ELG  TD(td_elg)   // equal, less, greater
+#define T_UAG  TD(td_uag)   // underscore, accent, grave (tick and backtick)
+#define T_BSP  TD(td_bsp)   // backslash, slash and pipe
+#define T_SH   TD(td_sh)    // star and hat
+#define T_PBBL TD(td_pbbl)  // left parenthesis, brackets and braces
+#define T_PBBR TD(td_pbbr)  // right parenthesis, brackets and braces
+#define T_DAT  TD(td_dat)   // dollar, at, tilde
+#define T_PA   TD(td_pa)    // percent and ampersand
+#define T_PM   TD(td_pm)    // plus and minus
+#define T_DQ   TD(td_dq)    // double quote
+#define T_SQ   TD(td_sq)    // single quote
+#define T_AE   TD(td_ge_ae) // german ae
+#define T_OE   TD(td_ge_oe) // german oe
+#define T_UE   TD(td_ge_ue) // german ue
+#define T_SS   TD(td_ge_ss) // german ss
+#define T_TO   TD(td_to)    // times, over
+#define T_TBT  TD(td_tbt)   // tick and backtick
+#define T_DT   TD(td_dt)    // dollar and tilde
+#define T_CL   TD(CL_SCL)   // colon and semicolon
+#define T_DC   TD(td_dc)    // dot and comma
+
 enum {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD = 2,
-  DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4,
-  TRIPLE_TAP = 5,
-  TRIPLE_HOLD = 6,
-  DOUBLE_SINGLE_TAP = 7,
-  MAGIC_TAP = 8,
+  CL_SCL,
+  td_pbbl,
+  td_pbbr,
+  td_elg,
+  td_uag,
+  td_bq,
+  td_bsp,
+  td_sh,
+  td_dat,
+  td_pa,
+  td_pm,
+  td_dq,
+  td_sq,
+  td_dc,
+  td_ge_ue,
+  td_ge_ae,
+  td_ge_oe,
+  td_ge_ss,
+  td_to,
+  td_tbt,
+  td_dt,
+};
+
+enum {
+  SINGLE_TAP,
+  SINGLE_HOLD,
+  DOUBLE_TAP,
+  DOUBLE_HOLD,
+  TRIPLE_TAP,
+  TRIPLE_HOLD,
+  DOUBLE_SINGLE_TAP,
+  MAGIC_TAP,
 };
 
 typedef struct {
   bool is_press_action;
   int state;
 } tap;
+
+static tap xtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
 
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
@@ -31,11 +85,6 @@ int cur_dance (qk_tap_dance_state_t *state) {
   }
   else return MAGIC_TAP;
 }
-
-static tap xtap_state = {
-  .is_press_action = true,
-  .state = 0
-};
 
 void th_pbbl_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
@@ -378,3 +427,29 @@ void th_dt_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+qk_tap_dance_action_t tap_dance_actions[] = {
+
+  // [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
+  // [td_pbbl] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbl_finished, th_pbbl_reset),
+  // [td_pbbr] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pbbr_finished, th_pbbr_reset),
+  // [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
+  // [td_uag]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_uag_finished,  th_uag_reset),
+  // [td_bsp]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_bsp_finished,  th_bsp_reset),
+  // [td_sh]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_sh_finished,   th_sh_reset),
+  // [td_dat]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dat_finished,  th_dat_reset),
+  // [td_pa]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_pa_finished,   th_pa_reset),
+  // [td_dq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dq_finished,   th_dq_reset),
+  // [td_sq]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_sq_finished,   th_sq_reset),
+
+  [CL_SCL]   = ACTION_TAP_DANCE_DOUBLE(DE_COLN, DE_SCLN),
+  [td_dc]    = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COMM),
+  [td_pm]    = ACTION_TAP_DANCE_DOUBLE(DE_PLUS, DE_MINS),
+  [td_bq]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_bq_finished,   th_bq_reset),
+  [td_ge_ae] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ae_finished, th_ge_ae_reset),
+  [td_ge_oe] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_oe_finished, th_ge_oe_reset),
+  [td_ge_ue] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ue_finished, th_ge_ue_reset),
+  [td_ge_ss] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_ge_ss_finished, th_ge_ss_reset),
+  [td_to]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_to_finished,   th_to_reset),
+  [td_dt]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dt_finished,   th_dt_reset),
+  [td_tbt]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_tbt_finished,  th_tbt_reset),
+};

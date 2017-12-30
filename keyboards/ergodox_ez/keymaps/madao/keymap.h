@@ -29,52 +29,6 @@
 #define TAP_KEY(kc) register_code(kc); unregister_code(kc);
 #define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
 
-#define T_BQ   TD(td_bq)
-#define T_ELG  TD(td_elg)
-#define T_UAG  TD(td_uag)
-#define T_BSP  TD(td_bsp)
-#define T_SH   TD(td_sh)
-#define T_PBBL TD(td_pbbl)
-#define T_PBBR TD(td_pbbr)
-#define T_DAT  TD(td_dat)
-#define T_PA   TD(td_pa)
-#define T_PM   TD(td_pm)
-#define T_DQ   TD(td_dq)
-#define T_SQ   TD(td_sq)
-#define T_AE   TD(td_ge_ae)
-#define T_OE   TD(td_ge_oe)
-#define T_UE   TD(td_ge_ue)
-#define T_SS   TD(td_ge_ss)
-#define T_DC   TD(td_dc)
-#define T_TO   TD(td_to)
-#define T_TBT  TD(td_tbt)
-#define T_DT   TD(td_dt)
-#define T_CL TD(CL_SCL)
-
-enum {
-  CL_SCL,
-  td_pbbl,
-  td_pbbr,
-  td_elg,
-  td_uag,
-  td_bq,
-  td_bsp,
-  td_sh,
-  td_dat,
-  td_pa,
-  td_pm,
-  td_dq,
-  td_sq,
-  td_dc,
-  td_ge_ue,
-  td_ge_ae,
-  td_ge_oe,
-  td_ge_ss,
-  td_to,
-  td_tbt,
-  td_dt,
-};
-
 enum { 
   mc_sh_clicks,
   mc_hat,
