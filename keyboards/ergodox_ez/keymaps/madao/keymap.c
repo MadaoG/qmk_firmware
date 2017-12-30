@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |     _FN |  U    |  I    |  A    |  E    |  O    |_______|           |_______|  S    |  N    |  R    |  T    |  D    |         |
     |         |       |       |    _SM|    _NM|       |       |           |       |       |    _MV|    _SM|       |       |  SUPER  |
     |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
-    |         |  X    |  Y    |  Q    |  P    |  Z    | SUPER |           | SUPER |  B    |  M    |  ,    |  .    |  J    |         |
+    |         |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
     | OS LSFT |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       | OS RSFT |
     '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
       |       |       |       |       |  :;   |                                           | ESC   |       |       |       |       |
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
  TT(_FN),      DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
- OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         KC_LGUI,
+ OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         _______,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  /*___*/       TG(_GE),       KC_VOLU,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
  _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
  /*___*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
- KC_LGUI,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         OS_SFTR,
+ _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         OS_SFTR,
  /*___*/       /*___*/        KC_ESC,        _______,      _______,      _______,      _______,
  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  _______,      _______,       /*___*/
