@@ -99,7 +99,7 @@ void matrix_scan_user(void) {
           break;
         case _SH:
           ergodox_set_red(brightness_middle(500));
-          ergodox_set_green(brightness_middle(250) + brightness_middle(750));
+          ergodox_set_green(brightness_fast(250) + brightness_fast(750));
           ergodox_set_blue(brightness_middle(0) + brightness_middle(999));
           break;
         case _MS:
