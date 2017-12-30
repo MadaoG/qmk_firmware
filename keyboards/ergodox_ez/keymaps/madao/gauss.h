@@ -55,7 +55,7 @@ void ergodox_set_red(int brightness)
   if (brightness == 0) {
     ergodox_right_led_1_off();
   } else {
-    brightness > 255 ? brightness = 255 :
+    if (brightness > 255) brightness = 255;
     ergodox_right_led_1_on();
     ergodox_right_led_1_set(brightness);
   }
@@ -66,7 +66,7 @@ void ergodox_set_green(int brightness)
   if (brightness == 0) {
     ergodox_right_led_2_off();
   } else {
-    brightness > 255 ? brightness = 255 :
+    if (brightness > 255) brightness = 255;
     ergodox_right_led_2_on();
     ergodox_right_led_2_set(brightness);
   }
@@ -77,7 +77,7 @@ void ergodox_set_blue(int brightness)
   if (brightness == 0) {
     ergodox_right_led_3_off();
   } else {
-    brightness > 255 ? brightness = 255 :
+    if (brightness > 255) brightness = 255;
     ergodox_right_led_3_on();
     ergodox_right_led_3_set(brightness);
   }
