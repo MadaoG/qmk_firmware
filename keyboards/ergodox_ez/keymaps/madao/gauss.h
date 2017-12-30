@@ -23,12 +23,12 @@ int brightness_middle(int offset)
 
 int brightness_fast(int offset)
 {
-  return gauss_curve(t, 255, offset, 20);
+  return gauss_curve(t, 255, offset, 50);
 }
 
 int brightness_very_fast(int offset)
 {
-  return gauss_curve(t, 255, offset, 10);
+  return gauss_curve(t, 255, offset, 30);
 }
 
 int brightness_fast_double(int offset1, int offset2)
