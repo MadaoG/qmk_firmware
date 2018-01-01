@@ -13,6 +13,8 @@
 
 #define   _BS   _EN  // setting the base layer
 
+// User defined functions which may refer to the above declared layers.
+// Hence, including them afterwards.
 #include "gauss.h" // defines t
 #include "tap_functions.h"
 #include "macro_functions.h"
