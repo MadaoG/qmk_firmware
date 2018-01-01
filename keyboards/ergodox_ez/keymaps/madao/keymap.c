@@ -1,9 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
-#include "gauss.h" // defines t
-#include "tap_functions.h"
-#include "macro_functions.h"
 
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
@@ -15,6 +12,10 @@
 #define   _MS   7    // mouse layer
 
 #define   _BS   _EN  // setting the base layer
+
+#include "gauss.h" // defines t
+#include "tap_functions.h"
+#include "macro_functions.h"
 
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define ALT_Y ALT_T(DE_Y)

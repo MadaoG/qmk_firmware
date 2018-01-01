@@ -326,6 +326,7 @@ void th_ge_ae_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
     case SINGLE_TAP:  register_code(DE_A); break;
+    case SINGLE_HOLD: layer_on(_SM); break;
     case DOUBLE_TAP:  register_code(DE_AE); break;
   }
 }
@@ -333,6 +334,7 @@ void th_ge_ae_finished (qk_tap_dance_state_t *state, void *user_data) {
 void th_ge_ae_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
     case SINGLE_TAP:  unregister_code(DE_A); break;
+    case SINGLE_HOLD: layer_on(_GE); layer_off(_SM); break;
     case DOUBLE_TAP:  unregister_code(DE_AE); break;
   }
   xtap_state.state = 0;
