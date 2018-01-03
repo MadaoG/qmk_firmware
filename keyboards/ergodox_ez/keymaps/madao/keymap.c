@@ -20,6 +20,7 @@
 #include "macro_functions.h"
 
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
+#define MV_SCRN MT(MOD_LCTL | MOD_LALT, KC_ESC)
 #define ALT_Y ALT_T(DE_Y)
 #define SFT_Q SFT_T(DE_Q)
 #define CTL_P CTL_T(DE_P)
@@ -178,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*___*/       _______,      _______,      MV_WIN,       _______,      _______,      _______,
+ /*___*/       _______,      _______,      MV_WIN,       MV_SCRN,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
