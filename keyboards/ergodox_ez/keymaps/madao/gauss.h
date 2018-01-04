@@ -8,7 +8,7 @@ int gauss_curve(int x, int a, int m, int s)
 
 int brightness_very_slow(int offset)
 {
-  return gauss_curve(t, 255, offset, 120);
+  return gauss_curve(t, 255, offset, 150);
 }
 
 int brightness_slow(int offset)
