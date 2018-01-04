@@ -4,12 +4,13 @@
 
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
-#define   _SM   2    // symbol layer
-#define   _MV   3    // movement layer
-#define   _NM   4    // digit layer
-#define   _FN   5    // fn keys
-#define   _SH   6    // gaming layer
-#define   _MS   7    // mouse layer
+#define   _GH   2    // german layer
+#define   _SM   3    // symbol layer
+#define   _MV   4    // movement layer
+#define   _NM   5    // digit layer
+#define   _FN   6    // fn keys
+#define   _SH   7    // gaming layer
+#define   _MS   8    // mouse layer
 
 #define   _BS   _EN  // setting the base layer
 
@@ -33,6 +34,8 @@
 #define SM_R LT(_SM, (DE_R))
 #define NM_E LT(_NM, (DE_E))
 #define MV_N LT(_MV, (DE_N))
+#define OS_FN OSL(_FN)
+#define OS_GE OSL(_GE)
 
 uint8_t last_layer = _BS;
 
@@ -71,11 +74,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
- OSL(_GE),     DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
+ OS_FN,        DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
  OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         _______,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- /*___*/       TG(_GE),       KC_VOLU,
+ /*___*/       TG(_GH),       KC_VOLU,
  /*___*/       /*___*/        KC_VOLD,
  KC_TAB,       KC_BSPC,       KC_MUTE,
  //
@@ -89,6 +92,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      OSL(_FN),      /*___*/
  _______,      /*___*/        /*___*/
  KC_DEL,       KC_ENT,        KC_SPACE
+),
+
+[_GH] = KEYMAP(
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      /*___*/
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      OS_GE,        /*___*/       /*___*/
+ _______, _______, _______,
+ _______, _______, _______, 
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ /*___*/       _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
+ _______, _______, _______,
+ _______, _______, _______ 
+
 ),
 
 [_GE] = KEYMAP(
@@ -362,6 +385,9 @@ void matrix_scan_user(void) {
           ergodox_set_red(brightness_middle(300));
           ergodox_set_green(brightness_middle(500));
           ergodox_set_blue(brightness_middle(700));
+          break;
+        case _GH:
+          ergodox_set_red(brightness_very_slow(500));
           break;
         case _EN:
           ergodox_set_red(brightness_middle(700));
