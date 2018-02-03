@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
  OS_FN,        DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
- OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         TD(CT_LBP),
+ _______,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         TD(CT_LBP),
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  /*___*/       TG(_GH),       KC_VOLU,
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
  _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
  /*___*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
- _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         OS_SFTR,
+ _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         _______,
  /*___*/       /*___*/        KC_ESC,        _______,      _______,      _______,      _______,
  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  KC_MUTE,      OSL(_FN),      /*___*/
