@@ -432,3 +432,16 @@ void matrix_scan_user(void) {
     }
 };
 
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//   switch (keycode) {
+//     case KC_7:
+//       if ((record->event.pressed) && (shift is active)) {
+//         unregister_code(KC_LSFT);
+//         register_code(KC_QUOT);
+//       } else {
+//         unregister_code(KC_QUOT);
+//         register_code(KC_LSFT);
+//       }
+//       return false;
+//   }
+// }
