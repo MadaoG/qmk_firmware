@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
  OS_FN,        DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
- OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         _______,
+ OS_SFTL,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         TD(CT_LBP),
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  /*___*/       TG(_GH),       KC_VOLU,

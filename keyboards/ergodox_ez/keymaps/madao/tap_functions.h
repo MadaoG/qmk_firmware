@@ -46,6 +46,8 @@ enum {
   td_to,
   td_tbt,
   td_dt,
+  CT_LBP,
+  CT_RBP,
 };
 
 enum {
@@ -429,6 +431,50 @@ void th_dt_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 }
 
+
+static void
+_td_brackets_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    if (state->keycode == TD(CT_LBP)) {
+        register_code(KC_LSFT);
+        register_code(KC_8);
+    } else
+      register_code(KC_RBRC);
+  } else if (state->count == 2) {
+    if (state->keycode == TD(CT_LBP)) {
+        register_code(KC_RALT);
+        register_code(KC_8);
+    }
+  }
+    // } else
+      // register_code(KC_RPRN);
+  // } else if (state->count == 3) {
+    // unicode_input_start();
+
+    // if (state->keycode == TD(CT_LBP))
+    //   register_hex (0x300c);
+    // else
+    //   register_hex (0x300d);
+
+    // unicode_input_finish();
+}
+
+static void
+_td_brackets_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    if (state->keycode == TD(CT_LBP)) {
+        unregister_code(KC_8);
+        unregister_code(KC_LSFT);
+    } else
+      unregister_code16 (KC_RBRC);
+  } else if (state->count == 2) {
+    if (state->keycode == TD(CT_LBP)) {
+        unregister_code(KC_8);
+        unregister_code(KC_RALT);
+    }
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
 
   // [td_elg]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_elg_finished,  th_elg_reset),
@@ -454,4 +500,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [td_to]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_to_finished,   th_to_reset),
   [td_dt]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_dt_finished,   th_dt_reset),
   [td_tbt]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, th_tbt_finished,  th_tbt_reset),
+  [CT_LBP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, _td_brackets_finished, _td_brackets_reset),
+  [CT_RBP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, _td_brackets_finished, _td_brackets_reset),
 };
