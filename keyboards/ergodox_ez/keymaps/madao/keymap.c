@@ -370,6 +370,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */
     /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
+    switch (keycode) {
+        case KC_DOT:
+            if (record->event.pressed) {
+                if is_shifted {
+                    register_code(KC_LSFT);
+                    register_code(KC_1);
+                    unregister_code(KC_1);
+                    unregister_code(KC_LSFT);
+                } else {
+                    register_code(KC_DOT);
+                    unregister_code(KC_DOT);
+                }
+            } else {
+                unregister_code(KC_1);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_DOT);
+            }
+            return false;
+    }
     return true;
 };
 
