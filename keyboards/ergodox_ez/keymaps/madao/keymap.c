@@ -36,7 +36,9 @@
 #define MV_N LT(_MV, (DE_N))
 #define OS_FN OSL(_FN)
 #define OS_GE OSL(_GE)
-
+#define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
+                   ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) &&  \
+                   !has_oneshot_mods_timed_out()))
 uint8_t last_layer = _BS;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
