@@ -34,6 +34,7 @@
 #define SM_R LT(_SM, (DE_R))
 #define NM_E LT(_NM, (DE_E))
 #define MV_N LT(_MV, (DE_N))
+#define SM_ESC LT(_SM, (KC_ESC))
 #define OS_FN OSL(_FN)
 #define OS_GE OSL(_GE)
 #define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
@@ -58,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |         |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
  *    |       |       |       |       |  :;   |                                           | ESC   |       | VOL M | VOL D | VOL U |
- *    |       |       |       |       |       |                                           |       |       |       |       |       |
+ *    |       |       |       |       |       |                                           |    _SM|       |       |       |       |
  *    '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
  *                                               .-------.-------.     .-------.-------.
  *                                               |   _GE |       |     |       |   _FN |
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
  /*___*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
  _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         _______,
- /*___*/       /*___*/        KC_ESC,        _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
+ /*___*/       /*___*/        SM_ESC,        _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
          _______,      OS_FN,         /*___*/
