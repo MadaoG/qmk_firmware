@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                      /*___*/       TG(_GH),       _______,
                                                      /*___*/       /*___*/        _______,
-                                                     KC_TAB,       OS_SFTL,       KC_BSPC,
+                                                     OS_SFTL,      KC_TAB,        KC_BSPC,
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
