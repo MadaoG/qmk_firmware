@@ -1,9 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
-#include "debug.h"
-
-#define BOOTMAGIC_KEY_SALT KC_SPACE
 
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
@@ -45,14 +42,6 @@
                    !has_oneshot_mods_timed_out()))
 uint8_t last_layer = _BS;
 
-#if KEYLOGGER_ENABLE
-# ifdef AUTOLOG_ENABLE
-bool log_enable = true;
-# else
-bool log_enable = false;
-# endif
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -86,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EN] = KEYMAP(
 
- DEBUG,      _______,       _______,       _______,      _______,      _______,      _______,
+ _______,      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
  _______,      DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
  _______,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         TD(CT_LBP),
@@ -98,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      OS_SFTL,      KC_TAB,        KC_BSPC,
 
 
- _______,      _______,       _______,       _______,      _______,      KC_LSFT,      TG(_SH),
- _______,      DE_K,          DE_H,          DE_G,         DE_F,         KC_RSFT,      TG(_MS),
+ _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
+ _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
  /*___*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
  _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         _______,
  /*___*/       /*___*/        SM_ESC,        _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
@@ -382,19 +371,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */
     /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
-// #if KEYLOGGER_ENABLE
-    // if (log_enable) {
-    print("hi");
-    xprintf("hi");
-    dprint("hi");
-        // printf ("KL: col=%02d, row=%02d, pressed=%d",
-        //         record->event.key.col,
-        //         record->event.key.row,
-        //         record->event.pressed
-        //         );
-    // }
-// #endif
-
     switch (keycode) {
         case KC_DOT:
             if (record->event.pressed) {
@@ -419,16 +395,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-    // uprintf("he")
+
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    debug_enable=true;
-    debug_matrix=true;
-    print("hi")
-    dprint("ho")
-    dprintf("he")
     uint8_t layer = biton32(layer_state);
     t++; if (t >= 1000) t = 0;
 
