@@ -42,6 +42,11 @@
                    !has_oneshot_mods_timed_out()))
 uint8_t last_layer = _BS;
 
+static bool grave_uds_was_shifted = false;
+enum {
+    UDS_ESC,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -91,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
  /*___*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
  _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         _______,
- /*___*/       /*___*/        SM_ESC,        _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
+ /*___*/       /*___*/        UDS_ESC,       _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
          _______,      OS_FN,         /*___*/
@@ -389,7 +394,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_DOT);
             }
             return false;
-    }
+
+        case UDS_ESC: {
+            uint8_t shifted = is_shifted;
+
+            if (record->event.pressed) {
+                grave_uds_was_shifted  = shifted;
+                add_key(shifted ? DE_UNDS : KC_ESCAPE);
+            }
+            else {
+                del_key(grave_uds_was_shifted  ? DE_UNDS : KC_ESCAPE);
+            }
+
+        send_keyboard_report();
+        return false;
+        };
+    };
+
     return true;
 };
 
