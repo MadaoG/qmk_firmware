@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
-#include "keymap_extras/keymap_german.h"
 #include "mousekey.h"
+
+#define __LANGUAGE__ 0 // 0 : GERMAN, 1 : ENGLISH
+#include "mappings.h"
 
 #define   _EN   0    // english layer
 #define   _GE   1    // german layer
@@ -22,18 +24,18 @@
 
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define MV_SCRN MT(MOD_LCTL | MOD_LALT, KC_ESC)
-#define ALT_Y ALT_T(DE_Y)
-#define SFT_Q SFT_T(DE_Q)
-#define CTL_P CTL_T(DE_P)
-#define ALT_DT ALT_T(DE_DOT)
-#define SFT_CM SFT_T(DE_COMM)
-#define CTL_M CTL_T(DE_M)
+#define ALT_Y ALT_T(__Y)
+#define SFT_Q SFT_T(__Q)
+#define CTL_P CTL_T(__P)
+#define ALT_DT ALT_T(__DOT)
+#define SFT_CM SFT_T(__COMM)
+#define CTL_M CTL_T(__M)
 #define OS_SFTL OSM(MOD_LSFT)
 #define OS_SFTR OSM(MOD_RSFT)
-#define SM_A LT(_SM, (DE_A))
-#define SM_R LT(_SM, (DE_R))
-#define NM_E LT(_NM, (DE_E))
-#define MV_N LT(_MV, (DE_N))
+#define SM_A LT(_SM, (__A))
+#define SM_R LT(_SM, (__R))
+#define NM_E LT(_NM, (__E))
+#define MV_N LT(_MV, (__N))
 #define SM_ESC LT(_SM, (KC_ESC))
 #define OS_FN OSL(_FN)
 #define OS_GE OSL(_GE)
@@ -60,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |   =     |  U    |  I    |  A    |  E    |  O    |_______|           |_______|  S    |  N    |  R    |  T    |  D    |         |
  *  |         |       |       |    _SM|    _NM|       |       |           |       |       |    _MV|    _SM|       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
- *  |         |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
+ *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
  *  |         |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
  *    |       |       |       |       |  :;   |                                           | ESC   |       | VOL M | VOL D | VOL U |
@@ -81,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EN] = KEYMAP(
 
  _______,      _______,       _______,       _______,      _______,      _______,      _______,
- _______,      _______,       DE_V,          DE_L,         DE_C,         DE_W,         _______,
- DE_EQL,       DE_U,          DE_I,          SM_A,         NM_E,         DE_O,         /*___*/
- _______,      DE_X,          ALT_Y,         SFT_Q,        CTL_P,        DE_Z,         TD(CT_LBP),
+ _______,      _______,       __V,           __L,          __C,          __W,          _______,
+ __EQL,        __U,           __I,           SM_A,         NM_E,         __O,          /*___*/
+ __EQL,        __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          TD(CT_LBP),
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
@@ -93,9 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
- _______,      DE_K,          DE_H,          DE_G,         DE_F,         _______,      TG(_MS),
- /*___*/       DE_S,          MV_N,          SM_R,         DE_T,         DE_D,         KC_LGUI,
- _______,      DE_B,          CTL_M,         SFT_CM,       ALT_DT,       DE_J,         _______,
+ _______,      __K,           __H,           __G,          __F,          _______,      TG(_MS),
+ /*___*/       __S,           MV_N,          SM_R,         __T,          __D,          KC_LGUI,
+ _______,      __B,           CTL_M,         SFT_CM,       ALT_DT,       __J,          _______,
  /*___*/       /*___*/        UDS_ESC,       _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
@@ -129,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      DE_UE,        _______,      DE_AE,        _______,      DE_OE,        /*___*/
+ _______,      __UE,         _______,      __AE,         _______,       __OE,        /*___*/
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      /*___*/       /*___*/
  _______, _______, _______,
@@ -137,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*___*/       DE_SS,        _______,      _______,      _______,      _______,      _______,
+ /*___*/       __SS,         _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
@@ -166,18 +168,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SM] = KEYMAP(
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
- _______,      _______,       DE_HASH,       DE_LBRC,       DE_RBRC,       DE_AT,         _______,
- _______,      DE_SLSH,       _______,       DE_LCBR,       DE_RCBR,       DE_ASTR,       /*___*/
- _______,      DE_PIPE,       DE_BSLS,       DE_PLUS,       DE_MINS,       DE_DLR,        _______,
- _______,      _______,       _______,       _______,       DE_LESS,
+ _______,      _______,       __HASH,        __LBRC,        __RBRC,        __AT,          _______,
+ _______,      __SLSH,        _______,       __LCBR,        __RCBR,        __ASTR,        /*___*/
+ _______,      __PIPE,        __BSLS,        __PLUS,        __MINS,        __DLR,         _______,
+ _______,      _______,       _______,       _______,       __LESS,
  _______, _______, _______,
  _______, _______, _______,
 
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
- _______,      DE_TILD,       DE_EXLM,       DE_QST,        DE_AMPR,       _______,       _______,
- /*___*/       HAT,           DE_LPRN,       DE_RPRN,       _______,       _______,       _______,
- _______,      DE_PERC,       DE_DQOT,       DE_QUOT,       DE_GRV,        DE_ACUT,       _______,
- /*___*/       /*___*/        DE_MORE,       _______,       _______,       _______,       _______,
+ _______,      __TILD,        __EXLM,        __QST,         __AMPR,        _______,       _______,
+ /*___*/       HAT,           __LPRN,        __RPRN,        _______,       _______,       _______,
+ _______,      __PERC,        __DQOT,        __QUOT,        __GRV,         __ACUT,       _______,
+ /*___*/       /*___*/        __MORE,       _______,        _______,       _______,       _______,
  _______, _______, _______,
  _______, _______, _______
 ),
@@ -250,10 +252,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______, _______,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      HAT,          DE_7,         DE_8,         DE_9,         _______,      _______,
- /*___*/       T_DC,         DE_4,         DE_5,         DE_6,         DE_COLN,      _______,
- _______,      T_PM,         DE_1,         DE_2,         DE_3,         T_TO,         _______,
- /*___*/       /*___*/       DE_0,         _______,      _______,      _______,      _______,
+ _______,      HAT,          __7,          __8,          __9,          _______,      _______,
+ /*___*/       T_DC,         __4,          __5,          __6,          __COLN,       _______,
+ _______,      T_PM,         __1,          __2,          __3,          T_TO,         _______,
+ /*___*/       /*___*/       __0,          _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______
 ),
@@ -354,10 +356,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SH] = KEYMAP(
 
- _______,      DE_1,         DE_2,         DE_3,         DE_4,         DE_5,         _______,
- _______,      _______,      DE_B,         DE_N,         _______,      _______,      KC_PPLS,
- _______,      _______,      _______,      DE_I,         KC_BTN1,      M(mc_sh_clicks),
- _______,      _______,      DE_M,         KC_SPACE,     DE_Z,         DE_P,         KC_PMNS,
+ _______,      __1,          __2,          __3,          __4,          __5,          _______,
+ _______,      _______,      __B,          __N,          _______,      _______,      KC_PPLS,
+ _______,      _______,      _______,      __I,          KC_BTN1,      M(mc_sh_clicks),
+ _______,      _______,      __M,          KC_SPACE,     __Z,          __P,          KC_PMNS,
  _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______,
@@ -400,10 +402,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             if (record->event.pressed) {
                 grave_uds_was_shifted  = shifted;
-                add_key(shifted ? DE_UNDS : KC_ESCAPE);
+                add_key(shifted ? __UNDS : KC_ESCAPE);
             }
             else {
-                del_key(grave_uds_was_shifted  ? DE_UNDS : KC_ESCAPE);
+                del_key(grave_uds_was_shifted  ? __UNDS : KC_ESCAPE);
             }
 
         send_keyboard_report();
