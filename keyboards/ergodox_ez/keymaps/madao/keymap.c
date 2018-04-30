@@ -1,7 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "mousekey.h"
 
-#define __LANGUAGE__ 0 // 0 : GERMAN, 1 : ENGLISH
+#define __GERMAN__ 0
+#define __ENGLISH__ 1
+
+#define __LANGUAGE__   __GERMAN__
 #include "mappings.h"
 
 enum {
