@@ -1,4 +1,4 @@
-#if __LANGUAGE__ == 0 // GERMAN
+#if __LANGUAGE__ == __GERMAN__
 
     #include "keymap_extras/keymap_german.h"
 
@@ -83,7 +83,7 @@
     #define __TILD   ALGR(DE_PLUS) // ~
     #define __PIPE   ALGR(DE_LESS) // |
 
-#elif __LANGUAGE__ == 1 // ENGLISH
+#elif __LANGUAGE__ == __ENGLISH__
 
     #define __Z    KC_Z
     #define __Y    KC_Y
