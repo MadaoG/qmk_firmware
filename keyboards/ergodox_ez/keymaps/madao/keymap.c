@@ -4,15 +4,17 @@
 #define __LANGUAGE__ 0 // 0 : GERMAN, 1 : ENGLISH
 #include "mappings.h"
 
-#define   _EN   0    // english layer
-#define   _GE   1    // german layer
-#define   _GH   2    // german layer
-#define   _SM   3    // symbol layer
-#define   _MV   4    // movement layer
-#define   _NM   5    // digit layer
-#define   _FN   6    // fn keys
-#define   _SH   7    // gaming layer
-#define   _MS   8    // mouse layer
+enum {
+    _EN = 0, // english layer
+    _GE,     // german layer
+    _GH,     // german layer
+    _SM,     // symbol layer
+    _MV,     // movement layer
+    _NM,     // digit layer
+    _FN,     // fn keys
+    _SH,     // gaming layer
+    _MS,     // mouse layer
+};
 
 #define   _BS   _EN  // setting the base layer
 
