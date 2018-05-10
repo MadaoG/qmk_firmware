@@ -18,8 +18,6 @@ enum {
     _SH,     // gaming layer
 };
 
-#define   _BS   _EN  // setting the base layer
-
 // User defined functions which may refer to the above declared layers.
 // Hence, including them afterwards.
 #include "gauss.h" // defines t
@@ -46,7 +44,7 @@ enum {
 #define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
                    ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) &&  \
                    !has_oneshot_mods_timed_out()))
-uint8_t last_layer = _BS;
+uint8_t last_layer = _EN;
 
 static bool grave_uds_was_shifted = false;
 enum {
