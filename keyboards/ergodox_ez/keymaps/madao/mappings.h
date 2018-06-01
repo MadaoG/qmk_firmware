@@ -4,8 +4,8 @@
 
     #define ALGR(kc) RALT(kc)
     #define __ALGR   KC_RALT
-    #define __Z      DE_Y
-    #define __Y      DE_Z
+    #define __Z      DE_Z
+    #define __Y      DE_Y
     #define __A      DE_A
     #define __B      DE_B
     #define __C      DE_C
