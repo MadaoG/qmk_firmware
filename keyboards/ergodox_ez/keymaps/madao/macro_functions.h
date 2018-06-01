@@ -14,12 +14,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       switch(id) {
         case mc_sh_clicks:
           for (int i = 0; i < 25; i++) {
-            mousekey_on(KC_BTN1);
-            mousekey_send();
-            wait_ms(10);
-            mousekey_off(KC_BTN1);
-            mousekey_send();
-            wait_ms(10);
+            // mousekey_on(KC_BTN1);
+            // mousekey_send();
+            // wait_ms(10);
+            // mousekey_off(KC_BTN1);
+            // mousekey_send();
+            // wait_ms(10);
           }
           break;
         case mc_hat:
