@@ -6,6 +6,7 @@
 
 #define __LANGUAGE__   __GERMAN__
 #include "mappings.h"
+#include "keymap_plover.h"
 
 enum {
     _EN = 0, // english layer
@@ -16,6 +17,7 @@ enum {
     _NM,     // digit layer
     _FN,     // fn keys
     _SH,     // gaming layer
+    _PL,     // plover
 };
 
 // User defined functions which may refer to the above declared layers.
@@ -84,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EN] = KEYMAP(
 
- _______,      _______,       _______,       _______,      _______,      _______,      _______,
+ TG(_PL),      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       __V,           __L,          __C,          __W,          _______,
  _______,      __U,           __I,           SM_A,         NM_E,         __O,          /*___*/
  __EQL,        __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          TD(CT_LBP),
@@ -319,6 +321,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       '-------'-------'-------'-------'-------'
  */
 
+[_PL] = KEYMAP(
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,
+ _______,      PV_LS,        PV_LT,        PV_LP,        PV_LH,        PV_STAR,      /*---*/
+ _______,      PV_LS,        PV_LK,        PV_LW,        PV_LR,        PV_STAR,      PV_STAR,
+ _______,      _______,      _______,      _______,      _______,
+
+ _______, _______, _______,
+ PV_A,    PV_O,    _______,
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,       PV_NUM,
+ /*---*/       PV_STAR,      PV_RF,        PV_RP,        PV_RL,        PV_RT,        PV_RD,
+ PV_STAR,      PV_STAR,      PV_RR,        PV_RB,        PV_RG,        PV_RS,        PV_RZ,
+ /*---*/       _______,      _______,      _______,      _______,      _______,
+
+ _______, _______, _______,
+ _______, PV_E,    PV_U
+),
+
 [_SH] = KEYMAP(
 
  _______,      __1,          __2,          __3,          __4,          __5,          _______,
@@ -425,6 +448,9 @@ void matrix_scan_user(void) {
           ergodox_set_red(brightness_middle(500));
           ergodox_set_green(brightness_fast(250) + brightness_fast(750));
           ergodox_set_blue(brightness_middle(0) + brightness_middle(999));
+          break;
+        case _PL:
+          ergodox_set_green(255);
           break;
         default:
           ergodox_board_led_off();
