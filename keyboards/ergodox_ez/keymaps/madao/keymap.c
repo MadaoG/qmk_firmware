@@ -48,9 +48,10 @@ enum {
                    !has_oneshot_mods_timed_out()))
 uint8_t last_layer = _EN;
 
-static bool grave_uds_was_shifted = false;
+static bool was_shifted = false;
 enum {
     UDS_ESC,
+    EQL_DQT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
- *  |         |  U    |  I    |  A    |  E    |  O    |_______|           |_______|  S    |  N    |  R    |  T    |  D    |         |
+ *  |   -     |  U    |  I    |  A    |  E    |  O    |_______|           |_______|  S    |  N    |  R    |  T    |  D    |         |
  *  |         |       |       |    _SM|    _NM|       |       |           |       |       |    _MV|    _SM|       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
  *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
- *  |         |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
+ *  |     "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
  *    |       |       |       |       |  :;   |                                           | ESC   |       | VOL M | VOL D | VOL U |
  *    |       |       |       |       |       |                                           |  _    |       |       |       |       |
@@ -88,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  TG(_PL),      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       __V,           __L,          __C,          __W,          _______,
- _______,      __U,           __I,           SM_A,         NM_E,         __O,          /*___*/
- __EQL,        __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          TD(CT_LBP),
+ __MINS,       __U,           __I,           SM_A,         NM_E,         __O,          /*___*/
+ EQL_DQT,      __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          TD(CT_LBP),
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
@@ -367,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */
     /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
     switch (keycode) {
-        case KC_DOT:
+        case KC_DOT: {
             if (record->event.pressed) {
                 if is_shifted {
                     register_code(KC_LSFT);
@@ -384,20 +385,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_DOT);
             }
             return false;
+        };
 
         case UDS_ESC: {
             uint8_t shifted = is_shifted;
 
             if (record->event.pressed) {
-                grave_uds_was_shifted  = shifted;
+                was_shifted  = shifted;
                 add_key(shifted ? __UNDS : KC_ESCAPE);
             }
             else {
-                del_key(grave_uds_was_shifted  ? __UNDS : KC_ESCAPE);
+                del_key(was_shifted  ? __UNDS : KC_ESCAPE);
             }
 
-        send_keyboard_report();
-        return false;
+            send_keyboard_report();
+            return false;
+        };
+
+        case EQL_DQT: {
+            uint8_t shifted = is_shifted;
+
+            if (record->event.pressed) {
+                was_shifted  = shifted;
+                register_code(KC_LSFT);
+                add_key(shifted ? __DQOT : __0 );
+            }
+            else {
+                unregister_code(KC_LSFT);
+                del_key(was_shifted ? __DQOT : __0 );
+            }
+
+            send_keyboard_report();
+            return false;
         };
     };
 
@@ -465,4 +484,4 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_off();
       ergodox_right_led_3_off();
     }
-};
+}; // *-*
