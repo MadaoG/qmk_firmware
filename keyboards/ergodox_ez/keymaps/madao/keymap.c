@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
 
 #define __GERMAN__ 0
 #define __ENGLISH__ 1
@@ -90,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TG(_PL),      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       __V,           __L,          __C,          __W,          _______,
  __MINS,       __U,           __I,           SM_A,         NM_E,         __O,          /*___*/
- EQL_DQT,      __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          TD(CT_LBP),
+ EQL_DQT,      __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          _______,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
@@ -236,10 +235,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *      |       |      |       |       |       |       |       |       |         |
  *  ----|       |      |       |-------|-------|-------|-------|-------|---------|
  *      |_______|      |_______|   .   |   4   |   5   |   6   |   :   |         |
- *      |       |      |       |   ,   |       |       |       |       |         |
+ *      |       |      |       |       |       |       |       |       |         |
  *  ----|       |      |       |-------|-------|-------|-------|-------|---------|
- *      |       |      |       |   +   |   1   |   2   |   3   |   *   |         |
- *      |       |      |       |   -   |       |       |       |   /   |         |
+ *      |       |      |       |   ,   |   1   |   2   |   3   |       |         |
+ *      |       |      |       |       |       |       |       |       |         |
  *  ----'-------'      '-------'-------|-------|-------|-------|-------|---------'
  *                                     |   0   |       |       |       |       |
  *                                     |       |       |       |       |       |
@@ -258,8 +257,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      __HAT,        __7,          __8,          __9,          _______,      _______,
- /*___*/       T_DC,         __4,          __5,          __6,          __COLN,       _______,
- _______,      T_PM,         __1,          __2,          __3,          T_TO,         _______,
+ /*___*/       __DOT,        __4,          __5,          __6,          __COLN,       _______,
+ _______,      __COMM,       __1,          __2,          __3,          _______,      _______,
  /*___*/       /*___*/       __0,          _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______
@@ -395,7 +394,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 add_key(shifted ? __UNDS : KC_ESCAPE);
             }
             else {
-                del_key(was_shifted  ? __UNDS : KC_ESCAPE);
+                del_key(was_shifted ? __UNDS : KC_ESCAPE);
             }
 
             send_keyboard_report();
@@ -408,11 +407,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 was_shifted  = shifted;
                 register_code(KC_LSFT);
-                add_key(shifted ? __DQOT : __0 );
+                add_key(shifted ? __DQOT : __0);
             }
             else {
                 unregister_code(KC_LSFT);
-                del_key(was_shifted ? __DQOT : __0 );
+                del_key(was_shifted ? __DQOT : __0);
             }
 
             send_keyboard_report();
