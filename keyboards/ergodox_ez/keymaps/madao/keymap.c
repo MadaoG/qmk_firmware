@@ -404,15 +404,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case EQL_DQT: {
             uint8_t shifted = is_shifted;
 
-            if (record->event.pressed) {
-                was_shifted  = shifted;
-                register_code(KC_LSFT);
-                add_key(shifted ? __DQOT : __0);
-            }
-            else {
-                unregister_code(KC_LSFT);
-                del_key(was_shifted ? __DQOT : __0);
-            }
+            #if __LANGUAGE__ == __GERMAN__
+                if (record->event.pressed) {
+                    was_shifted  = shifted;
+                    register_code(KC_LSFT);
+                    add_key(shifted ? __DQOT : __0);
+                }
+                else {
+                    unregister_code(KC_LSFT);
+                    del_key(was_shifted ? __DQOT : __0);
+                }
+            #elif __LANGUAGE__ == __ENGLISH__
+            #endif
 
             send_keyboard_report();
             return false;
