@@ -2,6 +2,9 @@
 
 * shift + shift -> ??
 * shift + minus left -> capslock
+* shift + : -> ?
+* shift + del -> ?
+* shift + bkspace -> ?
 
 * custom esc key
     - when tapped: esc
