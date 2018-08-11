@@ -1,5 +1,8 @@
 # Ideas for new cool features
 
+* shift + shift -> ??
+* shift + minus left -> capslock
+
 * custom esc key
     - when tapped: esc
     - when tapped while shifted:
