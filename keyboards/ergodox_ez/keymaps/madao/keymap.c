@@ -7,14 +7,13 @@
 #include "mappings.h"
 
 enum {
-    _EN = 0, // english layer
-    _GE,     // german layer
-    _GH,     // german layer
-    _SM,     // symbol layer
-    _MV,     // movement layer
-    _NM,     // digit layer
-    _FN,     // fn keys
-    _SH,     // gaming layer
+    _EN_ = 0, // english layer
+    _GE_,     // german layer
+    _SM_,     // symbol layer
+    _MV_,     // movement layer
+    _NM_,     // digit layer
+    _FN_,     // fn keys
+    _SH_,     // gaming layer
 };
 
 // User defined functions which may refer to the above declared layers.
@@ -24,28 +23,28 @@ enum {
 #include "macro_functions.h"
 
 #define _______ KC_TRNS
-#define ___x___ KC_NO
+#define _xxxxx_ KC_NO
 
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define MV_SCRN MT(MOD_LCTL | MOD_LALT, KC_ESC)
-#define ALT_Y ALT_T(i_Y)
-#define SFT_Q SFT_T(i_Q)
-#define CTL_P CTL_T(i_P)
-#define ALT_DT ALT_T(i_DOT)
-#define SFT_CM SFT_T(i_COMM)
-#define CTL_M CTL_T(i_M)
+#define ALT_Y ALT_T(_Y)
+#define SFT_Q SFT_T(_Q)
+#define CTL_P CTL_T(_P)
+#define ALT_DT ALT_T(_DOT)
+#define SFT_CM SFT_T(_COMM)
+#define CTL_M CTL_T(_M)
 #define OS_SFTL OSM(MOD_LSFT)
-#define SM_A LT(_SM, (i_A))
-#define SM_R LT(_SM, (i_R))
-#define NM_E LT(_NM, (i_E))
-#define MV_N LT(_MV, (i_N))
-#define OS_FN OSL(_FN)
-#define OS_GE OSL(_GE)
+#define SM_A LT(_SM_, (_A))
+#define SM_R LT(_SM_, (_R))
+#define NM_E LT(_NM_, (_E))
+#define MV_N LT(_MV_, (_N))
+#define OS_FN OSL(_FN_)
+#define OS_GE OSL(_GE_)
 #define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
                    ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) &&  \
                    !has_oneshot_mods_timed_out()))
 #define LED_INTERVAL 2500
-uint8_t last_layer = _EN;
+uint8_t last_layer = _EN_;
 
 static bool was_shifted = false;
 enum {
@@ -58,14 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH |
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH_ |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
  *  |   -     |  U    |  I    |  A    |  E    |  O    |_______|           |_______|  S    |  N    |  R    |  T    |  D    |         |
- *  |         |       |       |    _SM|    _NM|       |       |           |       |       |    _MV|    _SM|       |       |  SUPER  |
+ *  |         |       |       |    _SM_|    _NM_|       |       |           |       |       |    _MV_|    _SM_|       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
  *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
  *  |     "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
@@ -74,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    |       |       |       |       |       |                                           |  _    |       |       |       |       |
  *    '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
  *                                               .-------.-------.     .-------.-------.
- *                                               |   _GE |       |     |       |   _FN |
+ *                                               |   _GE_ |       |     |       |   _FN_ |
  *                                               |       |       |     |       |       |
  *                                       .-------|-------|-------|     |-------|-------|-------.
  *                                       |       |       |       |     |       |       |       |
@@ -85,38 +84,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
 
-[_EN] = LAYOUT_ergodox(
+[_EN_] = LAYOUT_ergodox(
 
- ___x___,      ___x___,       ___x___,       ___x___,      ___x___,      ___x___,      ___x___,
- ___x___,      ___x___,       i_V,           i_L,          i_C,          i_W,          ___x___,
- i_MINS,       i_U,           i_I,           SM_A,         NM_E,         i_O,          /*___*/
- EQL_DQT,      i_X,           ALT_Y,         SFT_Q,        CTL_P,        i_Z,          MAGIC,
- ___x___,      ___x___,       ___x___,       ___x___,      T_CL,         /*___*/       /*___*/
+ _______,      _______,       _______,       _______,      _______,      _______,      _______,
+ _______,      _______,       _V,            _L,           _C,           _W,           _______,
+ _MINS,       _U,            _I,            SM_A,         NM_E,         _O,            /*___*/
+ EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           MAGIC,
+ _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
-                                                     /*___*/       TG(_GH),       ___x___,
-                                                     /*___*/       /*___*/        ___x___,
+                                                     /*___*/       _______,       _______,
+                                                     /*___*/       /*___*/        _______,
                                                      OS_SFTL,      KC_TAB,        KC_BSPC,
 
 
- ___x___,      ___x___,       ___x___,       ___x___,      ___x___,      ___x___,      TG(_SH),
- ___x___,      i_K,           i_H,           i_G,          i_F,          ___x___,      ___x___,
- /*___*/       i_S,           MV_N,          SM_R,         i_T,          i_D,          KC_LGUI,
- ___x___,      i_B,           CTL_M,         SFT_CM,       ALT_DT,       i_J,          OS_GE,
- /*___*/       /*___*/        UDS_ESC,       ___x___,      KC_MUTE,      KC_VOLD,      KC_VOLU,
+ _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH_),
+ _______,      _K,            _H,            _G,           _F,           _______,      _______,
+ /*___*/       _S,            MV_N,          SM_R,         _T,           _D,           KC_LGUI,
+ _______,      _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           OS_GE,
+ /*___*/       /*___*/        UDS_ESC,       _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
-         ___x___,      OS_FN,         /*___*/
-         ___x___,      /*___*/        /*___*/
+         _______,      OS_FN,         /*___*/
+         _______,      /*___*/        /*___*/
          KC_DEL,       KC_ENT,        KC_SPACE
 
 ),
 
-[_GE] = LAYOUT_ergodox(
+[_GE_] = LAYOUT_ergodox(
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      i_UE,         _______,      i_AE,         _______,      i_OE,         /*___*/
+ _______,      _UE,         _______,      _AE,         _______,      _OE,            /*___*/
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      /*___*/       /*___*/
  _______, _______, _______,
@@ -124,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*___*/       i_SS,         _______,      _______,      _______,      _______,      _______,
+ /*___*/       _SS,         _______,      _______,      _______,      _______,       _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
@@ -151,20 +150,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    '-------'-------'-------'-------'-------'                                     '-------'-------'-------'-------'-------'
  */
 
-[_SM] = LAYOUT_ergodox(
+[_SM_] = LAYOUT_ergodox(
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
- _______,      _______,       i_SLSH,        i_LBRC,        i_RBRC,        i_AT,          _______,
- _______,      _______,       i_PIPE,        i_LCBR,        i_RCBR,        i_ASTR,        /*___*/
- _______,      _______,       i_BSLS,        i_PLUS,        i_MINS,        i_DLR,         _______,
- _______,      _______,       _______,       _______,       i_LESS,
+ _______,      _______,       _SLSH,        _LBRC,        _RBRC,        _AT,              _______,
+ _______,      _______,       _PIPE,        _LCBR,        _RCBR,        _ASTR,            /*___*/
+ _______,      _______,       _BSLS,        _PLUS,        _MINS,        _DLR,             _______,
+ _______,      _______,       _______,       _______,       _LESS,
  _______, _______, _______,
  _______, _______, _______,
 
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
- _______,      i_TILD,        i_EXLM,        i_QST,         i_AMPR,        _______,       _______,
- /*___*/       i_HAT,         i_LPRN,        i_RPRN,        i_HASH,        _______,       _______,
- _______,      i_PERC,        i_DQOT,        i_QUOT,        i_BKTK,        i_TICK,        _______,
- /*___*/       /*___*/        i_MORE,        _______,       _______,       _______,       _______,
+ _______,      _TILD,        _EXLM,        _QST,         _AMPR,        _______,           _______,
+ /*___*/       _HAT,         _LPRN,        _RPRN,        _HASH,        _______,           _______,
+ _______,      _PERC,        _DQOT,        _QUOT,        _BKTK,        _TICK,             _______,
+ /*___*/       /*___*/        _MORE,        _______,       _______,       _______,        _______,
  _______, _______, _______,
  _______, _______, _______
 ),
@@ -188,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    '-------'-------'-------'-------'-------'
  */
 
- [_MV] = LAYOUT_ergodox(
+ [_MV_] = LAYOUT_ergodox(
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      KC_UP,        _______,      _______,      _______,
@@ -226,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                     '-------'-------'-------'-------'-------'
  */
 
-[_NM] = LAYOUT_ergodox(
+[_NM_] = LAYOUT_ergodox(
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -237,10 +236,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______, _______,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      i_HAT,        i_7,          i_8,          i_9,          _______,      _______,
- /*___*/       i_DOT,        i_4,          i_5,          i_6,          i_COLN,       _______,
- _______,      i_COMM,       i_1,          i_2,          i_3,          _______,      _______,
- /*___*/       /*___*/       i_0,          _______,      _______,      _______,      _______,
+ _______,      _HAT,         _7,           _8,           _9,           _______,       _______,
+ /*___*/       _DOT,         _4,           _5,           _6,           _COLN,         _______,
+ _______,      _COMM,        _1,           _2,           _3,           _______,       _______,
+ /*___*/       /*___*/       _0,           _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______
 ),
@@ -264,7 +263,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    '-------'-------'-------'-------'-------'
  */
 
-[_FN] = LAYOUT_ergodox(
+[_FN_] = LAYOUT_ergodox(
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -302,12 +301,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       '-------'-------'-------'-------'-------'
  */
 
-[_SH] = LAYOUT_ergodox(
+[_SH_] = LAYOUT_ergodox(
 
- _______,      i_1,          i_2,          i_3,          i_4,          i_5,          _______,
- _______,      _______,      i_B,          i_N,          _______,      _______,      KC_PPLS,
- _______,      _______,      _______,      i_I,          KC_BTN1,      M(mc_sh_clicks),
- _______,      _______,      i_M,          KC_SPACE,     i_Z,          i_P,          KC_PMNS,
+ _______,      _1,           _2,           _3,           _4,           _5,           _______,
+ _______,      _______,      _B,           _N,           _______,      _______,      KC_PPLS,
+ _______,      _______,      _______,      _I,           KC_BTN1,      M(mc_sh_clicks),
+ _______,      _______,      _M,           KC_SPACE,     _Z,           _P,           KC_PMNS,
  _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______,
@@ -374,10 +373,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             if (record->event.pressed) {
                 was_shifted  = shifted;
-                add_key(shifted ? i_UNDS : KC_ESCAPE);
+                add_key(shifted ? _UNDS : KC_ESCAPE);
             }
             else {
-                del_key(was_shifted ? i_UNDS : KC_ESCAPE);
+                del_key(was_shifted ? _UNDS : KC_ESCAPE);
             }
 
             send_keyboard_report();
@@ -391,11 +390,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
                     was_shifted  = shifted;
                     register_code(KC_LSFT);
-                    add_key(shifted ? i_DQOT : i_0);
+                    add_key(shifted ? _DQOT : _0);
                 }
                 else {
                     unregister_code(KC_LSFT);
-                    del_key(was_shifted ? i_DQOT : i_0);
+                    del_key(was_shifted ? _DQOT : _0);
                 }
             #elif __LANGUAGE__ == __ENGLISH__
             #endif
@@ -421,34 +420,31 @@ void matrix_scan_user(void) {
     if (layer == last_layer) {
       // update leds
       switch (layer) {
-        case _GE:
+        case _GE_:
           ergodox_set_red(brightness_middle(time, 300));
           ergodox_set_green(brightness_middle(time, 500));
           ergodox_set_blue(brightness_middle(time, 700));
           break;
-        case _GH:
-          ergodox_set_red(brightness_very_slow(time, 500));
-          break;
-        case _EN:
+        case _EN_:
           ergodox_set_red(brightness_middle(time, 700));
           ergodox_set_green(brightness_middle(time, 500));
           ergodox_set_blue(brightness_middle(time, 300));
           break;
-        case _SM:
+        case _SM_:
           ergodox_set_green(brightness_middle(time, 500));
           break;
-        case _MV:
+        case _MV_:
           ergodox_set_blue(brightness_middle(time, 500));
           break;
-        case _NM:
+        case _NM_:
           ergodox_set_blue(brightness_middle(time, 500));
           break;
-        case _FN:
+        case _FN_:
           ergodox_set_red(brightness_fast(time, 300));
           ergodox_set_green(brightness_fast(time, 500));
           ergodox_set_blue(brightness_fast(time, 700));
           break;
-        case _SH:
+        case _SH_:
           ergodox_set_red(brightness_middle(time, 500));
           ergodox_set_green(brightness_fast(time, 250) + brightness_fast(time, 750));
           ergodox_set_blue(brightness_middle(time, 0) + brightness_middle(time, 999));
