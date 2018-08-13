@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
- _MINS,       _U,            _I,            SM_A,         NM_E,         _O,            /*___*/
+ _MINS,        _U,            _I,            SM_A,         NM_E,         _O,            /*___*/
  EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           MAGIC,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
