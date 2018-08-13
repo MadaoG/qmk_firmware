@@ -32,12 +32,10 @@ enum {
 #define SFT_CM SFT_T(__COMM)
 #define CTL_M CTL_T(__M)
 #define OS_SFTL OSM(MOD_LSFT)
-#define OS_SFTR OSM(MOD_RSFT)
 #define SM_A LT(_SM, (__A))
 #define SM_R LT(_SM, (__R))
 #define NM_E LT(_NM, (__E))
 #define MV_N LT(_MV, (__N))
-#define SM_ESC LT(_SM, (KC_ESC))
 #define OS_FN OSL(_FN)
 #define OS_GE OSL(_GE)
 #define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
