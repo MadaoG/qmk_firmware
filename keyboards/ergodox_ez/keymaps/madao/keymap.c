@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
  _______,      i_TILD,        i_EXLM,        i_QST,         i_AMPR,        _______,       _______,
  /*___*/       i_HAT,         i_LPRN,        i_RPRN,        _______,       _______,       _______,
- _______,      i_PERC,        i_DQOT,        i_QUOT,        i_GRV,         i_ACUT,       _______,
+ _______,      i_PERC,        i_DQOT,        i_QUOT,        i_BKTK,        i_TICK,        _______,
  /*___*/       /*___*/        i_MORE,       _______,        _______,       _______,       _______,
  _______, _______, _______,
  _______, _______, _______
