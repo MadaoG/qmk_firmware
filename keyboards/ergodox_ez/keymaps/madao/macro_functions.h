@@ -1,7 +1,7 @@
 
 #define TAP_KEY(kc) register_code(kc); unregister_code(kc);
 #define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
-#define __HAT M(mc_hat)
+#define i_HAT M(mc_hat)
 
 enum { 
   mc_sh_clicks,

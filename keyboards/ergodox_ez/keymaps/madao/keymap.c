@@ -23,19 +23,22 @@ enum {
 #include "tap_functions.h"
 #include "macro_functions.h"
 
+#define _______ KC_TRNS
+#define ___x___ KC_NO
+
 #define MV_WIN MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define MV_SCRN MT(MOD_LCTL | MOD_LALT, KC_ESC)
-#define ALT_Y ALT_T(__Y)
-#define SFT_Q SFT_T(__Q)
-#define CTL_P CTL_T(__P)
-#define ALT_DT ALT_T(__DOT)
-#define SFT_CM SFT_T(__COMM)
-#define CTL_M CTL_T(__M)
+#define ALT_Y ALT_T(i_Y)
+#define SFT_Q SFT_T(i_Q)
+#define CTL_P CTL_T(i_P)
+#define ALT_DT ALT_T(i_DOT)
+#define SFT_CM SFT_T(i_COMM)
+#define CTL_M CTL_T(i_M)
 #define OS_SFTL OSM(MOD_LSFT)
-#define SM_A LT(_SM, (__A))
-#define SM_R LT(_SM, (__R))
-#define NM_E LT(_NM, (__E))
-#define MV_N LT(_MV, (__N))
+#define SM_A LT(_SM, (i_A))
+#define SM_R LT(_SM, (i_R))
+#define NM_E LT(_NM, (i_E))
+#define MV_N LT(_MV, (i_N))
 #define OS_FN OSL(_FN)
 #define OS_GE OSL(_GE)
 #define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
@@ -48,6 +51,7 @@ static bool was_shifted = false;
 enum {
     UDS_ESC,
     EQL_DQT,
+    MAGIC,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,27 +87,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EN] = LAYOUT_ergodox(
 
- _______,      _______,       _______,       _______,      _______,      _______,      _______,
- _______,      _______,       __V,           __L,          __C,          __W,          _______,
- __MINS,       __U,           __I,           SM_A,         NM_E,         __O,          /*___*/
- EQL_DQT,      __X,           ALT_Y,         SFT_Q,        CTL_P,        __Z,          _______,
- _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
+ ___x___,      ___x___,       ___x___,       ___x___,      ___x___,      ___x___,      ___x___,
+ ___x___,      ___x___,       i_V,           i_L,          i_C,          i_W,          ___x___,
+ i_MINS,       i_U,           i_I,           SM_A,         NM_E,         i_O,          /*___*/
+ EQL_DQT,      i_X,           ALT_Y,         SFT_Q,        CTL_P,        i_Z,          MAGIC,
+ ___x___,      ___x___,       ___x___,       ___x___,      T_CL,         /*___*/       /*___*/
 
 
-                                                     /*___*/       TG(_GH),       _______,
-                                                     /*___*/       /*___*/        _______,
+                                                     /*___*/       TG(_GH),       ___x___,
+                                                     /*___*/       /*___*/        ___x___,
                                                      OS_SFTL,      KC_TAB,        KC_BSPC,
 
 
- _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH),
- _______,      __K,           __H,           __G,          __F,          _______,      _______,
- /*___*/       __S,           MV_N,          SM_R,         __T,          __D,          KC_LGUI,
- _______,      __B,           CTL_M,         SFT_CM,       ALT_DT,       __J,          _______,
- /*___*/       /*___*/        UDS_ESC,       _______,      KC_MUTE,      KC_VOLD,      KC_VOLU,
+ ___x___,      ___x___,       ___x___,       ___x___,      ___x___,      ___x___,      TG(_SH),
+ ___x___,      i_K,           i_H,           i_G,          i_F,          ___x___,      ___x___,
+ /*___*/       i_S,           MV_N,          SM_R,         i_T,          i_D,          KC_LGUI,
+ ___x___,      i_B,           CTL_M,         SFT_CM,       ALT_DT,       i_J,          ___x___,
+ /*___*/       /*___*/        UDS_ESC,       ___x___,      KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
-         _______,      OS_FN,         /*___*/
-         _______,      /*___*/        /*___*/
+         ___x___,      OS_FN,         /*___*/
+         ___x___,      /*___*/        /*___*/
          KC_DEL,       KC_ENT,        KC_SPACE
 
 ),
@@ -132,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      __UE,         _______,      __AE,         _______,       __OE,        /*___*/
+ _______,      i_UE,         _______,      i_AE,         _______,       i_OE,        /*___*/
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      /*___*/       /*___*/
  _______, _______, _______,
@@ -140,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- /*___*/       __SS,         _______,      _______,      _______,      _______,      _______,
+ /*___*/       i_SS,         _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
@@ -169,18 +173,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SM] = LAYOUT_ergodox(
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
- _______,      _______,       __HASH,        __LBRC,        __RBRC,        __AT,          _______,
- _______,      __SLSH,        _______,       __LCBR,        __RCBR,        __ASTR,        /*___*/
- _______,      __PIPE,        __BSLS,        __PLUS,        __MINS,        __DLR,         _______,
- _______,      _______,       _______,       _______,       __LESS,
+ _______,      _______,       i_HASH,        i_LBRC,        i_RBRC,        i_AT,          _______,
+ _______,      i_SLSH,        _______,       i_LCBR,        i_RCBR,        i_ASTR,        /*___*/
+ _______,      i_PIPE,        i_BSLS,        i_PLUS,        i_MINS,        i_DLR,         _______,
+ _______,      _______,       _______,       _______,       i_LESS,
  _______, _______, _______,
  _______, _______, _______,
 
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
- _______,      __TILD,        __EXLM,        __QST,         __AMPR,        _______,       _______,
- /*___*/       __HAT,         __LPRN,        __RPRN,        _______,       _______,       _______,
- _______,      __PERC,        __DQOT,        __QUOT,        __GRV,         __ACUT,       _______,
- /*___*/       /*___*/        __MORE,       _______,        _______,       _______,       _______,
+ _______,      i_TILD,        i_EXLM,        i_QST,         i_AMPR,        _______,       _______,
+ /*___*/       i_HAT,         i_LPRN,        i_RPRN,        _______,       _______,       _______,
+ _______,      i_PERC,        i_DQOT,        i_QUOT,        i_GRV,         i_ACUT,       _______,
+ /*___*/       /*___*/        i_MORE,       _______,        _______,       _______,       _______,
  _______, _______, _______,
  _______, _______, _______
 ),
@@ -253,10 +257,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______, _______,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      __HAT,        __7,          __8,          __9,          _______,      _______,
- /*___*/       __DOT,        __4,          __5,          __6,          __COLN,       _______,
- _______,      __COMM,       __1,          __2,          __3,          _______,      _______,
- /*___*/       /*___*/       __0,          _______,      _______,      _______,      _______,
+ _______,      i_HAT,        i_7,          i_8,          i_9,          _______,      _______,
+ /*___*/       i_DOT,        i_4,          i_5,          i_6,          i_COLN,       _______,
+ _______,      i_COMM,       i_1,          i_2,          i_3,          _______,      _______,
+ /*___*/       /*___*/       i_0,          _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______
 ),
@@ -320,10 +324,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_SH] = LAYOUT_ergodox(
 
- _______,      __1,          __2,          __3,          __4,          __5,          _______,
- _______,      _______,      __B,          __N,          _______,      _______,      KC_PPLS,
- _______,      _______,      _______,      __I,          KC_BTN1,      M(mc_sh_clicks),
- _______,      _______,      __M,          KC_SPACE,     __Z,          __P,          KC_PMNS,
+ _______,      i_1,          i_2,          i_3,          i_4,          i_5,          _______,
+ _______,      _______,      i_B,          i_N,          _______,      _______,      KC_PPLS,
+ _______,      _______,      _______,      i_I,          KC_BTN1,      M(mc_sh_clicks),
+ _______,      _______,      i_M,          KC_SPACE,     i_Z,          i_P,          KC_PMNS,
  _______,      _______,      _______,      _______,      _______,
  _______, _______, _______,
  _______, _______, _______,
@@ -343,6 +347,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */
     /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
     switch (keycode) {
+        case MAGIC: {
+            if (record->event.pressed) {
+                if is_shifted {
+                    // OS_GE;
+                    // register_code(KC_LSFT);
+                    // unregister_code(KC_LSFT);
+                    // register_code(KC_1);
+                    // unregister_code(KC_1);
+                    // unregister_code(KC_LSFT);
+                } else {
+                    register_code(KC_2);
+                    unregister_code(KC_2);
+                    // register_code(KC_DOT);
+                    // unregister_code(KC_DOT);
+                }
+            } else {
+                // unregister_code(KC_1);
+                // unregister_code(KC_LSFT);
+                // unregister_code(KC_DOT);
+            }
+            return false;
+        };
+
         case KC_DOT: {
             if (record->event.pressed) {
                 if is_shifted {
@@ -367,10 +394,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             if (record->event.pressed) {
                 was_shifted  = shifted;
-                add_key(shifted ? __UNDS : KC_ESCAPE);
+                add_key(shifted ? i_UNDS : KC_ESCAPE);
             }
             else {
-                del_key(was_shifted ? __UNDS : KC_ESCAPE);
+                del_key(was_shifted ? i_UNDS : KC_ESCAPE);
             }
 
             send_keyboard_report();
@@ -384,11 +411,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
                     was_shifted  = shifted;
                     register_code(KC_LSFT);
-                    add_key(shifted ? __DQOT : __0);
+                    add_key(shifted ? i_DQOT : i_0);
                 }
                 else {
                     unregister_code(KC_LSFT);
-                    del_key(was_shifted ? __DQOT : __0);
+                    del_key(was_shifted ? i_DQOT : i_0);
                 }
             #elif __LANGUAGE__ == __ENGLISH__
             #endif
