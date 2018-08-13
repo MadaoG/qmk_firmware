@@ -19,7 +19,7 @@ enum {
 
 // User defined functions which may refer to the above declared layers.
 // Hence, including them afterwards.
-#include "gauss.h" // defines t
+#include "gauss.h"
 #include "tap_functions.h"
 #include "macro_functions.h"
 
@@ -43,6 +43,7 @@ enum {
 #define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
                    ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) &&  \
                    !has_oneshot_mods_timed_out()))
+#define LED_INTERVAL 2500
 uint8_t last_layer = _EN;
 
 static bool was_shifted = false;
@@ -410,42 +411,42 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
-    t++; if (t >= 1000) t = 0;
+    uint16_t time = timer_read() % LED_INTERVAL;
 
     if (layer == last_layer) {
       // update leds
       switch (layer) {
         case _GE:
-          ergodox_set_red(brightness_middle(300));
-          ergodox_set_green(brightness_middle(500));
-          ergodox_set_blue(brightness_middle(700));
+          ergodox_set_red(brightness_middle(time, 300));
+          ergodox_set_green(brightness_middle(time, 500));
+          ergodox_set_blue(brightness_middle(time, 700));
           break;
         case _GH:
-          ergodox_set_red(brightness_very_slow(500));
+          ergodox_set_red(brightness_very_slow(time, 500));
           break;
         case _EN:
-          ergodox_set_red(brightness_middle(700));
-          ergodox_set_green(brightness_middle(500));
-          ergodox_set_blue(brightness_middle(300));
+          ergodox_set_red(brightness_middle(time, 700));
+          ergodox_set_green(brightness_middle(time, 500));
+          ergodox_set_blue(brightness_middle(time, 300));
           break;
         case _SM:
-          ergodox_set_green(brightness_middle(500));
+          ergodox_set_green(brightness_middle(time, 500));
           break;
         case _MV:
-          ergodox_set_blue(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(time, 500));
           break;
         case _NM:
-          ergodox_set_blue(brightness_middle(500));
+          ergodox_set_blue(brightness_middle(time, 500));
           break;
         case _FN:
-          ergodox_set_red(brightness_fast(300));
-          ergodox_set_green(brightness_fast(500));
-          ergodox_set_blue(brightness_fast(700));
+          ergodox_set_red(brightness_fast(time, 300));
+          ergodox_set_green(brightness_fast(time, 500));
+          ergodox_set_blue(brightness_fast(time, 700));
           break;
         case _SH:
-          ergodox_set_red(brightness_middle(500));
-          ergodox_set_green(brightness_fast(250) + brightness_fast(750));
-          ergodox_set_blue(brightness_middle(0) + brightness_middle(999));
+          ergodox_set_red(brightness_middle(time, 500));
+          ergodox_set_green(brightness_fast(time, 250) + brightness_fast(time, 750));
+          ergodox_set_blue(brightness_middle(time, 0) + brightness_middle(time, 999));
           break;
         default:
           ergodox_board_led_off();
@@ -453,7 +454,6 @@ void matrix_scan_user(void) {
 
     } else {
       last_layer = layer;
-      t = 0;
       // init leds
       ergodox_board_led_off();
       ergodox_right_led_1_off();
