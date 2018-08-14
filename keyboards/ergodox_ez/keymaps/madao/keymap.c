@@ -26,6 +26,9 @@ enum {
     UDS_ESC,
     EQL_DQT,
     MGC_SFT,
+    MGC_SM,
+    MGC_USFT,
+    MGC_SESC,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -64,20 +67,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EMPTY_TOP_ROW,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
  _MINS,        _U,            _I,            SM_A,         NM_E,         _O,           /*___*/
- EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           MGC_SFT,
+ EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _______,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
                                                      /*___*/       _______,       _______,
                                                      /*___*/       /*___*/        _______,
-                                                     OS_SFTL,      KC_TAB,        KC_BSPC,
+                                                     MGC_SESC,     KC_TAB,        KC_BSPC,
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH_),
  _______,      _K,            _H,            _G,           _F,           _______,      _______,
  /*___*/       _S,            MV_N,          SM_R,         _T,           _D,           KC_LGUI,
  _______,      _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           OS_GE,
- /*___*/       /*___*/        UDS_ESC,       OS_GE,        KC_MUTE,      KC_VOLD,      KC_VOLU,
+ /*___*/       /*___*/        MGC_SM,        OS_GE,        KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
          _______,      OS_FN,         /*___*/
@@ -301,6 +304,91 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     {
                         clear_oneshot_layer_state(ONESHOT_PRESSED);
                         clear_mods();
+                    }
+                }
+                return false;
+            };
+
+        case MGC_USFT: 
+            // tap once for os shift
+            // hold for shift
+            // shift and tap for underscore (including tapping twice)
+            {
+                if is_shifted // second tap: change to _SM_
+                {
+                    clear_mods();
+                    if (record->event.pressed)
+                    {
+#if __LANGUAGE__ == LG__GERMAN__
+                        register_code(KC_LSFT);
+                        TAP_KEY(DE_MINS);
+                        unregister_code(KC_LSFT);
+#elif __LANGUAGE__ == LG__ENGLISH__
+                        TAP_KEY(_UNDS);
+#endif
+                    }
+                }
+                else // first tap
+                {
+                    if (record->event.pressed)
+                    {
+                        set_mods(MOD_BIT(KC_LSFT));
+                        set_oneshot_mods(MOD_LSFT);
+                    }
+                    else
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                        clear_mods();
+                    }
+                }
+                return false;
+            };
+
+        case MGC_SESC: 
+            // tap once for os shift
+            // hold for shift
+            // shift and tap for underscore (including tapping twice)
+            {
+                if is_shifted // second tap: change to _SM_
+                {
+                    clear_mods();
+                    if (record->event.pressed)
+                    {
+                        TAP_KEY(_ESC);
+                    }
+                }
+                else // first tap
+                {
+                    if (record->event.pressed)
+                    {
+                        set_mods(MOD_BIT(KC_LSFT));
+                        set_oneshot_mods(MOD_LSFT);
+                    }
+                    else
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                        clear_mods();
+                    }
+                }
+                return false;
+            };
+
+        case MGC_SM:
+            {
+                if is_shifted
+                {
+                    TAP_KEY(_ESC);
+                }
+                else // first tap
+                {
+                    clear_mods();
+                    if (record->event.pressed)
+                    {
+                        set_oneshot_layer(_SM_, ONESHOT_START);
+                    }
+                    else
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
                     }
                 }
                 return false;
