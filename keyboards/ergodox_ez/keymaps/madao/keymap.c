@@ -64,13 +64,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EMPTY_TOP_ROW,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
  _MINS,        _U,            _I,            SM_A,         NM_E,         _O,           /*___*/
- EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _______,
+ EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           MGC_SFT,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
                                                      /*___*/       _______,       _______,
                                                      /*___*/       /*___*/        _______,
-                                                     MGC_SFT,      KC_TAB,        KC_BSPC,
+                                                     OS_SFTL,      KC_TAB,        KC_BSPC,
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH_),
@@ -274,97 +274,105 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    /* ! Ä  § $ % / ä )= ( ` , ß . - Ö ö ; ' : _ " ü #  + & ? ^ Ü ' * ° */
-    /* ! \" # $ % & ' () * + , - . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ */
-    // uint8_t mods = get_mods();
-    // uint8_t os_mods = get_oneshot_mods();
     switch (keycode) {
 
-        case MGC_SFT: {
-            // tap once for oneshot shift, tap twice for oneshot symbol layer
-            // TODO: hold for shift
-            if (record->event.pressed) {
-                if is_shifted {
-                    set_oneshot_layer(_SM_, ONESHOT_START);
-                } else {
-                    // set_mods(mods);
-                    // set_mods(KC_LSFT);
-                set_oneshot_mods(MOD_LSFT);
+        case MGC_SFT:
+            {
+                if is_shifted // second tap: change to _SM_
+                {
+                    clear_mods();
+                    if (record->event.pressed)
+                    {
+                        set_oneshot_layer(_SM_, ONESHOT_START);
+                    }
+                    else
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                    }
                 }
-                // set_oneshot_mods(MOD_LSFT);
-            } else {
-                clear_oneshot_layer_state (ONESHOT_PRESSED);
-            }
-            return false;
-        };
+                else // first tap
+                {
+                    if (record->event.pressed)
+                    {
+                        set_mods(MOD_BIT(KC_LSFT));
+                        set_oneshot_mods(MOD_LSFT);
+                    }
+                    else
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                        clear_mods();
+                    }
+                }
+                return false;
+            };
 
         case _MINS: {
-            if (record->event.pressed) {
-                if is_shifted {
-                    clear_oneshot_mods();
-                    clear_mods();
-                    TAP_KEY(_CAPS);
-                    return false;
-                } else {
-                    TAP_KEY(_MINS);
-                    return false;
-                }
-            }
-        };
+                        if (record->event.pressed) {
+                            if is_shifted {
+                                clear_oneshot_mods();
+                                clear_mods();
+                                TAP_KEY(_CAPS);
+                                return false;
+                            } else {
+                                TAP_KEY(_MINS);
+                                return false;
+                            }
+                        }
+                    };
 
         case KC_DOT: {
-            if (record->event.pressed) {
-                if is_shifted {
-                    register_code(KC_LSFT);
-                    register_code(KC_1);
-                    unregister_code(KC_1);
-                    unregister_code(KC_LSFT);
-                } else {
-                    register_code(KC_DOT);
-                    unregister_code(KC_DOT);
-                }
-            } else {
-                unregister_code(KC_1);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_DOT);
-            }
-            return false;
-        };
+                         if (record->event.pressed) {
+                             if is_shifted {
+                                 register_code(KC_LSFT);
+                                 register_code(KC_1);
+                                 unregister_code(KC_1);
+                                 unregister_code(KC_LSFT);
+                             } else {
+                                 register_code(KC_DOT);
+                                 unregister_code(KC_DOT);
+                             }
+                         } else {
+                             unregister_code(KC_1);
+                             unregister_code(KC_LSFT);
+                             unregister_code(KC_DOT);
+                         }
+                         return false;
+                     };
 
         case UDS_ESC: {
-            uint8_t shifted = is_shifted;
+                          uint8_t shifted = is_shifted;
 
-            if (record->event.pressed) {
-                was_shifted  = shifted;
-                add_key(shifted ? _UNDS : KC_ESCAPE);
-            }
-            else {
-                del_key(was_shifted ? _UNDS : KC_ESCAPE);
-            }
+                          if (record->event.pressed) {
+                              was_shifted  = shifted;
+                              add_key(shifted ? _UNDS : KC_ESCAPE);
+                          }
+                          else {
+                              del_key(was_shifted ? _UNDS : KC_ESCAPE);
+                          }
 
-            send_keyboard_report();
-            return false;
-        };
+                          send_keyboard_report();
+                          return false;
+                      };
 
         case EQL_DQT: {
-            uint8_t shifted = is_shifted;
+                          uint8_t shifted = is_shifted;
 
-            #if __LANGUAGE__ == LG__GERMAN__
-                if (record->event.pressed) {
-                    was_shifted  = shifted;
-                    register_code(KC_LSFT);
-                    add_key(shifted ? _DQOT : _0);
-                }
-                else {
-                    unregister_code(KC_LSFT);
-                    del_key(was_shifted ? _DQOT : _0);
-                }
-            #elif __LANGUAGE__ == LG__ENGLISH__
-            #endif
+#if __LANGUAGE__ == LG__GERMAN__
+                          if (record->event.pressed) {
+                              was_shifted  = shifted;
+                              register_code(KC_LSFT);
+                              add_key(shifted ? _DQOT : _0);
+                          }
+                          else {
+                              unregister_code(KC_LSFT);
+                              del_key(was_shifted ? _DQOT : _0);
+                          }
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
 
-            send_keyboard_report();
-            return false;
-        };
+                          send_keyboard_report();
+                          return false;
+                      };
     };
 
     return true;
@@ -389,7 +397,7 @@ void matrix_scan_user(void) {
           ergodox_set_blue(brightness_middle(time, 700));
           break;
         case _EN_:
-          ergodox_set_red(brightness_middle(time, 700));
+          ergodox_set_red(brightness_middle(time, 400) + brightness_middle(time, 700));
           ergodox_set_green(brightness_middle(time, 500));
           ergodox_set_blue(brightness_middle(time, 300) + brightness_fast(time, 600));
           break;
