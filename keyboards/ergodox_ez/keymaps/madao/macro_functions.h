@@ -1,7 +1,4 @@
 
-#define TAP_KEY(kc) register_code(kc); unregister_code(kc);
-#define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
-
 #define _HAT M(mc_hat)
 #define _TICK M(mc_tick)
 #define _BKTK M(mc_backtick)

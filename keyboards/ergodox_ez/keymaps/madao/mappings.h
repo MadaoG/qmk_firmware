@@ -1,4 +1,27 @@
-#if __LANGUAGE__ == __GERMAN__
+
+#define _______ KC_TRNS
+#define _xxxxx_ KC_NO
+
+#define TAP_KEY(kc) register_code(kc); unregister_code(kc);
+#define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
+
+#define MV_WIN  MT(MOD_LCTL | MOD_LGUI, KC_ESC)
+#define MV_SCRN MT(MOD_LCTL | MOD_LALT, KC_ESC)
+#define ALT_Y   ALT_T(_Y)
+#define SFT_Q   SFT_T(_Q)
+#define CTL_P   CTL_T(_P)
+#define ALT_DT  ALT_T(_DOT)
+#define SFT_CM  SFT_T(_COMM)
+#define CTL_M   CTL_T(_M)
+#define OS_SFTL OSM(MOD_LSFT)
+#define SM_A    LT(_SM_,(_A))
+#define SM_R    LT(_SM_,(_R))
+#define NM_E    LT(_NM_,(_E))
+#define MV_N    LT(_MV_,(_N))
+#define OS_FN   OSL(_FN_)
+#define OS_GE   OSL(_GE_)
+
+#if __LANGUAGE__ == LG__GERMAN__
 
     #include "keymap_extras/keymap_german.h"
 
@@ -82,8 +105,9 @@
     #define _EURO   ALGR(KC_E)    // €
     #define _TILD   ALGR(DE_PLUS) // ~
     #define _PIPE   ALGR(DE_LESS) // |
+    #define _CAPS   KC_CAPS
 
-#elif __LANGUAGE__ == __ENGLISH__
+#elif __LANGUAGE__ == LG__ENGLISH__
 
     #define _Z    KC_Z
     #define _Y    KC_Y
@@ -161,5 +185,6 @@
     #define _EURO KC_EURO
     #define _TILD KC_TILD
     #define _PIPE KC_PIPE
+    #define _CAPS KC_CAPS
 
 #endif
