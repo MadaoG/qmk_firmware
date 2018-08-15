@@ -25,11 +25,17 @@ static bool was_shifted = false;
 enum {
     UDS_ESC,
     EQL_DQT,
-    MGC_SFT,
-    MGC_SM,
-    MGC_USFT,
-    MGC_SESC,
+    MGC_SFT_SM,
+    MGC_SM_ESC,
+    MGC_SFT_US,
+    MGC_SFT_ESC,
 };
+
+void clear_all_mods(void) {
+    clear_mods();
+    clear_oneshot_mods();
+    clear_weak_mods();
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,14 +79,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                      /*___*/       _______,       _______,
                                                      /*___*/       /*___*/        _______,
-                                                     MGC_SESC,     KC_TAB,        KC_BSPC,
+                                                     MGC_SFT_US,    KC_TAB,        KC_BSPC,
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH_),
  _______,      _K,            _H,            _G,           _F,           _______,      _______,
  /*___*/       _S,            MV_N,          SM_R,         _T,           _D,           KC_LGUI,
  _______,      _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           OS_GE,
- /*___*/       /*___*/        MGC_SM,        OS_GE,        KC_MUTE,      KC_VOLD,      KC_VOLU,
+
+ /*___*/       /*___*/        MGC_SM_ESC,        OS_GE,        KC_MUTE,      KC_VOLD,      KC_VOLU,
 
 
          _______,      OS_FN,         /*___*/
@@ -127,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SM_] = LAYOUT_ergodox_wrapper(
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
  _______,      _______,       _SLSH,         _LBRC,         _RBRC,         _AT,           _______,
- _______,      _______,       _PIPE,         _LCBR,         _RCBR,         _ASTR,         /*___*/
+ _______,      _UNDS,         _PIPE,         _LCBR,         _RCBR,         _ASTR,         /*___*/
  _______,      _______,       _BSLS,         _PLUS,         _MINS,         _DLR,          _______,
  _______,      _______,       _______,       _______,       _LESS,
  THUMBS,
@@ -279,37 +286,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
-        case MGC_SFT:
-            {
-                if is_shifted // second tap: change to _SM_
-                {
-                    clear_mods();
-                    if (record->event.pressed)
-                    {
-                        set_oneshot_layer(_SM_, ONESHOT_START);
-                    }
-                    else
-                    {
-                        clear_oneshot_layer_state(ONESHOT_PRESSED);
-                    }
-                }
-                else // first tap
-                {
-                    if (record->event.pressed)
-                    {
-                        set_mods(MOD_BIT(KC_LSFT));
-                        set_oneshot_mods(MOD_LSFT);
-                    }
-                    else
-                    {
-                        clear_oneshot_layer_state(ONESHOT_PRESSED);
-                        clear_mods();
-                    }
-                }
-                return false;
-            };
+        // case MGC_SFT_SM:
+        //     return true;
+        //     // tap or hold for shift
+        //     // tap when shifted for os to sm layer
+        //     {
+        //         if is_shifted // second tap: change to _SM_
+        //         {
+        //             clear_mods();
+        //             if (record->event.pressed)
+        //             {
+        //                 set_oneshot_layer(_SM_, ONESHOT_START);
+        //             }
+        //             else
+        //             {
+        //                 clear_oneshot_layer_state(ONESHOT_PRESSED);
+        //             }
+        //         }
+        //         else // first tap
+        //         {
+        //             if (record->event.pressed)
+        //             {
+        //                 set_mods(MOD_BIT(KC_LSFT));
+        //                 set_oneshot_mods(MOD_LSFT);
+        //             }
+        //             else
+        //             {
+        //                 clear_oneshot_layer_state(ONESHOT_PRESSED);
+        //                 clear_mods();
+        //             }
+        //         }
+        //         return false;
+        //     };
 
-        case MGC_USFT: 
+        case MGC_SFT_US:
             // tap once for os shift
             // hold for shift
             // shift and tap for underscore (including tapping twice)
@@ -332,6 +342,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     if (record->event.pressed)
                     {
+                        clear_mods();
                         set_mods(MOD_BIT(KC_LSFT));
                         set_oneshot_mods(MOD_LSFT);
                     }
@@ -344,42 +355,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             };
 
-        case MGC_SESC: 
-            // tap once for os shift
-            // hold for shift
-            // shift and tap for underscore (including tapping twice)
-            {
-                if is_shifted // second tap: change to _SM_
-                {
-                    clear_mods();
-                    if (record->event.pressed)
-                    {
-                        TAP_KEY(_ESC);
-                    }
-                }
-                else // first tap
-                {
-                    if (record->event.pressed)
-                    {
-                        set_mods(MOD_BIT(KC_LSFT));
-                        set_oneshot_mods(MOD_LSFT);
-                    }
-                    else
-                    {
-                        clear_oneshot_layer_state(ONESHOT_PRESSED);
-                        clear_mods();
-                    }
-                }
-                return false;
-            };
+        // case MGC_SFT_ESC:
+        //     return true;
+        //     // tap once for os shift
+        //     // hold for shift
+        //     // shift and tap for esc
+        //     {
+        //         if is_shifted // second tap: change to _SM_
+        //         {
+        //             clear_mods();
+        //             if (record->event.pressed)
+        //             {
+        //                 TAP_KEY(_ESC);
+        //             }
+        //         }
+        //         else // first tap
+        //         {
+        //             if (record->event.pressed)
+        //             {
+        //                 set_mods(MOD_BIT(KC_LSFT));
+        //                 set_oneshot_mods(MOD_LSFT);
+        //             }
+        //             else
+        //             {
+        //                 clear_oneshot_layer_state(ONESHOT_PRESSED);
+        //                 clear_mods();
+        //             }
+        //         }
+        //         return false;
+        //     };
 
-        case MGC_SM:
+        case MGC_SM_ESC:
+            // tap or hold for sm layer
+            // tap when shifted for esc
             {
                 if is_shifted
                 {
+                    clear_oneshot_layer_state(ONESHOT_PRESSED);
+                    clear_all_mods();
                     TAP_KEY(_ESC);
                 }
-                else // first tap
+                else
                 {
                     clear_mods();
                     if (record->event.pressed)
@@ -388,6 +404,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     else
                     {
+                        // layer_off(get_oneshot_layer());
                         clear_oneshot_layer_state(ONESHOT_PRESSED);
                     }
                 }
