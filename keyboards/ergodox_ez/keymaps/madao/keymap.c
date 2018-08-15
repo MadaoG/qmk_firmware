@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EMPTY_TOP_ROW,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
  _MINS,        _U,            _I,            SM_A,         NM_E,         _O,           /*___*/
- EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _______,
+ EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _ESC,
  _______,      _______,       _______,       _______,      T_CL,         /*___*/       /*___*/
 
 
@@ -389,22 +389,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // tap or hold for sm layer
             // tap when shifted for esc
             {
+            send_keyboard_report();
                 if is_shifted
                 {
-                    clear_oneshot_layer_state(ONESHOT_PRESSED);
-                    clear_all_mods();
-                    TAP_KEY(_ESC);
+                    if (record->event.pressed)
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                        clear_all_mods();
+                        TAP_KEY(_ESC);
+                        register_code(KC_LSFT);
+                    }
+                    else
+                    {
+                        // will land here from `esc`, always
+                        // NOTE: will land here from oneshot commands if
+                        //   - hold magic key
+                        //   - tap and hold random key, eg `f`
+                        //   - release magic key
+                        //   - release `f`
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                        clear_all_mods();
+                    }
                 }
                 else
                 {
-                    clear_mods();
+                    clear_all_mods();
+                    clear_keys();
                     if (record->event.pressed)
                     {
                         set_oneshot_layer(_SM_, ONESHOT_START);
                     }
                     else
                     {
-                        // layer_off(get_oneshot_layer());
                         clear_oneshot_layer_state(ONESHOT_PRESSED);
                     }
                 }
