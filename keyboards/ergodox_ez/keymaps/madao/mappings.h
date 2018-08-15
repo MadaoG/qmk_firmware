@@ -2,7 +2,13 @@
 #define _______ KC_TRNS
 #define _xxxxx_ KC_NO
 
-#define TAP_KEY(kc) register_code(kc); unregister_code(kc);
+#define TAP_KEY(kc) \
+    register_code(kc); \
+    unregister_code(kc);
+
+#define TAP_RECORD(kc) \
+    if (record->event.pressed) {register_code(kc);} else {unregister_code(kc);}
+
 #define TAP_SFT(kc) register_code(KC_LSFT); TAP_KEY(kc); unregister_code(KC_LSFT);
 #define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
 
@@ -23,6 +29,7 @@
 #define OS_GE   OSL(_GE_)
 
 #define _ESC    KC_ESC
+#define _SPACE  KC_SPACE
 
 #if __LANGUAGE__ == LG__GERMAN__
 
