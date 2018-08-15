@@ -40,7 +40,8 @@ _______, _______, _______
 #define LED_INTERVAL 1500
 #define LG__GERMAN__ 0
 #define LG__ENGLISH__ 1
-#define is_shifted (keyboard_report->mods & MOD_BIT(KC_LSFT) || \
-                   ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) &&  \
-                   !has_oneshot_mods_timed_out()))
 
+#define is_shifted                              \
+    keyboard_report->mods & MOD_BIT(KC_LSFT) || \
+    ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && \
+     !has_oneshot_mods_timed_out())

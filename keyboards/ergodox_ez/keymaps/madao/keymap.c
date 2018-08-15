@@ -291,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     // tap or hold for shift
         //     // tap when shifted for os to sm layer
         //     {
-        //         if is_shifted // second tap: change to _SM_
+        //         if (is_shifted) // second tap: change to _SM_
         //         {
         //             clear_mods();
         //             if (record->event.pressed)
@@ -324,7 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // hold for shift
             // shift and tap for underscore (including tapping twice)
             {
-                if is_shifted // second tap: change to _SM_
+                if (is_shifted) // second tap: change to _SM_
                 {
                     clear_mods();
                     if (record->event.pressed)
@@ -361,7 +361,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     // hold for shift
         //     // shift and tap for esc
         //     {
-        //         if is_shifted // second tap: change to _SM_
+        //         if (is_shifted) // second tap: change to _SM_
         //         {
         //             clear_mods();
         //             if (record->event.pressed)
@@ -390,7 +390,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // tap when shifted for esc
             {
             send_keyboard_report();
-                if is_shifted
+                if (is_shifted)
                 {
                     if (record->event.pressed)
                     {
@@ -429,7 +429,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case _MINS: {
                         if (record->event.pressed) {
-                            if is_shifted {
+                            if (is_shifted) {
                                 clear_oneshot_mods();
                                 clear_mods();
                                 TAP_KEY(_CAPS);
@@ -443,7 +443,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_DOT: {
                          if (record->event.pressed) {
-                             if is_shifted {
+                             if (is_shifted) {
                                  register_code(KC_LSFT);
                                  register_code(KC_1);
                                  unregister_code(KC_1);
@@ -461,7 +461,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      };
 
         case UDS_ESC: {
-                          uint8_t shifted = is_shifted;
+                          uint8_t shifted = (is_shifted);
 
                           if (record->event.pressed) {
                               was_shifted  = shifted;
@@ -476,7 +476,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                       };
 
         case EQL_DQT: {
-                          uint8_t shifted = is_shifted;
+                          uint8_t shifted = (is_shifted);
 
 #if __LANGUAGE__ == LG__GERMAN__
                           if (record->event.pressed) {

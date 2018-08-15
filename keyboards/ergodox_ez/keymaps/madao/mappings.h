@@ -3,6 +3,7 @@
 #define _xxxxx_ KC_NO
 
 #define TAP_KEY(kc) register_code(kc); unregister_code(kc);
+#define TAP_SFT(kc) register_code(KC_LSFT); TAP_KEY(kc); unregister_code(KC_LSFT);
 #define TAP_TWICE(kc) TAP_KEY(kc); TAP_KEY(kc);
 
 #define MV_WIN  MT(MOD_LCTL | MOD_LGUI, KC_ESC)
@@ -20,6 +21,8 @@
 #define MV_N    LT(_MV_,(_N))
 #define OS_FN   OSL(_FN_)
 #define OS_GE   OSL(_GE_)
+
+#define _ESC    KC_ESC
 
 #if __LANGUAGE__ == LG__GERMAN__
 
