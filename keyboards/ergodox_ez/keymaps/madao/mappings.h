@@ -20,16 +20,29 @@
 #define ALT_DT  ALT_T(_DOT)
 #define SFT_CM  SFT_T(_COMM)
 #define CTL_M   CTL_T(_M)
-#define OS_SFTL OSM(MOD_LSFT)
+#define OS_SFT  OSM(MOD_LSFT)
 #define SM_A    LT(_SM_,(_A))
 #define SM_R    LT(_SM_,(_R))
 #define NM_E    LT(_NM_,(_E))
 #define MV_N    LT(_MV_,(_N))
 #define OS_FN   OSL(_FN_)
 #define OS_GE   OSL(_GE_)
+#define OS_NM   OSL(_NM_)
+#define OS_SM   OSL(_SM_)
+#define TG_SF   TG(_SF_)
+#define TG_SH   TG(_SH_)
+#define TO_EN   TO(_EN_)
 
 #define _ESC    KC_ESC
+#define _TAB    KC_TAB
 #define _SPACE  KC_SPACE
+#define _ENTER  KC_ENTER
+#define _DEL    KC_DELETE
+#define _BSPACE KC_BSPACE
+#define _LGUI   KC_LGUI
+#define _VOLU   KC_VOLU
+#define _VOLD   KC_VOLD
+#define _MUTE   KC_MUTE
 
 #if __LANGUAGE__ == LG__GERMAN__
 

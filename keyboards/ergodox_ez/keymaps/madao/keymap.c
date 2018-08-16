@@ -7,6 +7,7 @@
 
 enum {
     _EN_ = 0, // english layer
+    _SF_,     // safety layer (safety first!)
     _GE_,     // german layer
     _SM_,     // symbol layer
     _MV_,     // movement layer
@@ -22,18 +23,35 @@ enum {
 uint8_t last_layer = _EN_;
 
 static bool was_shifted = false;
+
 enum {
     UDS_ESC = SAFE_RANGE,
     EQL_DQT,
     MGC_SFT_SM,
     MGC_SM_ESC,
+    MGC_SM_US,
+    MGC_SFT_PRC,
     MGC_SFT_US,
     MGC_SFT_ESC,
     MGC_PLS,
-    MGC_NM_A,
+    MGC_NM_SCL,
     MGC_MNS,
+    MGC_SPC_ESC,
+    MGC_CR_CL,
     TMUX_LDR,
 };
+
+#define M_S_SM  MGC_SFT_SM
+#define M_SM_E  MGC_SM_ESC
+#define M_SM_U  MGC_SM_US
+#define M_S_P   MGC_SFT_PRC
+#define M_S_U   MGC_SFT_US
+#define M_S_E   MGC_SFT_ESC
+#define M_PLS   MGC_PLS
+#define M_NM_SC MGC_NM_SCL
+#define M_MNS   MGC_MNS
+#define M_SP_E  MGC_SPC_ESC
+#define M_CR_CL MGC_CR_CL
 
 void clear_all_mods(void) {
     clear_mods();
@@ -45,60 +63,81 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH_|
+ *  |  SF     |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH_|
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
  *  |   -     |  U    |  I    |  A    |  E    |  O    |_______|           |_______|  S    |  N    |  R    |  T    |  D    |         |
- *  |    CAPS |       |       |   _SM_|   _NM_|       |       |           |       |       |   _MV_|   _SM_|       |       |  SUPER  |
+ *  |    CAPS |       |       |       |       |       |       |           |       |       |       |       |       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
- *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |  OS_GE  |
- *  |     "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
+ *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
+ *  |s    "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
- *    |       |       |       |       |  :;   |                                           | ESC   | OS_GE | VOk M | VOL D | VOL U |
- *    |       |       |       |       |       |                                           |  _    |       |       |       |       |
+ *    |       |       |       |       |  NM   |                                           |  SM   | OS_GE | VOL M | VOL D | VOL U |
+ *    |       |       |       |       |s   ;  |                                           |s   _  |       |       |       |       |
  *    '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
  *                                               .-------.-------.     .-------.-------.
- *                                               |       |       |     |       |   _FN_|
+ *                                               |       |       |     |       | FN    |
  *                                               |       |       |     |       |       |
  *                                       .-------|-------|-------|     |-------|-------|-------.
  *                                       |       |       |       |     |       |       |       |
- *                                       |       |       |       |     |       |       |       |
- *                                       | SHIFT |  TAB  |-------|     |-------| ENTER | SPACE |
- *                                       |  OS_SM|       | BACK  |     | DEL   |       |       |
+ *                                       | SHIFT |  TAB  |       |     |       | ENTER | SPACE |
+ *                                       |       |       |-------|     |-------|       |       |
+ *                                       |s  %   |       | BACK  |     | DEL   |s  :   |s <esc>|
  *                                       |       |       | SPACE |     |       |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
 
 [_EN_] = LAYOUT_ergodox_wrapper(
 
-    EMPTY_TOP_ROW,
+ TG_SF,        _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
- MGC_MNS,      _U,            _I,            _A,           _E,           _O,           /*___*/
- EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           MGC_NM_A,
- _______,      _______,       _______,       _______,      MGC_NM_A,     /*___*/       /*___*/
+ M_MNS,        _U,            _I,            _A,           _E,           _O,           /*___*/
+ EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _______,
+ _______,      _______,       _______,       _______,      M_NM_SC,     /*___*/       /*___*/
 
 
                                                      /*___*/       _______,       _______,
                                                      /*___*/       /*___*/        _______,
-                                                     MGC_SFT_US,    KC_TAB,        KC_BSPC,
+                                                     M_S_P,        _TAB,          _BSPACE,
 
 
- _______,      _______,       _______,       _______,      _______,      _______,      TG(_SH_),
+ _______,      _______,       _______,       _______,      _______,      _______,      TG_SH,
  _______,      _K,            _H,            _G,           _F,           _______,      _______,
- /*___*/       _S,            MV_N,          _R,           _T,           _D,           KC_LGUI,
- _______,      _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           OS_GE,
-
- /*___*/       /*___*/        MGC_SM_ESC,    OS_GE,        KC_MUTE,      KC_VOLD,      KC_VOLU,
+ /*___*/       _S,            MV_N,          _R,           _T,           _D,           _LGUI,
+ _______,      _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           _______,
+ /*___*/       /*___*/        M_SM_U,        OS_GE,        _MUTE,        _VOLD,        _VOLU,
 
 
          _______,      OS_FN,         /*___*/
          _______,      /*___*/        /*___*/
-         KC_DEL,       KC_ENT,        KC_SPACE
+         _DEL,         M_CR_CL,       M_SP_E
 
 ),
+
+ [_SF_] = LAYOUT_ergodox_wrapper(
+
+ TO_EN,        _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      /*---*/
+ _______,      _______,      _______,      _______,      _______,      _______,      _ESC,
+ _______,      _______,      _______,      _______,      OS_NM,
+ _______,      _______,
+ _______,
+ OS_SFT,       _TAB,         _BSPACE,
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ /*---*/       _______,      _______,      _______,      _______,      _______,      _______,
+ _ESC,         _______,      _______,      _______,      _______,      _______,      _______,
+ /*---*/       /*---*/       OS_SM,        _______,      _______,      _______,      _______,
+ _______,      _______,
+ _______,
+ _DEL,         _ENTER,       _SPACE
+ ),
+
 
 [_GE_] = LAYOUT_ergodox_wrapper(
 
@@ -291,7 +330,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode)
     {
 
-        case MGC_SFT_US:
+        case MGC_SFT_PRC:
             // tap once for os shift
             // hold for shift
             // shift and tap for underscore (including tapping twice)
@@ -303,14 +342,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     {
 #if __LANGUAGE__ == LG__GERMAN__
                         register_code(KC_LSFT);
-                        TAP_KEY(DE_MINS);
-                        unregister_code(KC_LSFT);
+                        register_code(KC_5);
 #elif __LANGUAGE__ == LG__ENGLISH__
-                        TAP_KEY(_UNDS);
 #endif
                     }
+                    else
+                    {
+                        unregister_code(KC_5);
+                        unregister_code(KC_LSFT);
+                    }
                 }
-                else // first tap
+                else
                 {
                     if (record->event.pressed)
                     {
@@ -326,6 +368,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
             };
+
+        // case MGC_SFT_US:
+        //     // tap once for os shift
+        //     // hold for shift
+        //     // shift and tap for underscore (including tapping twice)
+        //     {
+        //         if (is_shifted) // second tap: change to _SM_
+        //         {
+        //             clear_mods();
+        //             if (record->event.pressed)
+        //             {
+// #if __LANGUAGE__ == LG__GERMAN__
+        //                 register_code(KC_LSFT);
+        //                 TAP_KEY(DE_MINS);
+        //                 unregister_code(KC_LSFT);
+// #elif __LANGUAGE__ == LG__ENGLISH__
+        //                 TAP_KEY(_UNDS);
+// #endif
+        //             }
+        //         }
+        //         else // first tap
+        //         {
+        //             if (record->event.pressed)
+        //             {
+        //                 clear_mods();
+        //                 set_mods(MOD_BIT(KC_LSFT));
+        //                 set_oneshot_mods(MOD_LSFT);
+        //             }
+        //             else
+        //             {
+        //                 clear_oneshot_layer_state(ONESHOT_PRESSED);
+        //                 clear_mods();
+        //             }
+        //         }
+        //         return false;
+        //     };
 
             // case MGC_SFT_ESC:
             //     return true;
@@ -399,29 +477,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             };
 
-        case MGC_NM_A:
+        case MGC_SM_US:
             // tap or hold for sm layer
-            // tap when shifted for TODO
+            // tap when shifted for underscore
+            {
+                // send_keyboard_report();
+                if (is_shifted)
+                {
+                    if (record->event.pressed)
+                    {
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+#if __LANGUAGE__ == LG__GERMAN__
+                        register_code(DE_MINS);
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
+                    }
+                    else
+                    {
+                        unregister_code(DE_MINS);
+                        // NOTE: we can land here from the lower branch.
+                        // clear the oneshot layer to catch side effects
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        set_oneshot_layer(_SM_, ONESHOT_START);
+                    }
+                    else
+                    {
+                        clear_all_mods();
+#if __LANGUAGE__ == LG__GERMAN__
+                        // NOTE: we can land here from the upper branch
+                        // unregister, otherwise key would be seen as
+                        // pressed
+                        unregister_code(DE_MINS);
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
+                        clear_oneshot_layer_state(ONESHOT_PRESSED);
+                    }
+                }
+                return false;
+            };
+
+        case MGC_NM_SCL:
+            // tap or hold for sm layer
+            // tap when shifted for semicolom
             {
                 if (is_shifted)
                 {
                     if (record->event.pressed)
                     {
                         clear_oneshot_layer_state(ONESHOT_PRESSED);
-                        clear_all_mods();
-                        TAP_KEY(_1);
-                        // register_code(KC_LSFT);
+#if __LANGUAGE__ == LG__GERMAN__
+                        register_code(KC_COMM);
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
                     }
                     else
                     {
-                        // will land here from `TODO`, always
-                        // NOTE: will land here from oneshot commands if
-                        //   - hold magic key
-                        //   - tap and hold random key, eg `f`
-                        //   - release magic key
-                        //   - release `f`
+                        unregister_code(KC_COMM);
                         clear_oneshot_layer_state(ONESHOT_PRESSED);
-                        clear_all_mods();
                     }
                 }
                 else
@@ -432,6 +550,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                     else
                     {
+                        unregister_code(KC_COMM);
+                        clear_all_mods();
                         clear_oneshot_layer_state(ONESHOT_PRESSED);
                     }
                 }
@@ -469,6 +589,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     {
                         unregister_code(_PLUS);
                         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                    }
+                }
+                return false;
+            };
+
+        case MGC_SPC_ESC:
+            // tap for ` `
+            // tap when shifted for esc
+            {
+                if (is_shifted)
+                {
+                    if (record->event.pressed)
+                    {
+#if __LANGUAGE__ == LG__GERMAN__
+                        clear_all_mods();
+                        TAP_KEY(_ESC);
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        register_code(_SPACE);
+                    }
+                    else
+                    {
+                        unregister_code(_SPACE);
+                    }
+                }
+                return false;
+            };
+
+        case MGC_CR_CL:
+            // tap for enter
+            // tap when shifted for colon
+            {
+                if (is_shifted)
+                {
+                    if (record->event.pressed)
+                    {
+#if __LANGUAGE__ == LG__GERMAN__
+                        register_code(KC_DOT);
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
+                    }
+                    else
+                    {
+                        unregister_code(KC_DOT);
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        register_code(_ENTER);
+                    }
+                    else
+                    {
+                        unregister_code(KC_DOT);
+                        unregister_code(_ENTER);
                     }
                 }
                 return false;
