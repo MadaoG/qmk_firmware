@@ -23,9 +23,11 @@ enum {
 uint8_t last_layer = _EN_;
 
 static bool was_shifted = false;
+static bool tap_nm = false;
 
 enum {
     UDS_ESC = SAFE_RANGE,
+    _TTNM,
     EQL_DQT,
     MGC_SFT_SM,
     MGC_SM_ESC,
@@ -95,8 +97,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TG_SF,        _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
  M_MNS,        _U,            _I,            _A,           _E,           _O,           /*___*/
- EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _______,
- _______,      _______,       _______,       _______,      M_NM_SC,     /*___*/       /*___*/
+ EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _TTNM,
+ _______,      _______,       _______,       _TTNM,        M_NM_SC,      /*___*/       /*___*/
 
 
                                                      /*___*/       _______,       _______,
@@ -251,7 +253,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,      _______,      _COLN,        _SCLN,        _______,      _______,
  _______,      _______,      _DOT,         _PLUS,        _MINS,        _HAT,         /*___*/
  _______,      _______,      _COMM,        _ASTR,        _SLSH,        _______,      _______,
- _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _TTNM,
  THUMBS,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -329,6 +331,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode)
     {
+        case _TTNM:
+            {
+                if (record->event.pressed) {
+                    if (!tap_nm) {
+                        // set layer to _NM_
+                        layer_on(_NM_);
+                        tap_nm = !tap_nm;
+                    }
+                    else
+                    {
+                        layer_on(_NM_);
+                        tap_nm = !tap_nm;
+                    }
+                }
+                return false;
+            };
 
         case MGC_SFT_PRC:
             // tap once for os shift
