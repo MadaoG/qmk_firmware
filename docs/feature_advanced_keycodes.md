@@ -1,6 +1,6 @@
 # Advanced Keycodes
 
-Your keymap can include keycodes that are more advanced than normal, for example shifted keys. This page documents the functions that are available to you.
+Your keymap can include keycodes that are more advanced than normal, for example keys that switch layers or send modifiers when held, but send regular keycodes when tapped. This page documents the functions that are available to you.
 
 ### Assigning Custom Names
 
@@ -13,9 +13,11 @@ People often define custom names using `#define`. For example:
 
 This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
 
-### Limits of These Aliases
+### Caveats
 
-Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.md), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.md).
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
+
+Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 # Switching and Toggling Layers
 
@@ -73,34 +75,6 @@ You can also chain these, like this:
 
     LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
 
-# Shifted Keycodes
-
-The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols.
-
-|Key                     |Aliases           |Description        |
-|------------------------|------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`         |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`         |`!`                |
-|`KC_AT`                 |                  |`@`                |
-|`KC_HASH`               |                  |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`          |`$`                |
-|`KC_PERCENT`            |`KC_PERC`         |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`         |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`         |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`         |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`         |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`         |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`         |`_`                |
-|`KC_PLUS`               |                  |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`         |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`         |`}`                |
-|`KC_PIPE`               |                  |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`         |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQT`/`KC_DQUO`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LT`/`KC_LABK` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`         |`?`                |
-
 # Mod Tap
 
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
@@ -130,10 +104,6 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
-
-?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
-
-?> Additionally, if there is at least one right-handed modifier, any other modifiers in a chain of functions will turn into their right-handed equivalents, so it is not possible to "mix and match" the two.
 
 # One Shot Keys
 
