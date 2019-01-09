@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
 
-[_EN_] = LAYOUT_ergodox_wrapper(
+[_EN_] = LAYOUT_ergodox_wrapper(  // english layer
 
  TG_SF,        _______,       _______,       _______,      _______,      _______,      _______,
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ),
 
- [_SF_] = LAYOUT_ergodox_wrapper(
+[_SF_] = LAYOUT_ergodox_wrapper(  // safety layer
 
  TO_EN,        _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
 
 
-[_GE_] = LAYOUT_ergodox_wrapper(
+[_GE_] = LAYOUT_ergodox_wrapper(  // german layer
 
      EMPTY_TOP_ROW, EMPTY_TOP_ROW,
 
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    '-------'-------'-------'-------'-------'                                     '-------'-------'-------'-------'-------'
  */
 
-[_SM_] = LAYOUT_ergodox_wrapper(
+[_SM_] = LAYOUT_ergodox_wrapper(  // symbol layer
  _______,      _______,       _______,       _______,       _______,       _______,       _______,
  _______,      _______,       _SLSH,         _LBRC,         _RBRC,         _AT,           _______,
  _______,      _UNDS,         _PIPE,         _LCBR,         _RCBR,         _ASTR,         /*___*/
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    '-------'-------'-------'-------'-------'
  */
 
- [_MV_] = LAYOUT_ergodox_wrapper(
+[_MV_] = LAYOUT_ergodox_wrapper(  // movement layer
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      KC_UP,        _______,      _______,      _______,
@@ -245,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    '-------'-------'-------'-------'-------'                                      '-------'-------'-------'-------'-------'
  */
 
-[_NM_] = LAYOUT_ergodox_wrapper(
+[_NM_] = LAYOUT_ergodox_wrapper(  // digit layer
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -281,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    '-------'-------'-------'-------'-------'
  */
 
-[_FN_] = LAYOUT_ergodox_wrapper(
+[_FN_] = LAYOUT_ergodox_wrapper(  // fn keys
 
         EMPTY_HALF,
 
@@ -312,7 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       '-------'-------'-------'-------'-------'
  */
 
-[_SH_] = LAYOUT_ergodox_wrapper(
+[_SH_] = LAYOUT_ergodox_wrapper(  // gaming layer
 
  _______,      _1,           _2,           _3,           _4,           _5,           _______,
  _______,      _______,      _B,           _N,           _______,      _______,      KC_PPLS,
@@ -561,6 +561,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MGC_PLS:
             // tap for `+`
             // tap when shifted for ` += `
+            // TODO: this is cool, but not usable. I will never remember the
+            // combination. Either choose something more useful, ab abandon
+            // this magic.
             {
                 if (is_shifted)
                 {

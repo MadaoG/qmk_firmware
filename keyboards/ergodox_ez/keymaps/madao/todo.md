@@ -18,3 +18,6 @@
     - when tapped while ctrl held:
     - when tapped while alt held:
 
+# TODO:
+
+- make all language independent
