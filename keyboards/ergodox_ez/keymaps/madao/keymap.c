@@ -711,39 +711,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             };
 
-        case KC_DOT:
-            {
-                if (record->event.pressed) {
-                    if (is_shifted) {
-                        register_code(KC_LSFT);
-                        register_code(KC_1);
-                        unregister_code(KC_1);
-                        unregister_code(KC_LSFT);
-                    } else {
-                        register_code(KC_DOT);
-                        unregister_code(KC_DOT);
-                    }
-                } else {
-                    unregister_code(KC_1);
-                    unregister_code(KC_LSFT);
-                    unregister_code(KC_DOT);
-                }
-                return false;
-            };
+        // case KC_DOT:
+        //     {
+        //         if (record->event.pressed) {
+        //             if (is_shifted) {
+        //                 register_code(KC_LSFT);
+        //                 register_code(KC_1);
+        //                 unregister_code(KC_1);
+        //                 unregister_code(KC_LSFT);
+        //             } else {
+        //                 register_code(KC_DOT);
+        //                 unregister_code(KC_DOT);
+        //             }
+        //         } else {
+        //             unregister_code(KC_1);
+        //             unregister_code(KC_LSFT);
+        //             unregister_code(KC_DOT);
+        //         }
+        //         return false;
+        //     };
 
-        case UDS_ESC:
-            {
-                uint8_t shifted = (is_shifted);
-                if (record->event.pressed) {
-                    was_shifted  = shifted;
-                    add_key(shifted ? _UNDS : KC_ESCAPE);
-                }
-                else {
-                    del_key(was_shifted ? _UNDS : KC_ESCAPE);
-                }
-                send_keyboard_report();
-                return false;
-            };
+        // case UDS_ESC:
+        //     {
+        //         uint8_t shifted = (is_shifted);
+        //         if (record->event.pressed) {
+        //             was_shifted  = shifted;
+        //             add_key(shifted ? _UNDS : KC_ESCAPE);
+        //         }
+        //         else {
+        //             del_key(was_shifted ? _UNDS : KC_ESCAPE);
+        //         }
+        //         send_keyboard_report();
+        //         return false;
+        //     };
 
         case EQL_DQT:
             {
