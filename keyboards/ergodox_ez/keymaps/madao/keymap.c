@@ -84,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                               |       |       |     |       | FN    |
  *                                               |       |       |     |       |       |
  *                                       .-------|-------|-------|     |-------|-------|-------.
- *                                       |       |       |       |     |       |       |       |
- *                                       | SHIFT |  TAB  |       |     |       | ENTER | SPACE |
+ *                                       |       |       | BACK  |     | DEL   |       |       |
+ *                                       | SHIFT |  TAB  | SPACE |     |       | ENTER | SPACE |
  *                                       |       |       |-------|     |-------|       |       |
- *                                       |s  %   |       | BACK  |     | DEL   |s  :   |s <esc>|
- *                                       |       |       | SPACE |     |       |       |       |
+ *                                       |s  %   |       |       |     | ESC   |s  :   |s <esc>|
+ *                                       |       |       |       |     |       |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
 
@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                                                      /*___*/       _______,       _______,
-                                                     /*___*/       /*___*/        _______,
-                                                     M_S_P,        _TAB,          _BSPACE,
+                                                     /*___*/       /*___*/        _BSPACE,
+                                                     M_S_P,        _TAB,          _ESC,
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG_SH,
@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
          _______,      OS_FN,         /*___*/
-         _______,      /*___*/        /*___*/
-         _DEL,         M_CR_CL,       M_SP_E
+         _DEL,         /*___*/        /*___*/
+         _______,      M_CR_CL,       M_SP_E
 
 ),
 
