@@ -354,7 +354,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // hold for shift
             // shift and tap for underscore (including tapping twice)
             {
-                if (is_shifted) // second tap: change to _SM_
+                if (is_shifted)
                 {
                     clear_mods();
                     if (record->event.pressed)
