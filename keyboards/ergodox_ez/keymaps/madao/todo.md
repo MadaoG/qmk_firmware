@@ -24,3 +24,4 @@
 - add shift behaviour for `esc`
 - replace `:` of `shift-enter` with something different
 - replace `esc` of `shift-space` with something different (`_`?)
+- implement tmux special keys. look at algernons code
