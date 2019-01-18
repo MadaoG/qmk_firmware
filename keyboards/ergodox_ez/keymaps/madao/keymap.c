@@ -13,7 +13,6 @@ enum {
     _MV_,     // movement layer
     _NM_,     // digit layer
     _FN_,     // fn keys
-    _SH_,     // gaming layer
 };
 
 // User defined functions which may refer to the above declared layers.
@@ -68,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  | _SF_    |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH_|
+ *  | _SF_    |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
@@ -109,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      OS_SFT,       _TAB,          _ESC,
 
 
- _______,      _______,       _______,       _______,      _______,      _______,      TG_SH,
+ _______,      _______,       _______,       _______,      _______,      _______,      _______,
  OS_SFT,       _K,            _H,            _G,           _F,           _______,      _______,
  /*___*/       _S,            MV_N,          _R,           _T,           _D,           _LGUI,
  _RBRC,        _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           _______,
@@ -298,37 +297,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  THUMBS
 ),
 
-/*
-    .---------.-------.-------.-------.-------.-------.-------.     .-------.---
-    |         |  1    |  2    |  3    |  4    |  5    |       |     |       |
-    |         |       |       |       |       |       |       |     |       |
-    |---------|-------|-------|-------|-------|-------|-------|     |-------|---
-    |         |       |  B    |  N    |       |       |       |     |       |
-    |         |       |       |       |       |       |   +   |     |       |
-    |---------|-------|-------|-------|-------|-------|       |     |       |---
-    |         |       |       |  I    |LEFT   |REPEAT |_______|     |_______|
-    |         |       |       |       | CLICK | CLICK |       |     |       |
-    |---------|-------|-------|-------|-------|-------|   -   |     |       |---
-    |         |       |  M    | SPACE |  Z    |  P    |       |     |       |
-    |         |       |       |       |       |       |       |     |       |
-    '---------|-------|-------|-------|-------|-------'-------'     '-------'---
-      |       |       |       |       |       |
-      |       |       |       |       |       |
-      '-------'-------'-------'-------'-------'
- */
-
-[_SH_] = LAYOUT_ergodox_wrapper(  // gaming layer
-
- _______,      _1,           _2,           _3,           _4,           _5,           _______,
- _______,      _______,      _B,           _N,           _______,      _______,      KC_PPLS,
- _______,      _______,      _______,      _I,           KC_BTN1,      M(mc_sh_clicks),
- _______,      _______,      _M,           KC_SPACE,     _Z,           _P,           KC_PMNS,
- _______,      _______,      _______,      _______,      _______,
- THUMBS,
-
-    EMPTY_HALF
-),
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -465,11 +433,6 @@ void matrix_scan_user(void) {
           ergodox_set_red(brightness_fast(time, 300));
           ergodox_set_green(brightness_fast(time, 500));
           ergodox_set_blue(brightness_fast(time, 700));
-          break;
-        case _SH_:
-          ergodox_set_red(brightness_middle(time, 500));
-          ergodox_set_green(brightness_fast(time, 250) + brightness_fast(time, 750));
-          ergodox_set_blue(brightness_middle(time, 0) + brightness_middle(time, 999));
           break;
         default:
           ergodox_board_led_off();
