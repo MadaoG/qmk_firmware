@@ -41,6 +41,8 @@ enum {
     MGC_SPC_ESC,
     MGC_CR_CL,
     TMUX_LDR,
+    MGC_SPC,
+    MGC_CR,
 };
 
 #define M_S_SM  MGC_SFT_SM
@@ -54,6 +56,8 @@ enum {
 #define M_MNS   MGC_MNS
 #define M_SP_E  MGC_SPC_ESC
 #define M_CR_CL MGC_CR_CL
+#define _M_SP   MGC_SPC
+#define _M_CR   MGC_CR
 
 void clear_all_mods(void) {
     clear_mods();
@@ -75,10 +79,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |    CAPS |       |       |       |       |       |       |           |       |       |       |       |       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|  [    |           |  ]    |-------|-------|-------|-------|-------|---------|
  *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
- *  |s    "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
+ *  |     "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
  *    |       |       |       |       |  NM   |                                           |  SM   | OS_GE | VOL M | VOL D | VOL U |
- *    |       |       |       |       |s   ;  |                                           |s   _  |       |       |       |       |
+ *    |       |       |       |       |       |                                           |       |       |       |       |       |
  *    '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
  *                                               .-------.-------.     .-------.-------.
  *                                               |       |       |     |       | FN    |
@@ -87,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       |       |       | BACK  |     | DEL   |       |       |
  *                                       | SHIFT |  TAB  | SPACE |     |       | ENTER | SPACE |
  *                                       |       |       |-------|     |-------|       |       |
- *                                       |s  %   |       |       |     | ESC   |s  :   |s <esc>|
+ *                                       |   %   |       |       |     | ESC   |    #  |    _  |
  *                                       |       |       |       |     |       |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
@@ -98,24 +102,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,       _V,            _L,           _C,           _W,           _______,
  M_MNS,        _U,            _I,            _A,           _E,           _O,           /*___*/
  EQL_DQT,      _X,            ALT_Y,         SFT_Q,        CTL_P,        _Z,           _LBRC,
- _______,      _______,       _______,       _TTNM,        M_NM_SC,      /*___*/       /*___*/
+ _______,      _______,       _______,       _TTNM,        _S_NM,        /*___*/       /*___*/
 
 
                                                      /*___*/       _______,       _______,
                                                      /*___*/       /*___*/        _BSPACE,
-                                                     M_S_P,        _TAB,          _ESC,
+                                                     OS_SFT,       _TAB,          _ESC,
 
 
  _______,      _______,       _______,       _______,      _______,      _______,      TG_SH,
  _______,      _K,            _H,            _G,           _F,           _______,      _______,
  /*___*/       _S,            MV_N,          _R,           _T,           _D,           _LGUI,
- _______,      _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           _RBRC,
- /*___*/       /*___*/        M_SM_U,        OS_GE,        _MUTE,        _VOLD,        _VOLU,
+ OS_SFT,       _B,            CTL_M,         SFT_CM,       ALT_DT,       _J,           _RBRC,
+ /*___*/       /*___*/        _S_SM,         OS_GE,        _MUTE,        _VOLD,        _VOLU,
 
 
          _______,      OS_FN,         /*___*/
          _DEL,         /*___*/        /*___*/
-         _______,      M_CR_CL,       M_SP_E
+         _______,      _M_CR,         _M_SP
 
 ),
 
@@ -643,6 +647,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     else
                     {
                         unregister_code(_SPACE);
+                    }
+                }
+                return false;
+            };
+
+        case MGC_SPC:
+            // tap for <space>, shift for `_`
+            {
+                if (is_shifted)
+                {
+                    if (record->event.pressed)
+                    {
+#if __LANGUAGE__ == LG__GERMAN__
+                        TAP_KEY(DE_MINS);
+#elif __LANGUAGE__ == LG__ENGLISH__
+                        clear_all_mods();
+                        TAP_KEY(KC_UNDS);
+#endif
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        register_code(_SPACE);
+                    }
+                    else
+                    {
+                        unregister_code(_SPACE);
+                    }
+                }
+                return false;
+            };
+
+        case MGC_CR:
+            // tap for <cr>, shift for `#`
+            // buggy, lifts shift after first `#`
+            {
+                if (is_shifted)
+                {
+                    if (record->event.pressed)
+                    {
+                        clear_all_mods();
+#if __LANGUAGE__ == LG__GERMAN__
+                        TAP_KEY(KC_BSLS);
+#elif __LANGUAGE__ == LG__ENGLISH__
+                        TAP_KEY(KC_HASH);
+#endif
+                        set_mods(MOD_BIT(KC_LSFT));
+                        set_oneshot_mods(MOD_LSFT);
+                        // register_code(KC_LSFT);
+                    }
+                    else
+                    {
+                        clear_all_mods();
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        register_code(_ENTER);
+                    }
+                    else
+                    {
+                        unregister_code(_ENTER);
                     }
                 }
                 return false;
