@@ -449,3 +449,7 @@ void matrix_scan_user(void) {
       ergodox_right_led_3_off();
     }
 }; // *-*
+
+// use this for layout pattern:
+// \v((\S{2,},|\/\*___\*\/)\s*){3,}
+// then, e.g. `g//normal gaip*l` for realigning
