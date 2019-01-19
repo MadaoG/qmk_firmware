@@ -71,7 +71,9 @@ xmap S <Plug>VSurround
 nmap U <Plug>(RepeatUndoLine)
 nnoremap <silent> Y y$
 xmap [% [%m'gv``
+smap [% [%m'gv``
 xmap ]% ]%m'gv``
+smap ]% ]%m'gv``
 xnoremap a% :normal! F%vf%
 omap ay <Plug>(textobj-syntax-a)
 xmap ay <Plug>(textobj-syntax-a)
@@ -88,6 +90,7 @@ xnoremap a# :normal! F#vf#
 onoremap a- :normal va-
 xnoremap a- :normal! F-vf-
 onoremap a% :normal va%
+smap a% [%v]%
 onoremap a+ :normal va+
 xnoremap a+ :normal! F+vf+
 onoremap a* :normal va*
@@ -116,6 +119,7 @@ nnoremap <silent> cp yap<S-}>p
 nmap ds <Plug>Dsurround
 nnoremap <silent> dc :call utils#deletebrackets()
 xmap gx <Plug>NetrwBrowseXVis
+smap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 nnoremap <silent> gs :Switch
 nmap gcu <Plug>Commentary<Plug>Commentary
@@ -243,13 +247,12 @@ set laststatus=2
 set lazyredraw
 set listchars=tab:â–¸.,eol:Â¬,trail:â€¢,nbsp:~
 set nomodeline
-set nomore
-set operatorfunc=<SNR>23_go
+set operatorfunc=<SNR>16_easy_align_op
 set path=.,,
 set printoptions=paper:a4
 set pumheight=8
 set ruler
-set runtimepath=~/.vim,~/.vim/plugged/vim-matchit/,~/.vim/plugged/vim-easy-align/,~/.vim/plugged/completor.vim/,~/.vim/plugged/sideways.vim/,~/.vim/plugged/vimux/,~/.vim/plugged/vim-surround/,~/.vim/plugged/vim-fugitive/,~/.vim/plugged/asyncrun.vim/,~/.vim/plugged/gruvbox/,~/.vim/plugged/vim-commentary/,~/.vim/plugged/vim-repeat/,~/.vim/plugged/vim-textobj-user/,~/.vim/plugged/vim-textobj-python/,~/.vim/plugged/vim-textobj-syntax/,~/.vim/plugged/Join/,~/.vim/plugged/switch.vim/,~/.vim/plugged/lexima.vim/,~/.vim/plugged/usr/,~/.vim/plugged/supertab/,~/.vim/plugged/ultisnips/,~/.vim/plugged/vimtex/,~/.vim/plugged/vim-gitgutter/,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim81,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/snip_source/,~/.vim/plugged/vim-textobj-python/after,~/.vim/plugged/ultisnips/after,~/.vim/plugged/vimtex/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/plugged/vim-matchit/,~/.vim/plugged/vim-easy-align/,~/.vim/plugged/completor.vim/,~/.vim/plugged/sideways.vim/,~/.vim/plugged/vimux/,~/.vim/plugged/vim-surround/,~/.vim/plugged/vim-fugitive/,~/.vim/plugged/asyncrun.vim/,~/.vim/plugged/gruvbox/,~/.vim/plugged/vim-commentary/,~/.vim/plugged/vim-repeat/,~/.vim/plugged/vim-textobj-user/,~/.vim/plugged/vim-textobj-python/,~/.vim/plugged/vim-textobj-syntax/,~/.vim/plugged/Join/,~/.vim/plugged/switch.vim/,~/.vim/plugged/lexima.vim/,~/.vim/plugged/usr/,~/.vim/plugged/vim-eunuch/,~/.vim/plugged/supertab/,~/.vim/plugged/ultisnips/,~/.vim/plugged/vimtex/,~/.vim/plugged/vim-gitgutter/,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim81,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/snip_source/,~/.vim/plugged/vim-textobj-python/after,~/.vim/plugged/ultisnips/after,~/.vim/plugged/vimtex/after,~/.vim/after
 set scrolloff=1
 set shiftwidth=4
 set showbreak=>\ 
@@ -270,56 +273,51 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/repositories/qmk_firmware
+cd ~/repositories/qmk_firmware/keyboards/ergodox_ez/keymaps/madao
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 keyboards/ergodox_ez/keymaps/madao/todo.md
-badd +42 keyboards/ergodox_ez/keymaps/madao/config.h
-badd +82 keyboards/ergodox_ez/keymaps/madao/gauss.h
-badd +18 keyboards/ergodox_ez/keymaps/madao/layer_template.c
-badd +45 keyboards/ergodox_ez/keymaps/madao/macro_functions.h
-badd +205 keyboards/ergodox_ez/keymaps/madao/mappings.h
-badd +1 keyboards/ergodox_ez/keymaps/madao/rules.mk
-badd +1 keyboards/ergodox_ez/keymaps/madao/special_characters.txt
-badd +1 keyboards/ergodox_ez/keymaps/madao/tap_functions.h
-badd +518 Makefile
-badd +115 quantum/keymap_extras/keymap_german.h
-badd +126 ~/.vimrc
+badd +27 todo.md
+badd +42 config.h
+badd +82 gauss.h
+badd +266 layer_template.c
+badd +45 macro_functions.h
+badd +102 mappings.h
+badd +1 rules.mk
+badd +1 special_characters.txt
+badd +1 tap_functions.h
+badd +518 ~/repositories/qmk_firmware/Makefile
+badd +115 ~/repositories/qmk_firmware/quantum/keymap_extras/keymap_german.h
+badd +18 ~/.vimrc
 badd +1094 ~/.notes/vimtips.txt
-badd +3 keyboards/ergodox_ez/keymaps/madao/keymap.c
+badd +99 keymap.c
 badd +1 Compiling:\ keyboards/ergodox_ez/keymaps/madao/keymap.c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ In\ file\ included\ from\ \[01m\[Kkeyboards/ergodox_ez/keymaps/madao/keymap.c
 badd +1 Compiling:\ keyboards/ergodox_ez/keymaps/madao/keymap.c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ In\ file\ included\ from\ \[01m\[Kquantum/quantum.h
+badd +1 Session-ez.vim
 argglobal
 silent! argdel *
-$argadd keyboards/ergodox_ez/keymaps/madao/todo.md
-$argadd keyboards/ergodox_ez/keymaps/madao/config.h
-$argadd keyboards/ergodox_ez/keymaps/madao/gauss.h
-$argadd keyboards/ergodox_ez/keymaps/madao/todo.md
-$argadd keyboards/ergodox_ez/keymaps/madao/layer_template.c
-$argadd keyboards/ergodox_ez/keymaps/madao/macro_functions.h
-$argadd keyboards/ergodox_ez/keymaps/madao/mappings.h
-$argadd keyboards/ergodox_ez/keymaps/madao/rules.mk
-$argadd keyboards/ergodox_ez/keymaps/madao/special_characters.txt
-$argadd keyboards/ergodox_ez/keymaps/madao/tap_functions.h
-$argadd keyboards/ergodox_ez/keymaps/madao/todo.md
-edit keyboards/ergodox_ez/keymaps/madao/keymap.c
+$argadd todo.md
+$argadd config.h
+$argadd gauss.h
+$argadd todo.md
+$argadd layer_template.c
+$argadd macro_functions.h
+$argadd mappings.h
+$argadd rules.mk
+$argadd special_characters.txt
+$argadd tap_functions.h
+$argadd todo.md
+edit keymap.c
 set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
 set nosplitbelow
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 78 + 86) / 173)
-exe 'vert 2resize ' . ((&columns * 94 + 86) / 173)
 argglobal
-if bufexists('keyboards/ergodox_ez/keymaps/madao/keymap.c') | buffer keyboards/ergodox_ez/keymaps/madao/keymap.c | else | edit keyboards/ergodox_ez/keymaps/madao/keymap.c | endif
+if bufexists('keymap.c') | buffer keymap.c | else | edit keymap.c | endif
 inoremap <buffer> <nowait> <silent>  =lexima#insmode#escape()
 setlocal keymap=
 setlocal noarabic
@@ -361,7 +359,7 @@ setlocal filetype=c
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
-setlocal nofoldenable
+setlocal foldenable
 setlocal foldexpr=0
 setlocal foldignore=#
 setlocal foldlevel=0
@@ -444,147 +442,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 689 - ((10 * winheight(0) + 20) / 40)
+let s:l = 98 - ((20 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-689
-normal! 048|
-wincmd w
-argglobal
-if bufexists('keyboards/ergodox_ez/keymaps/madao/mappings.h') | buffer keyboards/ergodox_ez/keymaps/madao/mappings.h | else | edit keyboards/ergodox_ez/keymaps/madao/mappings.h | endif
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal backupcopy=
-setlocal balloonexpr=
-setlocal nobinary
-setlocal nobreakindent
-setlocal breakindentopt=
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-set colorcolumn=+1
-setlocal colorcolumn=+1
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-setlocal commentstring=//\ %s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != 'cpp'
-setlocal filetype=cpp
-endif
-setlocal fixendofline
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=n1jcroql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal formatprg=
-setlocal grepprg=
-setlocal iminsert=0
-setlocal imsearch=-1
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-set linebreak
-setlocal linebreak
-setlocal nolisp
-setlocal lispwords=
-set list
-setlocal list
-setlocal makeencoding=
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:]
-setlocal nomodeline
-setlocal modifiable
-setlocal nrformats=bin,octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=ccomplete#Complete
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-set relativenumber
-setlocal relativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal signcolumn=auto
-setlocal nosmartindent
-setlocal softtabstop=4
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=.vim
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'cpp'
-setlocal syntax=cpp
-endif
-setlocal tabstop=4
-setlocal tagcase=
-setlocal tags=~/repositories/qmk_firmware/.git/tags,./tags,./TAGS,tags,TAGS
-setlocal termwinkey=
-setlocal termwinscroll=10000
-setlocal termwinsize=
-setlocal textwidth=78
-setlocal thesaurus=
-setlocal undofile
-setlocal undolevels=-123456
-setlocal varsofttabstop=
-setlocal vartabstop=
-setlocal nowinfixheight
-setlocal nowinfixwidth
-set nowrap
-setlocal nowrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 102 - ((19 * winheight(0) + 20) / 40)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-102
-normal! 013|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 78 + 86) / 173)
-exe 'vert 2resize ' . ((&columns * 94 + 86) / 173)
+98
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
