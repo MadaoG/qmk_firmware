@@ -175,18 +175,18 @@
     #define _DOT  KC_DOT
     #define _COMM KC_COMM
     #define _SS   KC_SS
-    #define _AE   KC_AE
-    #define _UE   KC_UE
-    #define _OE   KC_OE
+    // #define _AE   KC_AE
+    // #define _UE   KC_UE
+    // #define _OE   KC_OE
     #define _CIRC KC_CIRC
     #define _ACUT KC_ACUT
-    #define _PLUS KC_PLUS
-    #define _HASH KC_HASH
-    #define _LESS KC_LESS
+    #define _PLUS LSFT(KC_EQL)
+    #define _HASH KC_HASH // shifted
+    #define _LESS LSFT(KC_COMM)
     #define _MINS KC_MINS
     #define _RING KC_RING
     #define _EXLM KC_EXLM
-    #define _DQOT KC_DQOT
+    #define _DQOT LSFT(KC_QUOT)
     #define _PARA KC_PARA
     #define _DLR  KC_DLR
     #define _PERC KC_PERC
@@ -195,23 +195,23 @@
     #define _LPRN KC_LPRN
     #define _RPRN KC_RPRN
     #define _EQL  KC_EQL
-    #define _QST  KC_QST
+    #define _QST  LSFT(KC_SLSH)
     #define _GRV  KC_GRV
     #define _ASTR KC_ASTR
     #define _QUOT KC_QUOT
-    #define _MORE KC_MORE
+    #define _MORE LSFT(KC_DOT)
     #define _COLN KC_COLN
     #define _SCLN KC_SCLN
-    #define _UNDS KC_UNDS
-    #define _LCBR KC_LCBR
+    #define _UNDS LSFT(KC_MINS)
     #define _LBRC KC_LBRC
+    #define _LCBR LSFT(KC_LBRC)
     #define _RBRC KC_RBRC
-    #define _RCBR KC_RCBR
+    #define _RCBR LSFT(KC_RBRC)
     #define _BSLS KC_BSLS
     #define _AT   KC_AT
     #define _EURO KC_EURO
-    #define _TILD KC_TILD
-    #define _PIPE KC_PIPE
+    #define _TILD LSFT(KC_GRV)
+    #define _PIPE LSFT(KC_BSLS)
     #define _CAPS KC_CAPS
 
 #endif

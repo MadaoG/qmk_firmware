@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _DEL,         _ENTER,       _SPACE
  ),
 
-
+#if __LANGUAGE__ == __GERMAN__
 [_GE_] = LAYOUT_ergodox_wrapper(  // german layer
 
      EMPTY_TOP_ROW, EMPTY_TOP_ROW,
@@ -160,6 +160,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      EMPTY_TOP_ROW, EMPTY_BOTTOM_ROW, THUMBS
 
 ),
+#elif __LANGUAGE__ == LG__ENGLISH__
+#endif
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.     .-------.-------.-------.-------.-------.-------.---------.
@@ -333,8 +335,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if __LANGUAGE__ == LG__GERMAN__
                         TAP_KEY(DE_MINS);
 #elif __LANGUAGE__ == LG__ENGLISH__
-                        clear_all_mods();
-                        TAP_KEY(KC_UNDS);
+                        // clear_all_mods();
+                        TAP_KEY(KC_MINS);
 #endif
                     }
                     else
@@ -365,11 +367,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 {
                     if (record->event.pressed)
                     {
-                        clear_all_mods();
+                        // clear_all_mods();
 #if __LANGUAGE__ == LG__GERMAN__
                         TAP_KEY(KC_BSLS);
 #elif __LANGUAGE__ == LG__ENGLISH__
-                        TAP_KEY(KC_HASH);
+                        TAP_KEY(KC_3);
 #endif
                         set_mods(MOD_BIT(KC_LSFT));
                         set_oneshot_mods(MOD_LSFT);
