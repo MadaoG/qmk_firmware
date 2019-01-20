@@ -71,9 +71,7 @@ xmap S <Plug>VSurround
 nmap U <Plug>(RepeatUndoLine)
 nnoremap <silent> Y y$
 xmap [% [%m'gv``
-smap [% [%m'gv``
 xmap ]% ]%m'gv``
-smap ]% ]%m'gv``
 xnoremap a% :normal! F%vf%
 omap ay <Plug>(textobj-syntax-a)
 xmap ay <Plug>(textobj-syntax-a)
@@ -90,7 +88,6 @@ xnoremap a# :normal! F#vf#
 onoremap a- :normal va-
 xnoremap a- :normal! F-vf-
 onoremap a% :normal va%
-smap a% [%v]%
 onoremap a+ :normal va+
 xnoremap a+ :normal! F+vf+
 onoremap a* :normal va*
@@ -119,7 +116,6 @@ nnoremap <silent> cp yap<S-}>p
 nmap ds <Plug>Dsurround
 nnoremap <silent> dc :call utils#deletebrackets()
 xmap gx <Plug>NetrwBrowseXVis
-smap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 nnoremap <silent> gs :Switch
 nmap gcu <Plug>Commentary<Plug>Commentary
@@ -182,13 +178,13 @@ nmap yss <Plug>Yssurround
 nmap yS <Plug>YSurround
 nmap ys <Plug>Ysurround
 nnoremap <silent> yp yyp
-nnoremap <SNR>58_: :=v:count ? v:count : ''
-nnoremap <silent> <Plug>(RepeatRedo) :call repeat#wrap("\<C-R>",v:count)
-nnoremap <silent> <Plug>(RepeatUndoLine) :call repeat#wrap('U',v:count)
-nnoremap <silent> <Plug>(RepeatUndo) :call repeat#wrap('u',v:count)
-nnoremap <silent> <Plug>(RepeatDot) :exe repeat#run(v:count)
-nnoremap <SNR>55_: :=v:count ? v:count : ''
 nnoremap <SNR>57_: :=v:count ? v:count : ''
+nnoremap <SNR>55_: :=v:count ? v:count : ''
+nnoremap <silent> <Plug>(RepeatDot) :exe repeat#run(v:count)
+nnoremap <silent> <Plug>(RepeatUndo) :call repeat#wrap('u',v:count)
+nnoremap <silent> <Plug>(RepeatUndoLine) :call repeat#wrap('U',v:count)
+nnoremap <silent> <Plug>(RepeatRedo) :call repeat#wrap("\<C-R>",v:count)
+nnoremap <SNR>58_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
 nnoremap <silent> <Plug>GitGutterPreviewHunk :GitGutterPreviewHunk
@@ -247,7 +243,8 @@ set laststatus=2
 set lazyredraw
 set listchars=tab:â–¸.,eol:Â¬,trail:â€¢,nbsp:~
 set nomodeline
-set operatorfunc=<SNR>16_easy_align_op
+set nomore
+set operatorfunc=<SNR>22_go
 set path=.,,
 set printoptions=paper:a4
 set pumheight=8
@@ -283,18 +280,19 @@ badd +42 config.h
 badd +82 gauss.h
 badd +266 layer_template.c
 badd +45 macro_functions.h
-badd +102 mappings.h
+badd +184 mappings.h
 badd +1 rules.mk
 badd +1 special_characters.txt
-badd +1 tap_functions.h
+badd +11 tap_functions.h
 badd +518 ~/repositories/qmk_firmware/Makefile
 badd +115 ~/repositories/qmk_firmware/quantum/keymap_extras/keymap_german.h
 badd +18 ~/.vimrc
 badd +1094 ~/.notes/vimtips.txt
-badd +99 keymap.c
+badd +378 keymap.c
 badd +1 Compiling:\ keyboards/ergodox_ez/keymaps/madao/keymap.c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ In\ file\ included\ from\ \[01m\[Kkeyboards/ergodox_ez/keymaps/madao/keymap.c
 badd +1 Compiling:\ keyboards/ergodox_ez/keymaps/madao/keymap.c\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ In\ file\ included\ from\ \[01m\[Kquantum/quantum.h
 badd +1 Session-ez.vim
+badd +0 en.log
 argglobal
 silent! argdel *
 $argadd todo.md
@@ -442,11 +440,11 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 98 - ((20 * winheight(0) + 20) / 40)
+let s:l = 1 - ((0 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-98
+1
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
