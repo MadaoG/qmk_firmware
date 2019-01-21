@@ -13,6 +13,7 @@ enum {
     _MV_,     // movement layer
     _NM_,     // digit layer
     _FN_,     // fn keys
+    _SH_,     // gaming layer
 };
 
 // User defined functions which may refer to the above declared layers.
@@ -21,6 +22,7 @@ enum {
 
 uint8_t last_layer = _EN_;
 
+static bool was_shifted = false;
 static bool tap_nm = false;
 
 enum {
@@ -67,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  | _SF_    |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  | _SF_    |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH_|
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
@@ -77,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |    CAPS |       |       |       |       |       |       |           |       |       |       |       |       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|  [    |           |  ]    |-------|-------|-------|-------|-------|---------|
  *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
- *  |         |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
+ *  |     "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
  *    |       |       |       |       |  NM   |                                           |  SM   | OS_GE | VOL M | VOL D | VOL U |
  *    |       |       |       |       |       |                                           |       |       |       |       |       |
@@ -86,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                               |       |       |     |       | FN    |
  *                                               |       |       |     |       |       |
  *                                       .-------|-------|-------|     |-------|-------|-------.
- *                                       |       |       | BACK  |     | DEL   |       |       |
- *                                       | SHIFT |  TAB  | SPACE |     |       | ENTER | SPACE |
+ *                                       |       |       |       |     | DEL   |       |       |
+ *                                       | SHIFT |  TAB  |       |     |       | ENTER | SPACE |
  *                                       |       |       |-------|     |-------|       |       |
- *                                       |       |       |       |     | ESC   |    #  |    _  |
- *                                       |       |       |       |     |       |       |       |
+ *                                       |   %   |       | BACK  |     | ESC   |    #  |    _  |
+ *                                       |       |       | SPACE |     |       |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
 
@@ -103,9 +105,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,      _______,      _TTNM,        _S_NM,        /*___*/       /*___*/
 
 
-                                                     /*___*/      _______,      _______,
-                                                     /*___*/      /*___*/       _BSPACE,
-                                                     OS_SFT,      _TAB,         _ESC,
+                                                     /*___*/       _______,       _______,
+                                                     /*___*/       /*___*/        _______,
+                                                     OS_SFT,       _TAB,          _BSPACE,
 
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -117,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
          _______,      OS_FN,       /*___*/
          _DEL,         /*___*/      /*___*/
-         _______,      _M_CR,       _M_SP
+         _ESC,         _M_CR,       _M_SP
 
 ),
 
