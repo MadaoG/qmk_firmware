@@ -422,13 +422,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #elif __LANGUAGE__ == LG__ENGLISH__
                         TAP_KEY(_DEL);
 #endif
-                    }
-                    else
-                    {
                         // set the mods again. Otherwise this would not work
                         // when the os-shift is hold down
                         set_oneshot_mods(os_mod);
                         set_mods(s_mod);
+                    }
+                    else
+                    {
                     }
                 }
                 else
