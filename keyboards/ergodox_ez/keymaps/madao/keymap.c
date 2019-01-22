@@ -410,8 +410,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (is_shifted)
                 {
                     // save mods
-                    os_mod = (get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out();
-                    s_mod = keyboard_report->mods & MOD_BIT(KC_LSFT);
+                    os_mod = IS_SHIFTED_OS;
+                    s_mod = IS_SHIFTED_LSFT;
 
                     // clear all mods so we can use all keys we like
                     clear_all_mods();
