@@ -22,7 +22,7 @@ enum {
 
 uint8_t last_layer = _EN_;
 
-static bool was_shifted = false;
+// static bool was_shifted = false;
 static bool tap_nm = false;
 
 enum {
@@ -40,6 +40,7 @@ enum {
     MGC_MNS,
     MGC_SPC_ESC,
     MGC_CR_CL,
+    MGC_ESC_DEL,
     TMUX_LDR,
     MGC_SPC,
     MGC_CR,
@@ -58,6 +59,7 @@ enum {
 #define M_CR_CL MGC_CR_CL
 #define _M_SP   MGC_SPC
 #define _M_CR   MGC_CR
+#define _ESC_D  MGC_ESC_DEL
 
 void clear_all_mods(void) {
     clear_mods();
@@ -92,9 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       | SHIFT |  TAB  |       |     |       | ENTER | SPACE |
  *                                       |       |       |-------|     |-------|       |       |
  *                                       |   %   |       | BACK  |     | ESC   |    #  |    _  |
- *                                       |       |       | SPACE |     |       |       |       |
+ *                                       |       |       | SPACE |     |   DEL |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
+
 
 [_EN_] = LAYOUT_ergodox_wrapper(  // english layer
 
@@ -119,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
          _______,      OS_FN,       /*___*/
          _DEL,         /*___*/      /*___*/
-         _ESC,         _M_CR,       _M_SP
+         _ESC_D,         _M_CR,       _M_SP
 
 ),
 
@@ -307,6 +310,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t os_mod;
+    uint8_t s_mod;
     switch (keycode)
     {
 
@@ -399,6 +404,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             };
 
+        case MGC_ESC_DEL:
+            // tap for `esc`, shift for `del`
+            {
+                if (is_shifted)
+                {
+                    // save mods
+                    os_mod = (get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out();
+                    s_mod = keyboard_report->mods & MOD_BIT(KC_LSFT);
+
+                    // clear all mods so we can use all keys we like
+                    clear_all_mods();
+                    if (record->event.pressed)
+                    {
+#if __LANGUAGE__ == LG__GERMAN__
+                        TAP_KEY(_DEL);
+#elif __LANGUAGE__ == LG__ENGLISH__
+                        TAP_KEY(_DEL);
+#endif
+                    }
+                    else
+                    {
+                        // set the mods again. Otherwise this would not work
+                        // when the os-shift is hold down
+                        set_oneshot_mods(os_mod);
+                        set_mods(s_mod);
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        register_code(_ESC);
+                    }
+                    else
+                    {
+                        unregister_code(_ESC);
+                        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                    }
+                }
+                return false;
+            };
     };
 
     return true;
