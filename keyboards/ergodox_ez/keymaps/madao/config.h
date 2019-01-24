@@ -45,3 +45,6 @@ _______, _______, _______
     keyboard_report->mods & MOD_BIT(KC_LSFT) || \
     ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && \
      !has_oneshot_mods_timed_out())
+
+#define IS_SHIFTED_OS (get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out()
+#define IS_SHIFTED_LSFT keyboard_report->mods & MOD_BIT(KC_LSFT)

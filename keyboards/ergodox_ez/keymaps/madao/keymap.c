@@ -13,6 +13,7 @@ enum {
     _MV_,     // movement layer
     _NM_,     // digit layer
     _FN_,     // fn keys
+    _SH_,     // gaming layer
 };
 
 // User defined functions which may refer to the above declared layers.
@@ -21,6 +22,7 @@ enum {
 
 uint8_t last_layer = _EN_;
 
+// static bool was_shifted = false;
 static bool tap_nm = false;
 
 enum {
@@ -38,6 +40,7 @@ enum {
     MGC_MNS,
     MGC_SPC_ESC,
     MGC_CR_CL,
+    MGC_ESC_DEL,
     TMUX_LDR,
     MGC_SPC,
     MGC_CR,
@@ -56,6 +59,7 @@ enum {
 #define M_CR_CL MGC_CR_CL
 #define _M_SP   MGC_SPC
 #define _M_CR   MGC_CR
+#define _ESC_D  MGC_ESC_DEL
 
 void clear_all_mods(void) {
     clear_mods();
@@ -67,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  | _SF_    |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  | _SF_    |       |       |       |       |       |       |           |       |       |       |       |       |       |     _SH_|
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
@@ -77,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |    CAPS |       |       |       |       |       |       |           |       |       |       |       |       |       |  SUPER  |
  *  |---------|-------|-------|-------|-------|-------|  [    |           |  ]    |-------|-------|-------|-------|-------|---------|
  *  |   =     |  X    |  Y    |  Q    |  P    |  Z    |       |           |       |  B    |  M    |  ,    |  .    |  J    |         |
- *  |         |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
+ *  |     "   |       |    ALT|    SFT|    CTL|       |       |           |       |       |    CTL|    SFT|    ALT|       |         |
  *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
  *    |       |       |       |       |  NM   |                                           |  SM   | OS_GE | VOL M | VOL D | VOL U |
  *    |       |       |       |       |       |                                           |       |       |       |       |       |
@@ -86,13 +90,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                               |       |       |     |       | FN    |
  *                                               |       |       |     |       |       |
  *                                       .-------|-------|-------|     |-------|-------|-------.
- *                                       |       |       | BACK  |     | DEL   |       |       |
- *                                       | SHIFT |  TAB  | SPACE |     |       | ENTER | SPACE |
+ *                                       |       |       |       |     | DEL   |       |       |
+ *                                       | SHIFT |  TAB  |       |     |       | ENTER | SPACE |
  *                                       |       |       |-------|     |-------|       |       |
- *                                       |       |       |       |     | ESC   |    #  |    _  |
- *                                       |       |       |       |     |       |       |       |
+ *                                       |   %   |       | BACK  |     | ESC   |    #  |    _  |
+ *                                       |       |       | SPACE |     |   DEL |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
+
 
 [_EN_] = LAYOUT_ergodox_wrapper(  // english layer
 
@@ -103,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _______,      _______,      _TTNM,        _S_NM,        /*___*/       /*___*/
 
 
-                                                     /*___*/      _______,      _______,
-                                                     /*___*/      /*___*/       _BSPACE,
-                                                     OS_SFT,      _TAB,         _ESC,
+                                                     /*___*/       _______,       _______,
+                                                     /*___*/       /*___*/        _______,
+                                                     OS_SFT,       _TAB,          _BSPACE,
 
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -117,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
          _______,      OS_FN,       /*___*/
          _DEL,         /*___*/      /*___*/
-         _______,      _M_CR,       _M_SP
+         _ESC_D,         _M_CR,       _M_SP
 
 ),
 
@@ -182,12 +187,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    '-------'-------'-------'-------'-------'                                     '-------'-------'-------'-------'-------'
  */
 
-[_SM_]         =             LAYOUT_ergodox_wrapper(      // symbol layer
- _______,      _______,      _______,                     _______,      _______,      _______,      _______,
- _______,      _______,      _SLSH,                       _LBRC,        _RBRC,        _AT,          _______,
- _______,      _LESS,        _PIPE,                       _LCBR,        _RCBR,        _ASTR,        /*___*/
- _______,      _MORE,        _BSLS,                       MGC_PLS,      _MINS,        _DLR,         _______,
- _______,      _______,      _______,                     _______,      _AMPR,
+[_SM_] = LAYOUT_ergodox_wrapper(  // symbollayer
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _SLSH,        _LBRC,        _RBRC,        _AT,          _______,
+ _______,      _LESS,        _PIPE,        _LCBR,        _RCBR,        _ASTR,        /*___*/
+ _______,      _MORE,        _BSLS,        _PLUS,        _MINS,        _DLR,         _______,
+ _______,      _______,      _______,      _______,      _AMPR,
  THUMBS,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
@@ -304,6 +310,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t os_mod;
+    uint8_t s_mod;
     switch (keycode)
     {
 
@@ -396,6 +404,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             };
 
+        case MGC_ESC_DEL:
+            // tap for `esc`, shift for `del`
+            {
+                if (is_shifted)
+                {
+                    // save mods
+                    os_mod = IS_SHIFTED_OS;
+                    s_mod = IS_SHIFTED_LSFT;
+
+                    // clear all mods so we can use all keys we like
+                    clear_all_mods();
+                    if (record->event.pressed)
+                    {
+#if __LANGUAGE__ == LG__GERMAN__
+                        TAP_KEY(_DEL);
+#elif __LANGUAGE__ == LG__ENGLISH__
+                        TAP_KEY(_DEL);
+#endif
+                        // set the mods again. Otherwise this would not work
+                        // when the os-shift is hold down
+                        set_oneshot_mods(os_mod);
+                        set_mods(s_mod);
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        register_code(_ESC);
+                    }
+                    else
+                    {
+                        unregister_code(_ESC);
+                        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                    }
+                }
+                return false;
+            };
     };
 
     return true;
