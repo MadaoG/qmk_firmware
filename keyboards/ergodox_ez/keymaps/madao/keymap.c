@@ -37,7 +37,6 @@ enum {
     MGC_SFT_ESC,
     MGC_PLS,
     MGC_NM_SCL,
-    MGC_MNS,
     MGC_SPC_ESC,
     MGC_CR_CL,
     MGC_ESC_DEL,
@@ -54,7 +53,6 @@ enum {
 #define M_S_E   MGC_SFT_ESC
 #define M_PLS   MGC_PLS
 #define M_NM_SC MGC_NM_SCL
-#define M_MNS   MGC_MNS
 #define M_SP_E  MGC_SPC_ESC
 #define M_CR_CL MGC_CR_CL
 #define _M_SP   MGC_SPC
@@ -103,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  TG_SF,        _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _______,      _V,           _L,           _C,           _W,           _______,
- M_MNS,        _U,           _I,           _A,           _E,           _O,           /*___*/
+ _MINS,        _U,           _I,           _A,           _E,           _O,           /*___*/
  _EQL,         _X,           ALT_Y,        SFT_Q,        CTL_P,        _Z,           _LBRC,
  _______,      _______,      _______,      _TTNM,        _S_NM,        /*___*/       /*___*/
 
