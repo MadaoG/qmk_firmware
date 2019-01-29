@@ -371,17 +371,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             {
                 if (is_shifted)
                 {
+
+                    os_mod = IS_SHIFTED_OS;
+                    s_mod = IS_SHIFTED_LSFT;
+                    clear_all_mods();
+
                     if (record->event.pressed)
                     {
-                        // clear_all_mods();
 #if __LANGUAGE__ == LG__GERMAN__
                         TAP_KEY(KC_BSLS);
 #elif __LANGUAGE__ == LG__ENGLISH__
-                        TAP_KEY(KC_3);
+                        TAP_SFT(KC_3);
 #endif
-                        set_mods(MOD_BIT(KC_LSFT));
-                        set_oneshot_mods(MOD_LSFT);
-                        // register_code(KC_LSFT);
+                        set_oneshot_mods(os_mod);
+                        set_mods(s_mod);
                     }
                     else
                     {
