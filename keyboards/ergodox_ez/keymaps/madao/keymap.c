@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _TILD,        _EXLM,        _QST,         _MORE,        _______,      _______,
- /*___*/       _HAT,         _LPRN,        _RPRN,        _LESS,        _______,      _______,
+ /*___*/       _HAT,         _LPRN,        _RPRN,        _LESS,        _HASH,        _______,
  _______,      _PERC,        _DQOT,        _QUOT,        _BKTK,        _TICK,        _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  THUMBS
