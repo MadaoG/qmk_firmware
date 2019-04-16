@@ -1,3 +1,6 @@
-#pragma once
+#ifndef CONFIG_KEYMAP_H
+#define CONFIG_KEYMAP_H
 
-// place overrides here
+#include "../../config.h"
+
+#endif

@@ -1,4 +1,7 @@
 #include QMK_KEYBOARD_H
+#ifdef AUDIO_ENABLE
+  #include "audio.h"
+#endif
 
 extern keymap_config_t keymap_config;
 

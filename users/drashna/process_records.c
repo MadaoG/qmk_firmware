@@ -12,6 +12,7 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -19,43 +20,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
   #if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2)
-    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.row, record->event.key.col, record->event.pressed);
+    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.row, record->event.key.col, record->event.pressed);
   #else
-    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
   #endif
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
-  case KC_QWERTY ... KC_CARPLAX:
+  case KC_QWERTY:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(keycode - KC_QWERTY);
+      set_single_persistent_default_layer(_QWERTY);
+    }
+    break;
+  case KC_COLEMAK:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_COLEMAK);
+    }
+    break;
+  case KC_DVORAK:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_DVORAK);
+    }
+    break;
+  case KC_WORKMAN:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_WORKMAN);
     }
     break;
 
+
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-      uint8_t temp_mod = get_mods();
-      uint8_t temp_osm = get_oneshot_mods();
-      clear_mods(); clear_oneshot_mods();
+      #if !defined(KEYBOARD_viterbi)
+        uint8_t temp_mod = get_mods();
+        uint8_t temp_osm = get_oneshot_mods();
+        clear_mods(); clear_oneshot_mods();
+      #endif
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-#ifndef MAKE_BOOTLOADER
-      if ( ( temp_mod | temp_osm ) & MOD_MASK_SHIFT )
-#endif
-      {
-        #if defined(__arm__)
-          send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
-        #elif defined(BOOTLOADER_DFU)
-          send_string_with_delay_P(PSTR(":dfu"), MACRO_TIMER);
-        #elif defined(BOOTLOADER_HALFKAY)
-          send_string_with_delay_P(PSTR(":teensy"), MACRO_TIMER);
-        #elif defined(BOOTLOADER_CATERINA)
-          send_string_with_delay_P(PSTR(":avrdude"), MACRO_TIMER);
-        #endif // bootloader options
-       }
-      if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
-      send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
-      set_mods(temp_mod);
-      set_oneshot_mods(temp_osm);
+      #if defined(KEYBOARD_viterbi)
+        send_string_with_delay_P(PSTR(":dfu" SS_TAP(X_ENTER)), MACRO_TIMER);
+      #else
+        if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK) {
+          #if defined(__arm__)
+            send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
+          #elif defined(BOOTLOADER_DFU)
+            send_string_with_delay_P(PSTR(":dfu"), MACRO_TIMER);
+          #elif defined(BOOTLOADER_HALFKAY)
+            send_string_with_delay_P(PSTR(":teensy"), MACRO_TIMER);
+          #elif defined(BOOTLOADER_CATERINA)
+            send_string_with_delay_P(PSTR(":avrdude"), MACRO_TIMER);
+          #endif // bootloader options
+        }
+        if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
+        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
+        set_mods(temp_mod);
+      #endif
     }
     break;
 

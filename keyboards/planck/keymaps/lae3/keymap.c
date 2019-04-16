@@ -32,6 +32,10 @@ enum planck_keycodes {
     RAISE,
 };
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 #define KC_MUP KC_MS_UP
 #define KC_MDN KC_MS_DOWN
 #define KC_MLFT KC_MS_LEFT

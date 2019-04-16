@@ -2,7 +2,7 @@
 
 
 // Used for SHIFT_ESC
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -12,9 +12,9 @@
 #define _FL 1
 #define _RL 2
 
-enum custom_keycodes {
-  SFT_ESC = SAFE_RANGE
-};
+// readability
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
   [_BL] = LAYOUT_60_ansi(
-    SFT_ESC, KC_1,    KC_2,    KC_3,   KC_4,    KC_5,    KC_6,    KC_7,     KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
+    F(0),    KC_1,    KC_2,    KC_3,   KC_4,    KC_5,    KC_6,    KC_7,     KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
     KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
     KC_CAPS, KC_A,    KC_S,    KC_D,   KC_F,    KC_G,    KC_H,    KC_J,     KC_K,    KC_L,   KC_SCLN, KC_QUOT,          KC_ENT,  \
     KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT, KC_SLSH,                   KC_RSFT, \
@@ -89,11 +89,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SFT_ESC:
+enum function_id {
+    SHIFT_ESC,
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+  [0]  = ACTION_FUNCTION(SHIFT_ESC),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  static uint8_t shift_esc_shift_mask;
+  switch (id) {
+    case SHIFT_ESC:
+      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
       if (record->event.pressed) {
-        if (get_mods() & MODS_SHIFT_MASK) {
+        if (shift_esc_shift_mask) {
           add_key(KC_GRV);
           send_keyboard_report();
         } else {
@@ -101,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_keyboard_report();
         }
       } else {
-        if (get_mods() & MODS_SHIFT_MASK) {
+        if (shift_esc_shift_mask) {
           del_key(KC_GRV);
           send_keyboard_report();
         } else {
@@ -109,10 +119,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_keyboard_report();
         }
       }
-
-      return false;
-
-    default:
-      return true;
+      break;
   }
 }

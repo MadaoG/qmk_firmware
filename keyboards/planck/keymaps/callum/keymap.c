@@ -4,8 +4,13 @@
 
 extern keymap_config_t keymap_config;
 
+#define G(X) LGUI(X)
+#define A(X) LALT(X)
+#define C(X) LCTL(X)
 #define AC(X) A(C(X))
 #define SC(X) S(C(X))
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 
 enum planck_layers {
     _COLEMAK,
@@ -13,7 +18,6 @@ enum planck_layers {
     _SYMB,
     _MOVE,
     _FUNC,
-    _MOUSE,
 };
 
 enum planck_keycodes {
@@ -22,7 +26,6 @@ enum planck_keycodes {
     SYMB,
     MOVE,
     FUNC,
-    MOUSE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -103,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |  ~  |  `  |  +  |  =  |  |  |  \  |  [  |  ]  |  {  |  }  |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |Mouse|     |     |     |     |
+     * |     |     |     |     |     |     |     |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
      */
     [_SYMB] = {
@@ -124,41 +127,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         },
         {
             _______,      _______,      _______,      _______,
-            _______,      _______,      _______,      MOUSE,
+            _______,      _______,      _______,      _______,
             _______,      _______,      _______,      _______
         }
     },
 
     /* MOVE
      * ,-----------------------------------------------------------------------.
-     * |     |     |     |     |     |     |CtrUp|Home | Up  | End |Caps | Esc |
+     * |     |     |     |     |     |     |     |Home | Up  | End |     | Esc |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |SpaL |Left |Down |Right|SpaR | Del |
+     * |     |     |     |     |     |     |     |Left |Down |Right|Caps | Del |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |CtrDn|PgDn |PgUp |TabL |TabR |     |
+     * |     |     |     |     |     |     |     |PgDn |PgUp |TabL |TabR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |Mouse|     |     |     |     |     |     |     |
+     * |     |     |     |     |     |     |     |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
      */
     [_MOVE] = {
         {
             AC(KC_A),     AC(KC_B),     AC(KC_C),     AC(KC_D),
-            AC(KC_E),     AC(KC_F),     C(KC_UP),     KC_HOME,
-            KC_UP,        KC_END,       KC_CAPS,      KC_ESC
+            AC(KC_E),     AC(KC_F),     XXXXXXX,      KC_HOME,
+            KC_UP,        KC_END,       XXXXXXX,      KC_ESC
         },
         {
             AC(KC_G),     AC(KC_H),     AC(KC_I),     AC(KC_J),
-            AC(KC_K),     AC(KC_L),     C(KC_LEFT),   KC_LEFT,
-            KC_DOWN,      KC_RGHT,      C(KC_RIGHT),  KC_DEL
+            AC(KC_K),     AC(KC_L),     XXXXXXX,      KC_LEFT,
+            KC_DOWN,      KC_RGHT,      KC_CAPS,      KC_DEL
         },
         {
             _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
-            AC(KC_P),     AC(KC_Q),     C(KC_DOWN),   KC_PGDN,
+            AC(KC_P),     AC(KC_Q),     XXXXXXX,      KC_PGDN,
             KC_PGUP,      SC(KC_TAB),   C(KC_TAB),    _______
         },
         {
             _______,      _______,      _______,      _______,
-            MOUSE,        _______,      _______,      _______,
+            _______,      _______,      _______,      _______,
             _______,      _______,      _______,      _______
         }
     },
@@ -169,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Power| F11 | F12 | F13 | F14 | F15 | F16 | F17 | F18 | F19 | F20 |VolDn|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |Home |TabL |TabR |End  |     |     |     |Clmak|Qwrty|     |
+     * |     |     |     |TabL |TabR |     |     |     |     |Clmak|Qwrty|     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |Prev |Mute |Play |Next |     |     |     |     |
      * `-----------------------------------------------------------------------'
@@ -186,47 +189,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_F18,       KC_F19,       KC_F20,       KC_VOLD
         },
         {
-            _______,      XXXXXXX,      KC_HOME,      SC(KC_TAB),
-            C(KC_TAB),    KC_END,       XXXXXXX,      XXXXXXX,
+            _______,      XXXXXXX,      XXXXXXX,      SC(KC_TAB),
+            C(KC_TAB),    XXXXXXX,      XXXXXXX,      XXXXXXX,
             XXXXXXX,      COLEMAK,      QWERTY,       _______
         },
         {
             _______,      _______,      _______,      _______,
             KC_MPRV,      KC_MUTE,      KC_MPLY,      KC_MNXT,
-            _______,      _______,      _______,      _______
-        }
-    },
-
-    /* MOUSE
-     * ,-----------------------------------------------------------------------.
-     * |     |     |     |     |     |     |     | ScL |Up   | ScR |     |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     | B4  | B3  | B2  | B1  |     |     |Left |Down |Right|     |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     | Ac0 | Ac1 | Ac2 |     |     | ScD | ScU |     |     |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |     |     |     |     |     |
-     * `-----------------------------------------------------------------------'
-     */
-    [_MOUSE] = {
-        {
-            _______,      _______,      C(KC_LEFT),   C(KC_UP),
-            C(KC_RIGHT),  _______,      _______,      KC_WH_L,
-            KC_MS_U,      KC_WH_R,      _______,      _______
-        },
-        {
-            _______,      KC_BTN4,      KC_BTN3,      KC_BTN2,
-            KC_BTN1,      _______,      _______,      KC_MS_L,
-            KC_MS_D,      KC_MS_R,      _______,      _______
-        },
-        {
-            _______,      _______,      KC_ACL0,      KC_ACL1,
-            KC_ACL2,      _______,      _______,      KC_WH_D,
-            KC_WH_U,      _______,      _______,      _______
-        },
-        {
-            _______,      _______,      _______,      _______,
-            _______,      _______,      _______,      _______,
             _______,      _______,      _______,      _______
         }
     }
@@ -284,13 +253,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_FUNC);
             } else {
                 layer_off(_FUNC);
-            }
-            return false;
-        case MOUSE:
-            if (record->event.pressed) {
-                layer_on(_MOUSE);
-            } else {
-                layer_off(_MOUSE);
             }
             return false;
 

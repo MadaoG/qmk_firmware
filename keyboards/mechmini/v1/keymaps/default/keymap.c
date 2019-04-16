@@ -13,7 +13,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
+#include "mechmini.h"
+#include "quantum.h"
 
 #define _BL  0   // base layer
 #define _FN1 1  // function layer 1

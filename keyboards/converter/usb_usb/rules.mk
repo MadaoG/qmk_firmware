@@ -1,6 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
+
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
 #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -21,6 +22,7 @@ MCU = atmega32u4
 F_CPU ?= 16000000
 
 DEFAULT_FOLDER = converter/usb_usb/hasu
+
 
 #
 # LUFA specific
@@ -43,7 +45,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
+#     different sizes, comment this out, and the correct address will be loaded 
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -53,15 +55,15 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # Build Options
 #   comment out to disable the options.
 #
-#BOOTMAGIC_ENABLE = yes  # Virtual DIP switch configuration(+1000)
-#MOUSEKEY_ENABLE  = yes  # Mouse keys(+4700)
-EXTRAKEY_ENABLE  = yes  # Audio control and System control(+450)
-#CONSOLE_ENABLE   = yes  # Console for debug(+400)
-#COMMAND_ENABLE   = yes  # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-#NKRO_ENABLE      = yes  # USB Nkey Rollover - not yet supported in LUFA
-#BACKLIGHT_ENABLE = yes
-USB_HID_ENABLE   = yes
-CUSTOM_MATRIX    = yes
+# BOOTMAGIC_ENABLE	= yes	# Virtual DIP switch configuration(+1000)
+# MOUSEKEY_ENABLE		= yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE		= yes	# Audio control and System control(+450)
+# CONSOLE_ENABLE		= yes	# Console for debug(+400)
+# COMMAND_ENABLE		= yes  # Commands for debug and configuration
+# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+# NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+# BACKLIGHT_ENABLE = yes
+USB_HID_ENABLE = yes
 
+CUSTOM_MATRIX = yes
 SRC = custom_matrix.cpp

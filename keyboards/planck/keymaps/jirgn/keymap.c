@@ -38,6 +38,7 @@ enum planck_keycodes {
 };
 
 // keycode aliases
+#define _______ KC_TRNS
 #define ___x___ KC_NO
 #define KC_EUR LALT(S(KC_2))
 #define KC_SEC LALT(KC_6)

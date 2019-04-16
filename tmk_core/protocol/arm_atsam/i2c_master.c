@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "arm_atsam_protocol.h"
 
-#if !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
+#ifndef MD_BOOTLOADER
 
 #include <string.h>
 
@@ -37,7 +37,7 @@ static uint8_t dma_sendbuf[I2C_DMA_MAX_SEND]; //Data being written to I2C
 
 volatile uint8_t i2c_led_q_running;
 
-#endif // !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
+#endif //MD_BOOTLOADER
 
 void i2c0_init(void)
 {
@@ -112,7 +112,7 @@ void i2c0_stop(void)
     }
 }
 
-#if !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
+#ifndef MD_BOOTLOADER
 void i2c1_init(void)
 {
     DBGC(DC_I2C1_INIT_BEGIN);
@@ -583,4 +583,4 @@ uint8_t i2c_led_q_run(void)
 
     return 1;
 }
-#endif // !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
+#endif //MD_BOOTLOADER

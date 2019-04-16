@@ -70,6 +70,7 @@
 #define ____ KC_TRNS
 #define _____ KC_TRNS
 #define ______ KC_TRNS
+#define _______ KC_TRNS
 #define ________ KC_TRNS
 #define ___________ KC_TRNS
 #define _________________ KC_TRNS

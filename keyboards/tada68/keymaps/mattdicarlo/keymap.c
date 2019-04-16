@@ -4,6 +4,8 @@
 #define BASE_LAYER 0
 #define FUNC_LAYER 1
 
+#define _______ KC_TRNS
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Base layer, always active.

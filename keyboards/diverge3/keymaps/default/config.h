@@ -14,9 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include "config_common.h"
 
 // place overrides here
 #define MASTER_RIGHT
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 150
+
+#endif

@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     avr-libc \

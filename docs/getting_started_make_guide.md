@@ -143,9 +143,9 @@ As there is no standard split communication driver for ARM-based split keyboards
 
 Lets you replace the default matrix scanning routine with your own code. You will need to provide your own implementations of matrix_init() and matrix_scan().
 
-`DEBOUNCE_TYPE`
+`CUSTOM_DEBOUNCE`
 
-Lets you replace the default key debouncing routine with an alternative one. If `custom` you will need to provide your own implementation.
+Lets you replace the default key debouncing routine with your own code. You will need to provide your own implementation of debounce().
 
 ## Customizing Makefile Options on a Per-Keymap Basis
 

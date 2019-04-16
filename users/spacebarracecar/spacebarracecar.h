@@ -90,8 +90,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define CTLENT CTL_T(KC_ENT)
 
-#define EMOJI LWIN(KC_DOT)
-
 /*
 Templates for Keys, with custom shifted and non shifted Characters
 */

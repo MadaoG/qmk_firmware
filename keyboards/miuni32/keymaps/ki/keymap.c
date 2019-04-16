@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 enum miuni32_layers {
   _BEAKL,
   _LOWER,

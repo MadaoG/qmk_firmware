@@ -58,6 +58,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 };
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LAYER0] = LAYOUT(                 \
              KC_ESC,     TO(_LAYER1), \

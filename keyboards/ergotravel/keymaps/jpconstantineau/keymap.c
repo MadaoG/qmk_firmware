@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+﻿#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -15,6 +15,7 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
+#define _______ KC_TRNS
 
 #define KC_LOWR LOWER
 #define KC_RASE RAISE

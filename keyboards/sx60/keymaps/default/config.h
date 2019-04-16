@@ -1,3 +1,1 @@
-#pragma once
-
-// place overrides here
+#include "../../config.h"

@@ -13,6 +13,9 @@
 #define KC_ENYE M(0)
 #define KC_CEDL M(1)
 
+#define _______ KC_TRNS
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,-----------------------------------------------------------.

@@ -20,6 +20,7 @@
 // #define L_LL_I   10
 
 // Keyboard aliases
+#define _______ KC_TRNS
 #define ooooooo KC_TRNS
 
 #define MO_FUNC MO(L_FUNC)

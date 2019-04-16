@@ -32,6 +32,9 @@ enum kinesis_keycodes {
   NKROTG = MAGIC_TOGGLE_NKRO
 };
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 //Tap Dance Declarations
 enum {
   ADJ = 0,

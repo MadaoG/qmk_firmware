@@ -2,7 +2,7 @@
   "keyboard_name": "Canoe",
   "maintainer": "qmk",
   "url": "",
-  "height": 6,
+  "height": 8,
   "width": 15,
   "layouts": {
     "LAYOUT_iso": {

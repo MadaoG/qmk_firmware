@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+﻿#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -10,6 +10,10 @@ enum custom_layers {
     _QWERTY
 };
 
+
+
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 #define BASELYR TO(_COLEMAK) // base layer
 #define LOWER MO(_LOWER) // momentary lower layer
 #define RAISE MO(_RAISE) // momentary raise layer

@@ -19,7 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef REV3_TEENSY_H
+#define REV3_TEENSY_H
 
 #include "orthodox.h"
 
@@ -41,3 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		{ R18, R17, R16, R15, R14, R13, R12, KC_NO, R10 }, \
 		{ R28, R27, R26, R25, R24, R23, R22, R21, R20 } \
 	}
+
+#endif
+

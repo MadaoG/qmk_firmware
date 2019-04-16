@@ -11,6 +11,10 @@ extern keymap_config_t keymap_config;
 #define QWERTY M(_QW)
 #define COLEMAK M(_CM)
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 /*
 
         Function Keys on All Layers (Keypad toggles):

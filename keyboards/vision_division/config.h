@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Due to the configurability of this keyboard, matrix sizes are determined in the keymap's config.h
 
+
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
@@ -77,6 +78,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* key combination for magic key command */
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+)
+
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
@@ -130,6 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Only print user print statements */
 // #define USER_PRINT
+
 
 /* disable action features */
 //#define NO_ACTION_LAYER

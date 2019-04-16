@@ -1,6 +1,6 @@
 /* Copyright 2017 Kolja Brauns
 */
-#include QMK_KEYBOARD_H
+#include "xd75.h"
 
 #ifndef KEYMAP_GERMAN
 #define KEYMAP_GERMAN

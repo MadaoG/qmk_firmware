@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "qmk",
     "width": 13,
-    "height": 5,
+    "height": 6,
     "layouts": {
         "LAYOUT": {
             "layout": [

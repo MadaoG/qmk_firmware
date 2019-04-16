@@ -15,6 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
+
+#endif  // CONFIG_H
+
+#undef  RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 16
+
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 100
+#endif

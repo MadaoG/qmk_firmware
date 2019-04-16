@@ -98,7 +98,6 @@ extern "C"
         kbd2.SetReportParser(0, (HIDReportParser*)&kbd_parser2);
         kbd3.SetReportParser(0, (HIDReportParser*)&kbd_parser3);
         kbd4.SetReportParser(0, (HIDReportParser*)&kbd_parser4);
-        matrix_init_quantum();
     }
 
     static void or_report(report_keyboard_t report) {
@@ -114,24 +113,6 @@ extern "C"
                 }
             }
         }
-    }
-
-    __attribute__ ((weak))
-    void matrix_init_kb(void) {
-        matrix_init_user();
-    }
-
-    __attribute__ ((weak))
-    void matrix_init_user(void) {
-    }
-
-    __attribute__ ((weak))
-    void matrix_scan_kb(void) {
-        matrix_scan_user();
-    }
-
-    __attribute__ ((weak))
-    void matrix_scan_user(void) {
     }
 
     uint8_t matrix_scan(void) {
@@ -188,7 +169,6 @@ extern "C"
                 keyboard_set_leds(host_keyboard_leds());
             }
         }
-        matrix_scan_quantum();
         return 1;
     }
 

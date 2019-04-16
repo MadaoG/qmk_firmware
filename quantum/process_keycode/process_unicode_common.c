@@ -118,9 +118,6 @@ void unicode_input_finish(void) {
   case UC_WIN:
     unregister_code(KC_LALT);
     break;
-  case UC_WINC:
-    tap_code(KC_ENTER);
-    break;
   }
 
   set_mods(saved_mods); // Reregister previously set mods

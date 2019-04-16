@@ -11,6 +11,10 @@
 // dual-role shortcuts
 #define SPACEDUAL LT(_SPC, KC_SPACE)
 
+
+// increase readability 
+#define _______ KC_TRNS
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _DEF: Default Layer
      * ,-----------------------------------------------------------.

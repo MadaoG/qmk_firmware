@@ -54,4 +54,3 @@ NKRO_ENABLE = yes      # USB Nkey Rollover - if this doesn't work, see here: htt
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
-EXTRAFLAGS += -flto

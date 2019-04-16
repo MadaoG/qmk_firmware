@@ -1,10 +1,13 @@
-#include QMK_KEYBOARD_H
+#include "maartenwut.h"
 
 #define _MA 0
 #define _NU 1
 #define _FL 2
 #define _GA 3
 #define _AR 4
+
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 
 #define LSHIFT OSM(MOD_LSFT)
 #define SPACE LT(_AR, KC_SPC)

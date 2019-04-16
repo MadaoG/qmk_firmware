@@ -60,6 +60,9 @@ WINSH,
 OSX,
 };
 
+#define _______     KC_TRNS
+#define XXXXXXX     KC_NO
+
 // action-TAP for key/mod behavior LT(layer, KC)
 #define XK_TAB      LT(_FNCTION, KC_TAB)
 #define XK_BSP      LT(_KAMELOC, KC_BSPC)

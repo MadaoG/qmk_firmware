@@ -188,7 +188,9 @@ enum planck_keycodes {
 // keycodes
 #define ___x___ KC_TRNS
 #define ___fn__ KC_TRNS
-#undef  _______
+#ifdef _______
+#undef _______
+#endif
 #define _______ KC_NO
 
 #define COPY    LCTL(KC_C)

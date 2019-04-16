@@ -1,4 +1,5 @@
-# KB Paradise V60 Type R Default Layout
+KB Paradise V60 Type R Default Layout
+======================
 
 This is the default layout as defined by the KBP V60 Type R manual/keycaps
 
@@ -8,4 +9,4 @@ This is the default layout as defined by the KBP V60 Type R manual/keycaps
 
 
 ### Build
-To build this keymap, simply run `make v60_type_r:default`.
+To build this keymap, simply run `make KEYMAP=default`.

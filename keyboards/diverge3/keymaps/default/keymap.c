@@ -95,6 +95,9 @@ enum custom_keycodes {
   PSELF_MACRO
 };
 
+// Make layer undefined do nothing
+#define _______ KC_TRNS
+
 // Macros
 #define KC_PMAC PAREN_MACRO
 #define KC_AMAC ARROW_MACRO

@@ -1,5 +1,5 @@
 #include "keymap_french.c"
-#include QMK_KEYBOARD_H
+#include "xd75.h"
 
 
 // Layer shorthand

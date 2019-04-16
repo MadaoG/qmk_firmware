@@ -1,4 +1,6 @@
-#include QMK_KEYBOARD_H
+#include "dactyl_manuform.h"
+#include "action_layer.h"
+#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -124,3 +126,4 @@ void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
+

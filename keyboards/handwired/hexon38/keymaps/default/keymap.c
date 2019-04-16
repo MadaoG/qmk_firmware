@@ -1,6 +1,6 @@
 // see https://github.com/pepaslabs/hexon38
 
-#include QMK_KEYBOARD_H
+#include "hexon38.h"
 
 #define A_ KC_A
 #define B_ KC_B

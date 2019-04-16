@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 
+#define _______ KC_TRNS
+
 #define _BASE 0
 #define _FN   1
 

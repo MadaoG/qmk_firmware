@@ -3,6 +3,8 @@
 
 #include "quantum.h"
 
+// Use 7 wide characters for keymaps
+#define _______ KC_TRNS
 #define XXX     KC_NO
 
 // Layers

@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "rgblight.h"
 
 //Layer definitions
 #define _BL 0

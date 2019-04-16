@@ -18,9 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-// place overrides here
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 /* Use I2C or Serial, not both */
 
@@ -32,3 +31,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 // #define _MASTER_RIGHT
 // #define EE_HANDS
+
+#endif

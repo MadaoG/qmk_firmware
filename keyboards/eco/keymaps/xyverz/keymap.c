@@ -28,6 +28,10 @@ enum planck_keycodes {
   BACKLIT
 };
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 // Aliases to make reading the keymap easier
 #define GUIBSPC GUI_T(KC_BSPC) // GUI when held, BSPC when tapped.
 

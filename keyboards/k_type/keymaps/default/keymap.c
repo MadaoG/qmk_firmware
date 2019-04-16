@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "k_type.h"
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = KEYMAP(

@@ -11,8 +11,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make octagon/v2:default
 
-**Reset Key:** To put the Octagon V2 into reset, hold the top right most key (`K5Q`) while plugging in. 
-
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Hardware Notes

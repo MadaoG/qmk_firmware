@@ -3,6 +3,9 @@
 
 extern keymap_config_t keymap_config;
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 // Custom Key Combos
 #define LCKSCR LCTL(LGUI(KC_Q))
 //#define KC_CAD LCTL(LALT(KC_DEL)) // CTL+ALT+DEL (windows)

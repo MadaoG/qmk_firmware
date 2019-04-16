@@ -7,6 +7,9 @@
 #define _NUM 2
 #define _BSPC 3
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 // Macros
 // name macros here for keymap reference
 enum {

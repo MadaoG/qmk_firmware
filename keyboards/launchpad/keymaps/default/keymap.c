@@ -1,5 +1,7 @@
 // Below layout is based upon /u/That-Canadian's planck layout
-#include QMK_KEYBOARD_H
+#include "launchpad.h"
+#include "action_layer.h"
+#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -11,6 +13,10 @@ extern keymap_config_t keymap_config;
 
 #define _FUNC 15
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
@@ -19,9 +25,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-------------.
- * |   1  |  2   |
+ * |   1  |  2   |  
  * |------+------|
- * |   3  |  4   |
+ * |   3  |  4   | 
  * |------+------|
  * |   5  |  6   |
  * |------+------|
@@ -37,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Function
  * ,-------------.
- * |   Q  |CALDEL|
+ * |   Q  |CALDEL|  
  * |------+------|
- * |   A  |TSKMGR|
+ * |   A  |TSKMGR| 
  * |------+------|
  * |   Z  |  X   |
  * |------+------|
@@ -56,5 +62,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
-
+    
 }

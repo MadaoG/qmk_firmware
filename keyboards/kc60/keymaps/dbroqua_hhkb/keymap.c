@@ -6,6 +6,7 @@
 
 // Fillers to make layering more clear
 #define ______ KC_TRNS
+#define XXXXXXX KC_NO
 
 // Func macro definitions.
 #define S_LED   FUNC(0)

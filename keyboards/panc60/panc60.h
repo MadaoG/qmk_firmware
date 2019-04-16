@@ -13,7 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef PANC60_H
+#define PANC60_H
 
 #include "quantum.h"
 
@@ -66,3 +67,5 @@
 	{ K30,   KC_NO, K32,  K33,   K34,   K35,   K36,   K37,  K38,   K39,   K3A, K3B,   KC_NO, K3D,   K3E },   \
 	{ KC_NO, K41,   K42,  KC_NO, KC_NO, KC_NO, KC_NO, K47,  KC_NO, KC_NO, K4A, KC_NO, K4C,   KC_NO, KC_NO }  \
 }
+
+#endif

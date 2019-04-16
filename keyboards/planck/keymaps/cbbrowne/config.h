@@ -41,6 +41,7 @@
 /* Filler to make layering a bit clearer *
  * borrowed from basic keymap            */
 
+#define _______ KC_TRNS
 #define _____   KC_NO
 
 #endif
