@@ -43,6 +43,7 @@ enum {
     TMUX_LDR,
     MGC_SPC,
     MGC_CR,
+    MGC_TEST,
 };
 
 #define M_S_SM  MGC_SFT_SM
@@ -58,6 +59,16 @@ enum {
 #define _M_SP   MGC_SPC
 #define _M_CR   MGC_CR
 #define _ESC_D  MGC_ESC_DEL
+
+#define TAP1    register_code(_1)
+#define TAP2    register_code(_2)
+#define TAP3    register_code(_3)
+#define TAP4    register_code(_4)
+
+#define UNTAP1    unregister_code(_1)
+#define UNTAP2    unregister_code(_2)
+#define UNTAP3    unregister_code(_3)
+#define UNTAP4    unregister_code(_4)
 
 void clear_all_mods(void) {
     clear_mods();
@@ -443,6 +454,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     {
                         unregister_code(_ESC);
                         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+                    }
+                }
+                return false;
+            };
+
+        case MGC_TEST:
+            {
+                if (is_shifted)
+                {
+                    os_mod = IS_SHIFTED_OS;
+                    s_mod = IS_SHIFTED_LSFT;
+                    clear_all_mods();
+
+                    if (record->event.pressed)
+                    {
+
+                        // TAP1; // toggle
+                        os_mod = IS_SHIFTED_OS;
+                        s_mod = IS_SHIFTED_LSFT;
+                        clear_all_mods();
+
+#if __LANGUAGE__ == LG__GERMAN__
+                        register_code(KC_LSFT);
+                        register_code(KC_3); // toggle
+#elif __LANGUAGE__ == LG__ENGLISH__
+                        TAP_SFT(KC_3); // toggle
+#endif
+                        set_oneshot_mods(os_mod);
+                        set_mods(s_mod);
+                    }
+                    else
+                    {
+                        // this never happens!
+                    }
+                }
+                else
+                {
+                    if (record->event.pressed)
+                    {
+                        // TAP3; // toggle
+                        register_code(_ENTER); // toggle
+                    }
+                    else
+                    {
+                        // UNTAP3; // toggle
+                        // UNTAP1; // toggle
+                        unregister_code(_ENTER); // toggle
+                        unregister_code(KC_3); // toggle
+                        unregister_code(KC_LSFT);
                     }
                 }
                 return false;
