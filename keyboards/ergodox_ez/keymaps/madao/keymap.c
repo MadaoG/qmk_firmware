@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      EMPTY_TOP_ROW, EMPTY_TOP_ROW,
 
- _______,      _UE,      _______,      _AE,      _______,      _OE,      /*___*/
+ _______,      _UE,      _______,      _AE,         _______,      _OE,          /*___*/
 
      EMPTY_TOP_ROW,      EMPTY_BOTTOM_ROW,      THUMBS,
 
