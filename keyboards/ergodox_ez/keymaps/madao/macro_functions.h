@@ -2,12 +2,14 @@
 #define _HAT M(mc_hat)
 #define _TICK M(mc_tick)
 #define _BKTK M(mc_backtick)
+#define _CHLY M(mc_change_layout)
 
 enum { 
   mc_sh_clicks,
   mc_hat,
   mc_tick,
   mc_backtick,
+  mc_change_layout,
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -39,6 +41,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         case mc_hat:
           TAP_TWICE(KC_GRAVE);
           break;
+        case mc_change_layout:
+          register_code(KC_LGUI);
+          register_code(KC_SPACE);
+          unregister_code(KC_SPACE);
+          unregister_code(KC_LGUI);
       }
     }
     return MACRO_NONE;
