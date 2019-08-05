@@ -195,8 +195,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  THUMBS,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _TILD,        _EXLM,        _QST,         _______,      _______,      _______,
- /*___*/       _HAT,         _LPRN,        _RPRN,        _MORE,        _______,      _______,
+ _______,      _TILD,        _EXLM,        _QST,         _MORE,        _______,      _______,
+ /*___*/       _HAT,         _LPRN,        _RPRN,        _LESS,        _HASH,        _______,
  _______,      _PERC,        _DQOT,        _QUOT,        _BKTK,        _TICK,        _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  THUMBS
@@ -243,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  |         |       |       |       |       |       |       |      |       |       |       |       |       |       |         |
  *  |         |       |       |       |       |       |       |      |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|      |-------|-------|-------|-------|-------|-------|---------|
- *  |         |       |       |  :    |  ;    |       |       |      |       |       |  7    |  8    |  9    |       |         |
+ *  |         |       | _     |  :    |  ;    |       |       |      |       |       |  7    |  8    |  9    |       |         |
  *  |         |       |       |       |       |       |       |      |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|       |      |       |-------|-------|-------|-------|-------|---------|
  *  |         |       | .     |  +    |  -    |  ^    |_______|      |_______|       |  4    |  5    |  6    |       |         |
@@ -260,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NM_] = LAYOUT_ergodox_wrapper(  // digit layer
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _______,      _______,      _COLN,        _SCLN,        _______,      _______,
+ _______,      _______,      _UNDS,        _COLN,        _SCLN,        _______,      _______,
  _______,      _______,      _DOT,         _PLUS,        _MINS,        _HAT,         /*___*/
  _______,      _______,      _COMM,        _ASTR,        _SLSH,        _______,      _______,
  _______,      _______,      _______,      _______,      _TTNM,
@@ -371,17 +371,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             {
                 if (is_shifted)
                 {
+
+                    os_mod = IS_SHIFTED_OS;
+                    s_mod = IS_SHIFTED_LSFT;
+                    clear_all_mods();
+
                     if (record->event.pressed)
                     {
-                        // clear_all_mods();
 #if __LANGUAGE__ == LG__GERMAN__
                         TAP_KEY(KC_BSLS);
 #elif __LANGUAGE__ == LG__ENGLISH__
-                        TAP_KEY(KC_3);
+                        TAP_SFT(KC_3);
 #endif
-                        set_mods(MOD_BIT(KC_LSFT));
-                        set_oneshot_mods(MOD_LSFT);
-                        // register_code(KC_LSFT);
+                        set_oneshot_mods(os_mod);
+                        set_mods(s_mod);
                     }
                     else
                     {
