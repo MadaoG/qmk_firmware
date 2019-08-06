@@ -44,6 +44,7 @@ enum {
     MGC_SPC,
     MGC_CR,
     MGC_TEST,
+    CTRL_F,
 };
 
 #define M_S_SM  MGC_SFT_SM
@@ -59,6 +60,7 @@ enum {
 #define _M_SP   MGC_SPC
 #define _M_CR   MGC_CR
 #define _ESC_D  MGC_ESC_DEL
+#define _C_F    CTRL_F
 
 #define TAP1    register_code(_1)
 #define TAP2    register_code(_2)
@@ -122,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      OS_SFT,       _TAB,          _BSPACE,
 
 
- _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _C_F,        _______,      _______,      _______,
  OS_SFT,       _K,           _H,           _G,           _F,           _______,      _______,
  /*___*/       _S,           MV_N,         _R,           _T,           _D,           _LGUI,
  _RBRC,        _B,           CTL_M,        SFT_CM,       ALT_DT,       _J,           _CHLY,
@@ -458,6 +460,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
             };
+
+        case CTRL_F:
+            {
+                if (record->event.pressed)
+                {
+                    register_code(KC_LCTRL);
+                    register_code(_F);
+                }
+                else
+                {
+                    unregister_code(_F);
+                    unregister_code(KC_LCTRL);
+                }
+                return false;
+            }
 
         case MGC_TEST:
             {

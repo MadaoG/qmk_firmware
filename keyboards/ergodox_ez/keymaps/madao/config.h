@@ -41,8 +41,14 @@ _______, _______, _______
 #define LG__GERMAN__ 0
 #define LG__ENGLISH__ 1
 
-#define is_shifted                              \
-    keyboard_report->mods & MOD_BIT(KC_LSFT) || \
+// bool shifted = (get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))) ? 1 : 0;
+
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+
+#define is_shifted  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+
+#define foo                              \
+    (get_mods() & MOD_BIT(KC_LSFT)) || \
     ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && \
      !has_oneshot_mods_timed_out())
 
