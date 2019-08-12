@@ -41,6 +41,7 @@
 #define _TAB    KC_TAB
 #define _SPACE  KC_SPACE
 #define _ENTER  KC_ENTER
+#define _CR     KC_ENTER
 #define _DEL    KC_DELETE
 #define _BSPACE KC_BSPACE
 #define _LGUI   KC_LGUI

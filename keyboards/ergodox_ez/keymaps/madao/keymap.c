@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  | _SF_    |       |       | play  |       |       |       |           |       |       |       |       |       |       |         |
+ *  | _SF_    |       |       | play  |       |       |       |           |       |       |       | c-f   |       |       |         |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       |       |       |       |     | DEL   |       |       |
  *                                       | SHIFT |  TAB  |       |     |       | ENTER | SPACE |
  *                                       |       |       |-------|     |-------|       |       |
- *                                       |   %   |       | BACK  |     | ESC   |    #  |    _  |
+ *                                       |   %   |       | BACK  |     | ESC   |       |    _  |
  *                                       |       |       | SPACE |     |   DEL |       |       |
  *                                       '-------'-------'-------'     '-------'-------'-------'
  */
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
          _______,      OS_FN,       /*___*/
          _DEL,         /*___*/      /*___*/
-         _ESC_D,       _M_CR,       _M_SP
+         _ESC_D,       _CR,         _M_SP
 
 ),
 
@@ -205,12 +205,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______,      _LESS,        _PIPE,        _LCBR,        _RCBR,        _ASTR,        /*___*/
  _______,      _______,      _BSLS,        _PLUS,        _MINS,        _DLR,         _______,
  _______,      _______,      _______,      _______,      _AMPR,
- THUMBS,
- // TODO: < and > on thumb keys?
+
+ /*___*/      _______,      _______,
+ /*___*/      /*___*/       _______,
+ _LESS,       _MORE,        _______,
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
- _______,      _TILD,        _EXLM,        _QST,         _MORE,        _______,      _______,
- /*___*/       _HAT,         _LPRN,        _RPRN,        _LESS,        _HASH,        _______,
+ _______,      _TILD,        _EXLM,        _QST,         _______,      _______,      _______,
+ /*___*/       _HAT,         _LPRN,        _RPRN,        _MORE,        _HASH,        _______,
  _______,      _PERC,        _DQOT,        _QUOT,        _BKTK,        _TICK,        _______,
  /*___*/       /*___*/       _______,      _______,      _______,      _______,      _______,
  THUMBS
@@ -386,9 +388,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (is_shifted)
                 {
 
-                    os_mod = IS_SHIFTED_OS;
-                    s_mod = IS_SHIFTED_LSFT;
-                    clear_all_mods();
+                    // os_mod = IS_SHIFTED_OS;
+                    // s_mod = IS_SHIFTED_LSFT;
+                    // clear_all_mods();
 
                     if (record->event.pressed)
                     {
@@ -397,12 +399,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #elif __LANGUAGE__ == LG__ENGLISH__
                         TAP_SFT(KC_3);
 #endif
-                        set_oneshot_mods(os_mod);
-                        set_mods(s_mod);
+                        // set_oneshot_mods(os_mod);
+                        // set_mods(s_mod);
                     }
                     else
                     {
-                        clear_all_mods();
+                        // clear_all_mods();
                     }
                 }
                 else
@@ -421,6 +423,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MGC_ESC_DEL:
             // tap for `esc`, shift for `del`
+            // TODO: buggy, works only one time
             {
                 if (is_shifted)
                 {

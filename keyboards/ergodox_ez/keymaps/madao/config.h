@@ -45,9 +45,9 @@ _______, _______, _______
 
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 
-#define is_shifted  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+// #define is_shifted  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 
-#define foo                              \
+#define is_shifted                              \
     (get_mods() & MOD_BIT(KC_LSFT)) || \
     ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && \
      !has_oneshot_mods_timed_out())
