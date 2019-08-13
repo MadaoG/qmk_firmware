@@ -216,3 +216,28 @@
     #define _CAPS KC_CAPS
 
 #endif
+
+#define _F1  KC_F1
+#define _F2  KC_F2
+#define _F3  KC_F3
+#define _F4  KC_F4
+#define _F5  KC_F5
+#define _F6  KC_F6
+#define _F7  KC_F7
+#define _F8  KC_F8
+#define _F9  KC_F9
+#define _F10 KC_F10
+#define _F11 KC_F11
+#define _F12 KC_F12
+#define _F13 KC_F13
+#define _F14 KC_F14
+#define _F15 KC_F15
+#define _F16 KC_F16
+#define _F17 KC_F17
+#define _F18 KC_F18
+#define _F19 KC_F19
+#define _F20 KC_F20
+#define _F21 KC_F21
+#define _F22 KC_F22
+#define _F23 KC_F23
+#define _F24 KC_F24

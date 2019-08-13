@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      OS_SFT,       _TAB,          _BSPACE,
 
 
- _______,      _______,      _______,      _C_F,        _______,      _______,      _______,
+ _______,      _______,      _______,      _C_F,         _F11,         _______,      _______,
  OS_SFT,       _K,           _H,           _G,           _F,           _______,      _______,
  /*___*/       _S,           MV_N,         _R,           _T,           _D,           _LGUI,
  _RBRC,        _B,           CTL_M,        SFT_CM,       ALT_DT,       _J,           _CHLY,
