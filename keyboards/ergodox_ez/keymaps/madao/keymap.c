@@ -584,5 +584,5 @@ void matrix_scan_user(void) {
 }; // *-*
 
 // use this for layout pattern:
-// \v((\S{2,},|\/\*___\*\/)\s*){3,}
+// \v^ *$\n *\zs((\S{2,},|\/\*___\*\/)\s*){4,}
 // then, e.g. `g//normal gaip*l` for realigning
