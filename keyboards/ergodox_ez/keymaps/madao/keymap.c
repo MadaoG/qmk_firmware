@@ -13,7 +13,6 @@ enum {
     _MV_,     // movement layer
     _NM_,     // digit layer
     _FN_,     // fn keys
-    _SH_,     // gaming layer
 };
 
 // User defined functions which may refer to the above declared layers.
