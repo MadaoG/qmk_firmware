@@ -56,16 +56,6 @@ enum {
 #define _ESC_D  MGC_ESC_DEL
 #define _C_F    CTRL_F
 
-#define TAP1    register_code(_1)
-#define TAP2    register_code(_2)
-#define TAP3    register_code(_3)
-#define TAP4    register_code(_4)
-
-#define UNTAP1    unregister_code(_1)
-#define UNTAP2    unregister_code(_2)
-#define UNTAP3    unregister_code(_3)
-#define UNTAP4    unregister_code(_4)
-
 void clear_all_mods(void) {
     clear_mods();
     clear_oneshot_mods();

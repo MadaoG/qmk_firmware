@@ -241,3 +241,14 @@
 #define _F22 KC_F22
 #define _F23 KC_F23
 #define _F24 KC_F24
+
+
+#define TAP1    register_code(_1)
+#define TAP2    register_code(_2)
+#define TAP3    register_code(_3)
+#define TAP4    register_code(_4)
+
+#define UNTAP1    unregister_code(_1)
+#define UNTAP2    unregister_code(_2)
+#define UNTAP3    unregister_code(_3)
+#define UNTAP4    unregister_code(_4)
