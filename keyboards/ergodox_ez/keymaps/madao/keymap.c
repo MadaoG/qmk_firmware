@@ -147,17 +147,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if __LANGUAGE__ == __GERMAN__
 [_GE_] = LAYOUT_ergodox_wrapper(  // german layer
 
-     EMPTY_TOP_ROW, EMPTY_TOP_ROW,
-
+     EMPTY_TOP_ROW,
+     EMPTY_TOP_ROW,
  _______,      _UE,      _______,      _AE,         _______,      _OE,          /*___*/
+     EMPTY_TOP_ROW,
+     EMPTY_BOTTOM_ROW,
 
-     EMPTY_TOP_ROW,      EMPTY_BOTTOM_ROW,      THUMBS,
+     THUMBS,
 
-     EMPTY_TOP_ROW, EMPTY_TOP_ROW,
-
+     EMPTY_TOP_ROW, 
+     EMPTY_TOP_ROW,
  /*___*/      _SS,      _______,      _______,      _______,      _______,      _______,
+     EMPTY_TOP_ROW,
+     EMPTY_BOTTOM_ROW,
 
-     EMPTY_TOP_ROW, EMPTY_BOTTOM_ROW, THUMBS
+     THUMBS
 
 ),
 #elif __LANGUAGE__ == LG__ENGLISH__
