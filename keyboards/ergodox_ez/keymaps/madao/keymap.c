@@ -38,7 +38,6 @@ enum {
     MGC_NM_SCL,
     MGC_SPC_ESC,
     MGC_ESC_DEL,
-    TMUX_LDR,
     MGC_SPC,
     MGC_TEST,
     CTRL_F,
