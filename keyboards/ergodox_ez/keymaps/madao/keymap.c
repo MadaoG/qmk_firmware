@@ -37,11 +37,9 @@ enum {
     MGC_PLS,
     MGC_NM_SCL,
     MGC_SPC_ESC,
-    MGC_CR_CL,
     MGC_ESC_DEL,
     TMUX_LDR,
     MGC_SPC,
-    MGC_CR,
     MGC_TEST,
     CTRL_F,
 };
@@ -55,9 +53,7 @@ enum {
 #define M_PLS   MGC_PLS
 #define M_NM_SC MGC_NM_SCL
 #define M_SP_E  MGC_SPC_ESC
-#define M_CR_CL MGC_CR_CL
 #define _M_SP   MGC_SPC
-#define _M_CR   MGC_CR
 #define _ESC_D  MGC_ESC_DEL
 #define _C_F    CTRL_F
 
@@ -373,48 +369,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     else
                     {
                         unregister_code(_SPACE);
-                    }
-                }
-                return false;
-            };
-
-        case MGC_CR:
-            // tap for <cr>, shift for `#`
-            // buggy, lifts shift after first `#`. bug is introduced because
-            // `shift` needs to be lifted for `#`. For shifted characters this
-            // should work seamlessly
-            {
-                if (is_shifted)
-                {
-
-                    // os_mod = IS_SHIFTED_OS;
-                    // s_mod = IS_SHIFTED_LSFT;
-                    // clear_all_mods();
-
-                    if (record->event.pressed)
-                    {
-#if __LANGUAGE__ == LG__GERMAN__
-                        TAP_KEY(KC_BSLS);
-#elif __LANGUAGE__ == LG__ENGLISH__
-                        TAP_SFT(KC_3);
-#endif
-                        // set_oneshot_mods(os_mod);
-                        // set_mods(s_mod);
-                    }
-                    else
-                    {
-                        // clear_all_mods();
-                    }
-                }
-                else
-                {
-                    if (record->event.pressed)
-                    {
-                        register_code(_ENTER);
-                    }
-                    else
-                    {
-                        unregister_code(_ENTER);
                     }
                 }
                 return false;
