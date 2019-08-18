@@ -14,6 +14,7 @@
 
 #define MV_WIN  MT(MOD_LCTL | MOD_LGUI, KC_ESC)
 #define MV_SCRN MT(MOD_LCTL | MOD_LALT, KC_ESC)
+#define MV_PRG  MT(MOD_LCTL | MOD_LALT | MOD_LSFT, KC_ESC)
 #define ALT_Y   ALT_T(_Y)
 #define SFT_Q   SFT_T(_Q)
 #define CTL_P   CTL_T(_P)
