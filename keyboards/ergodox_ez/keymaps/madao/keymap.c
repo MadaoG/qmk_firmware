@@ -13,6 +13,7 @@ enum {
     _MV_,     // movement layer
     _NM_,     // digit layer
     _FN_,     // fn keys
+    _WK_,     // Wanikani layer
 };
 
 // User defined functions which may refer to the above declared layers.
@@ -66,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
- *  | _SF_    |       |       | PLAY  |       |       |       |           |       |       |       | C-F   | F11   |       |         |
+ *  |  SF     |       |       | PLAY  |       |       |       |           |       |       |       | C-F   | F11   |       |  WK     |
  *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
  *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
  *  |         |       |  V    |  L    |  C    |  W    |       |           |       |  K    |  H    |  G    |  F    |       |         |
@@ -97,9 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EN_] = LAYOUT_ergodox_wrapper(  // english layer
 
  TG_SF,        _______,      _______,      KC_MPLY,      _______,      _______,      _______,
- _______,      _______,      _V,           _L,           _C,           _W,           _______,
+ _______,      _CR,          _V,           _L,           _C,           _W,           _______,
  _MINS,        _U,           _I,           _A,           _E,           _O,           /*___*/
- _EQL,         _X,           ALT_Y,        SFT_Q,        CTL_P,        _Z,           _______,
+ _EQL,         _X,           ALT_Y,        SFT_Q,        CTL_P,        _Z,           _CR,
  _______,      _______,      _______,      _______,      _S_NM,        /*___*/       /*___*/
 
 
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      OS_SFT,       _TAB,          _BSPACE,
 
 
- _______,      _______,      _______,      _C_F,         _F11,         _______,      _______,
+ _______,      _______,      _______,      _C_F,         _F11,         _______,      TG_WK,
  _______,      _K,           _H,           _G,           _F,           _______,      _______,
  /*___*/       _S,           MV_N,         _R,           _T,           _D,           _LGUI,
  _______,      _B,           CTL_M,        SFT_CM,       ALT_DT,       _J,           _CHLY,
@@ -319,6 +320,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  THUMBS
 ),
 
+/*
+ *  .---------.-------.-------.-------.-------.-------.-------.           .-------.-------.-------.-------.-------.-------.---------.
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  |---------|-------|-------|-------|-------|-------|-------|           |-------|-------|-------|-------|-------|-------|---------|
+ *  |         |       |       |       |       |       |       |           |       |       |       | UP    |       |       |         |
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
+ *  |         |       |       |       |       |       |_______|           |_______| LEFT  | DOWN  |  J    | RIGHT |       |         |
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  |---------|-------|-------|-------|-------|-------|       |           |       |-------|-------|-------|-------|-------|---------|
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  |         |       |       |       |       |       |       |           |       |       |       |       |       |       |         |
+ *  '---------|-------|-------|-------|-------|-------'-------'           '-------'-------|-------|-------|-------|-------|---------'
+ *    |       |       |       |       |       |                                           |       |       |       |       |       |
+ *    |       |       |       |       |       |                                           |       |       |       |       |       |
+ *    '-------'-------'-------'-------'-------'                                           '-------'-------'-------'-------'-------'
+ */
+
+ [_WK_] = LAYOUT_ergodox_wrapper(
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      /*---*/
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,
+
+ THUMBS,
+
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ _______,      _______,      _______,      KC_UP,        _______,      _______,      _______,
+ /*---*/       KC_LEFT,      KC_DOWN,      _J,           KC_RGHT,      _______,      _______,
+ _______,      _______,      _______,      _______,      _______,      _______,      _______,
+ /*---*/       /*---*/       _______,      _______,      _______,      _______,      _______,
+
+ THUMBS
+
+ ),
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -499,35 +539,37 @@ void matrix_scan_user(void) {
     uint16_t time = timer_read() % LED_INTERVAL;
 
     if (layer == last_layer) {
-      // update leds
-      switch (layer) {
-        case _GE_:
-          ergodox_set_red(brightness_middle(time, 300));
-          ergodox_set_green(brightness_middle(time, 500));
-          ergodox_set_blue(brightness_middle(time, 700));
-          break;
-        case _EN_:
-          // ergodox_set_red(brightness_middle(time, 400) + brightness_middle(time, 700));
-          // ergodox_set_green(brightness_middle(time, 500));
-          // ergodox_set_blue(brightness_middle(time, 300) + brightness_fast(time, 600));
-          break;
-        case _SM_:
-          ergodox_set_green(brightness_middle(time, 500));
-          break;
-        case _MV_:
-          ergodox_set_blue(brightness_middle(time, 500));
-          break;
-        case _NM_:
-          ergodox_set_blue(brightness_middle(time, 500));
-          break;
-        case _FN_:
-          ergodox_set_red(brightness_fast(time, 300));
-          ergodox_set_green(brightness_fast(time, 500));
-          ergodox_set_blue(brightness_fast(time, 700));
-          break;
-        default:
-          ergodox_board_led_off();
-      }
+        // update leds
+        switch (layer) {
+            case _EN_:
+                break;
+            case _GE_:
+                ergodox_set_red(brightness_middle(time, 300));
+                ergodox_set_green(brightness_middle(time, 500));
+                ergodox_set_blue(brightness_middle(time, 700));
+                break;
+            case _SM_:
+                ergodox_set_green(brightness_middle(time, 500));
+                break;
+            case _MV_:
+                ergodox_set_blue(brightness_middle(time, 500));
+                break;
+            case _NM_:
+                ergodox_set_blue(brightness_middle(time, 500));
+                break;
+            case _FN_:
+                ergodox_set_red(brightness_fast(time, 300));
+                ergodox_set_green(brightness_fast(time, 500));
+                ergodox_set_blue(brightness_fast(time, 700));
+                break;
+            case _WK_:
+                ergodox_set_red(brightness_middle(time, 400) + brightness_middle(time, 700));
+                ergodox_set_green(brightness_middle(time, 500));
+                ergodox_set_blue(brightness_middle(time, 300) + brightness_fast(time, 600));
+                break;
+            default:
+                ergodox_board_led_off();
+        }
 
     } else {
       last_layer = layer;

@@ -35,7 +35,7 @@
 #define OS_NM   OSL(_NM_)
 #define OS_SM   OSL(_SM_)
 #define TG_SF   TG(_SF_)
-#define TG_SH   TG(_SH_)
+#define TG_WK   TG(_WK_)
 #define TO_EN   TO(_EN_)
 
 #define _ESC    KC_ESC
