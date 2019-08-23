@@ -12,55 +12,15 @@ enum {
 };
 
 #define __LANGUAGE__   LG__GERMAN__
-#include "mappings.h"
-#include "gauss.h"
-
 // User defined functions which may refer to the above declared layers.
 // Hence, including them afterwards.
+#include "gauss.h"
+#include "mappings.h"
 #include "macro_functions.h"
-
 uint8_t last_layer = _EN_;
 
 // static bool was_shifted = false;
 static bool tap_nm = false;
-
-enum {
-    UDS_ESC = SAFE_RANGE,
-    _TTNM,
-    EQL_DQT,
-    MGC_SFT_SM,
-    MGC_SM_ESC,
-    MGC_SM_US,
-    MGC_SFT_PRC,
-    MGC_SFT_US,
-    MGC_SFT_ESC,
-    MGC_PLS,
-    MGC_NM_SCL,
-    MGC_SPC_ESC,
-    MGC_ESC_DEL,
-    MGC_SPC,
-    MGC_TEST,
-    CTRL_F,
-};
-
-#define M_S_SM  MGC_SFT_SM
-#define M_SM_E  MGC_SM_ESC
-#define M_SM_U  MGC_SM_US
-#define M_S_P   MGC_SFT_PRC
-#define M_S_U   MGC_SFT_US
-#define M_S_E   MGC_SFT_ESC
-#define M_PLS   MGC_PLS
-#define M_NM_SC MGC_NM_SCL
-#define M_SP_E  MGC_SPC_ESC
-#define _M_SP   MGC_SPC
-#define _ESC_D  MGC_ESC_DEL
-#define _C_F    CTRL_F
-
-void clear_all_mods(void) {
-    clear_mods();
-    clear_oneshot_mods();
-    clear_weak_mods();
-}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
