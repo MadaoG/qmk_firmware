@@ -50,3 +50,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     return MACRO_NONE;
 };
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+
+};

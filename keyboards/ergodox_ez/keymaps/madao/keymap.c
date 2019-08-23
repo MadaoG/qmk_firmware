@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define __LANGUAGE__   LG__GERMAN__
-#include "mappings.h"
-#include "gauss.h"
-#include "tap_functions.h"
-
 enum {
     _EN_ = 0, // english layer
     _SF_,     // safety layer (safety first!)
@@ -15,6 +10,10 @@ enum {
     _FN_,     // fn keys
     _WK_,     // Wanikani layer
 };
+
+#define __LANGUAGE__   LG__GERMAN__
+#include "mappings.h"
+#include "gauss.h"
 
 // User defined functions which may refer to the above declared layers.
 // Hence, including them afterwards.
