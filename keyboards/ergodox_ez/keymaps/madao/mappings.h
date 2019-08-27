@@ -29,6 +29,7 @@ enum {
     MGC_SPC,
     MGC_TEST,
     CTRL_F,
+    _CLICK,
 };
 
 #define M_S_SM  MGC_SFT_SM
@@ -81,6 +82,12 @@ enum {
 #define _VOLU   KC_VOLU
 #define _VOLD   KC_VOLD
 #define _MUTE   KC_MUTE
+
+#define _UP     KC_UP
+#define _DOWN   KC_DOWN
+#define _LEFT   KC_LEFT
+#define _RIGHT  KC_RGHT
+#define _CLICK  KC_BTN1
 
 #if __LANGUAGE__ == LG__GERMAN__
 
