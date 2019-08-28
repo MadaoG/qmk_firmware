@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                      '-------'-------'-------' '-------'-------'-------'
  */
 
-[_SM_] = LAYOUT_ergodox_wrapper(  // symbollayer
+[_SM_] = LAYOUT_ergodox_wrapper(  // symbol layer
 
  _______,      _______,      _______,      _______,      _______,      _______,      _______,
  _______,      _LESS,        _SLSH,        _LBRC,        _RBRC,        _AT,          _______,
