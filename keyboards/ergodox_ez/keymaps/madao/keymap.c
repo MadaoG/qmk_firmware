@@ -22,6 +22,9 @@ uint8_t last_layer = _EN_;
 // static bool was_shifted = false;
 static bool tap_nm = false;
 
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -57,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EN_] = LAYOUT_ergodox_wrapper(  // english layer
 
  TG_SF,        _______,      _______,      KC_MPLY,      _______,      _______,      _______,
- _______,      _CR,          _V,           _L,           _C,           _W,           TG_WK,
+ _______,      _WD_P,        _V,           _L,           _C,           _W,           TG_WK,
  _MINS,        _U,           _I,           _A,           _E,           _O,           /*___*/
  _EQL,         _X,           ALT_Y,        SFT_Q,        CTL_P,        _Z,           _CR,
  _______,      _______,      _______,      _______,      _S_NM,        /*___*/       /*___*/
@@ -69,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
  _______,      _______,      _______,      _C_F,         _F11,         _______,      _______,
- _______,      _K,           _H,           _G,           _F,           _______,      _______,
+ _______,      _K,           _H,           _G,           _F,           _WD_N,        _______,
  /*___*/       _S,           MV_N,         _R,           _T,           _D,           _LGUI,
  _______,      _B,           CTL_M,        SFT_CM,       ALT_DT,       _J,           _CHLY,
  /*___*/       /*___*/       _S_SM,        OS_GE,        _MUTE,        _VOLD,        _VOLU,
@@ -320,6 +323,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode)
     {
 
+        case ALT_TAB:
+            {
+                if (record->event.pressed) {
+                    if (!is_alt_tab_active) {
+                        is_alt_tab_active = true;
+                        register_code(KC_LALT);
+                    }
+                    alt_tab_timer = timer_read();
+                    register_code(KC_TAB);
+                } else {
+                    unregister_code(KC_TAB);
+                }
+                return true;
+            }
+
+        case ALT_SHIFT_TAB:
+            {
+                if (record->event.pressed) {
+                    if (!is_alt_tab_active) {
+                        is_alt_tab_active = true;
+                        register_code(KC_LALT);
+                    }
+                    alt_tab_timer = timer_read();
+                    register_code(KC_LSFT);
+                    register_code(KC_TAB);
+                } else {
+                    unregister_code(KC_TAB);
+                    unregister_code(KC_LSFT);
+                }
+                return true;
+            }
+
         case _TTNM:
             // WIP
             {
@@ -490,6 +525,13 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
     uint16_t time = timer_read() % LED_INTERVAL;
+
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > ALT_TAB_DEADLINE) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+        }
+    }
 
     if (layer == last_layer) {
         // update leds

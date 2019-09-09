@@ -30,7 +30,12 @@ enum {
     MGC_TEST,
     CTRL_F,
     _CLICK,
+    ALT_TAB,
+    ALT_SHIFT_TAB,
 };
+
+#define _WD_N ALT_TAB
+#define _WD_P ALT_SHIFT_TAB
 
 #define M_S_SM  MGC_SFT_SM
 #define M_SM_E  MGC_SM_ESC
@@ -290,9 +295,11 @@ enum {
 #define UNTAP2    unregister_code(_2)
 #define UNTAP3    unregister_code(_3)
 #define UNTAP4    unregister_code(_4)
+
 void clear_all_mods(void) {
     clear_mods();
     clear_oneshot_mods();
     clear_weak_mods();
 }
 
+#define ALT_TAB_DEADLINE 950
